@@ -70,14 +70,23 @@
   </ItemGroup>
   <ItemGroup>
     <Content Include=".angular-cli.json" />
+    <Content Include="ExcelReadMe.txt" />
     <Content Include="package.json" />
     <None Include="packages.config" />
+    <Content Include="src\app\Models\EntityTypes.js" />
+    <Content Include="src\app\Models\LoginData.js" />
+    <Content Include="src\app\overview\overview.component.css" />
+    <Content Include="src\app\overview\overview.component.html" />
+    <Content Include="src\app\portfolios\portfolios.component.css" />
+    <Content Include="src\app\portfolios\portfolios.component.html" />
     <Content Include="src\assets\.gitkeep" />
     <Content Include="src\tsconfig.app.json" />
     <Content Include="src\tsconfig.spec.json" />
     <Content Include="README.md" />
     <Content Include="tsconfig.json" />
     <Content Include="tslint.json" />
+    <Content Include="src\app\Models\EntityTypes.js.map" />
+    <Content Include="src\app\Models\LoginData.js.map" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>
@@ -101,11 +110,19 @@
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
+    <TypeScriptCompile Include="src\app\UserService.ts" />
+    <TypeScriptCompile Include="src\app\apiService.ts" />
     <TypeScriptCompile Include="src\app\app.component.spec.ts" />
     <TypeScriptCompile Include="src\app\app.component.ts" />
     <TypeScriptCompile Include="src\app\app.module.ts" />
-    <TypeScriptCompile Include="src\app\login.component.ts" />
-    <TypeScriptCompile Include="src\app\protected.component.ts" />
+    <TypeScriptCompile Include="src\app\Models\EntityTypes.ts" />
+    <TypeScriptCompile Include="src\app\Models\LoginData.ts" />
+    <TypeScriptCompile Include="src\app\overview\overview.component.spec.ts" />
+    <TypeScriptCompile Include="src\app\overview\overview.component.ts" />
+    <TypeScriptCompile Include="src\app\portfolios\portfolios.component.spec.ts" />
+    <TypeScriptCompile Include="src\app\portfolios\portfolios.component.ts" />
+    <TypeScriptCompile Include="src\app\shared\okta.service.ts" />
+    <TypeScriptCompile Include="src\app\UrlInterceptor.ts" />
     <TypeScriptCompile Include="src\environments\environment.prod.ts" />
     <TypeScriptCompile Include="src\environments\environment.ts" />
     <TypeScriptCompile Include="src\main.ts" />
