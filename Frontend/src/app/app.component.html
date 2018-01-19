@@ -1,18 +1,13 @@
-<!-- src/app/app.component.html -->
+<div *ngIf="!user" id="okta-login-container"></div>
+    
+<div *ngIf="user">
+  Logged in as {{user}}
 
-<link
-  href="https://ok1static.oktacdn.com/assets/js/sdk/okta-signin-widget/2.5.0/css/okta-sign-in.min.css"
-  type="text/css"
-  rel="stylesheet"/>
-<link
-  href="https://ok1static.oktacdn.com/assets/js/sdk/okta-signin-widget/2.5.0/css/okta-theme.css"
-  type="text/css"
-  rel="stylesheet"/>
-
-<button routerLink="/"> Home </button>
-<button *ngIf="!signIn.isAuthenticated()" routerLink="/login"> Login! </button>
-<button *ngIf="signIn.isAuthenticated()" (click)="logout()"> Logout </button>
-<button routerLink="/protected"> Protected </button>
-<button (click)="onColorMe()">Color Me</button>
+  <button (click)="logout()">Logout</button>
+</div>
+<!-- SPA pages outlet -->
 <router-outlet></router-outlet>
 
+<li *ngFor="let route of navRoutes">
+  <a class="ms-link" [routerLink]="[route.path]">{{route.title}}</a>
+</li>

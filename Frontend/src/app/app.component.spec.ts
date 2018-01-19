@@ -1,6 +1,8 @@
 import { TestBed, async } from '@angular/core/testing';
 import { AppComponent } from './app.component';
 
+import { Okta } from './shared/okta.service';
+
 
 describe('AppComponent', () => {
   beforeEach(async(() => {
@@ -8,7 +10,7 @@ describe('AppComponent', () => {
       declarations: [
         AppComponent
       ],
-      providers: []
+      providers: [Okta]
     }).compileComponents();
   }));
   it('should create the app', async(() => {

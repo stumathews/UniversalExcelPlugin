@@ -1,62 +1,48 @@
 import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
-import { Routes, RouterModule } from '@angular/router';
-
-import {
-  OktaAuthModule,
-  OktaCallbackComponent,
-  OktaAuthGuard
-} from '@okta/okta-angular';
 
 import { AppComponent } from './app.component';
-import { ProtectedComponent } from './protected.component';
-import { LoginComponent } from './login.component';
+import { Okta } from './shared/okta.service';
+import { OverviewComponent } from './overview/overview.component';
 
-const config = {
-  //issuer: 'https://{yourOktaDomain}.com/oauth2/default',
-  issuer: 'https://lusid.okta.com/oauth2/default',  
-  //redirectUri: 'http://localhost/implicit/callback',
-  redirectUri: 'https://localhost.finbourne.com:4200/implicit/callback',
-  clientId: '0oa5ao43cLgHp80RG2p6'
-}
+import { HttpModule } from '@angular/http';
+import { RouterModule, Routes } from '@angular/router';
+import { PortfoliosComponent } from './portfolios/portfolios.component';
+import { ApiService } from './apiService';
+import { HTTP_INTERCEPTORS } from '@angular/common/http';
+import { MyFirstInterceptor } from './UrlInterceptor';
+import { UserService } from './UserService';
+import { HttpClientModule } from '@angular/common/http';
 
-export function onAuthRequired({ oktaAuth, router }) {
-  // Redirect the user to your custom login page
-  router.navigate(['/login']);
-}
 
 const appRoutes: Routes = [
-  {
-    path: 'implicit/callback',
-    component: OktaCallbackComponent
-  },
-  {
-    path: 'login',
-    component: LoginComponent
-  },
-  {
-    path: 'protected',
-    component: ProtectedComponent,
-    canActivate: [OktaAuthGuard],
-    data: {
-      onAuthRequired
-    }
-  }
-]
+  { path: '', redirectTo: '/overview', pathMatch: 'full' },
+  { path: 'overview', component: OverviewComponent },
+  { path: 'portfolios', component: PortfoliosComponent }
+];
+
 @NgModule({
   declarations: [
     AppComponent,
-    LoginComponent,
-    ProtectedComponent
+    OverviewComponent,
+    PortfoliosComponent
   ],
   imports: [
-    BrowserModule,
-    RouterModule.forRoot(appRoutes),
-    OktaAuthModule.initAuth(config)
+    BrowserModule, HttpClientModule,
+    RouterModule.forRoot(
+      appRoutes,
+      {
+        enableTracing: true,
+        useHash: true
+      } // <-- debugging purposes only
+    )
   ],
+  providers: [Okta, UserService, ApiService,
+    {
+      provide: HTTP_INTERCEPTORS,
+      useClass: MyFirstInterceptor,
+      multi: true
+    }],
   bootstrap: [AppComponent]
 })
 export class AppModule { }
-
-
-// RouterModule.forRoot(appRoutes, { useHash: true }),
