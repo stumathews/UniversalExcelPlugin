@@ -1,6 +1,7 @@
 import { Component, ChangeDetectorRef, OnInit } from '@angular/core';
-import { Okta } from './shared/okta.service';
+
 import { UserService } from './UserService';
+import { OAuthService, JwksValidationHandler } from 'angular-oauth2-oidc';
 
 declare const Excel: any;
 @Component({
@@ -9,52 +10,45 @@ declare const Excel: any;
   styleUrls: ['./app.component.css']
 })
 export class AppComponent implements OnInit {
+  
   title = 'app';
   user;
   oktaSignIn;
 
   navRoutes: Object[] = [
-    { path: '/portfolios', title: 'Portfolios' },    
+    { path: '/portfolios', title: 'Portfolios' },
     { path: '/overview', title: 'Overview' }];
-
-  constructor(private okta: Okta,
-    private changeDetectorRef: ChangeDetectorRef,
+  
+  constructor(private oauthService: OAuthService,
     private currentUserService: UserService) {
-    this.oktaSignIn = okta.getWidget();
-  }
+    this.oauthService.redirectUri = window.location.origin;
+    this.oauthService.clientId = '0oa5ao43cLgHp80RG2p6';// george given: '0oa5ao43cLgHp80RG2p6'; 
+    this.oauthService.issuer = 'https://lusid.okta.com/oauth2/aus5a776yendDqtEq2p6'; //george given 'https://lusid.okta.com';
+    
+    this.oauthService.tokenValidationHandler = new JwksValidationHandler();
 
-  showLogin() {
-    this.oktaSignIn.renderEl({ el: '#okta-login-container' }, (response) => {
-      if (response.status === 'SUCCESS') {
-       // this.user = response.claims.email;
-        this.user = 'test';
-        this.currentUserService.user = this.user;
-        this.currentUserService.token = response.access_token;
-        console.log('response from okta was: ' + JSON.stringify(response));
-        this.oktaSignIn.remove();
-        this.changeDetectorRef.detectChanges();
-      }
+    // Load Discovery Document and then try to login the user
+    this.oauthService.loadDiscoveryDocument().then(() => {
+      this.oauthService.tryLogin();
     });
   }
 
-  ngOnInit() {
-    this.oktaSignIn.session.get((response) => {
-      if (response.status !== 'INACTIVE') {
-        this.user = response.login;
-        this.changeDetectorRef.detectChanges();
-      } else {
-        this.showLogin();
-      }
-    });
+  login() {
+    this.oauthService.initImplicitFlow();
   }
 
   logout() {
-    this.oktaSignIn.signOut(() => {
-      this.user = undefined;
-      this.changeDetectorRef.detectChanges();
-      this.showLogin();
-    });
+    this.oauthService.logOut();
   }
 
-  
+  get givenName() {
+    
+    const claims = this.oauthService.getIdentityClaims();
+    if (!claims) {      
+      return null;
+    }
+    return claims['name'];
+  }
+
+  ngOnInit(): void { }
 }

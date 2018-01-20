@@ -24,6 +24,7 @@
     "@angular/router": "^5.2.1",
     "@okta/okta-angular": "0.0.13",
     "@okta/okta-signin-widget": "^2.5.0",
+    "angular-oauth2-oidc": "^3.1.4",
     "bootstrap": "^4.0.0-beta.2",
     "core-js": "^2.4.1",
     "popper.js": "^1.12.9",

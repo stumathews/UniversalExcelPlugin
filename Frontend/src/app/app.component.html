@@ -1,13 +1,13 @@
-<div *ngIf="!user" id="okta-login-container"></div>
-    
-<div *ngIf="user">
-  Logged in as {{user}}
-
+<div *ngIf="givenName">
+  <h2>Welcome, {{givenName}}!</h2>
   <button (click)="logout()">Logout</button>
+</div>
+
+<div *ngIf="!givenName">
+  <button (click)="login()">Login</button>
 </div>
 <!-- SPA pages outlet -->
 <router-outlet></router-outlet>
-
 <li *ngFor="let route of navRoutes">
   <a class="ms-link" [routerLink]="[route.path]">{{route.title}}</a>
 </li>

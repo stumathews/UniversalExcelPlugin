@@ -2,8 +2,9 @@ import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
 
 import { AppComponent } from './app.component';
-import { Okta } from './shared/okta.service';
+import { OAuthModule } from 'angular-oauth2-oidc';
 import { OverviewComponent } from './overview/overview.component';
+import { AuthGuard } from './shared';
 
 import { HttpModule } from '@angular/http';
 import { RouterModule, Routes } from '@angular/router';
@@ -18,7 +19,7 @@ import { HttpClientModule } from '@angular/common/http';
 const appRoutes: Routes = [
   { path: '', redirectTo: '/overview', pathMatch: 'full' },
   { path: 'overview', component: OverviewComponent },
-  { path: 'portfolios', component: PortfoliosComponent }
+  { path: 'portfolios', component: PortfoliosComponent, canActivate: [AuthGuard] }
 ];
 
 @NgModule({
@@ -33,11 +34,11 @@ const appRoutes: Routes = [
       appRoutes,
       {
         enableTracing: true,
-        useHash: true
       } // <-- debugging purposes only
-    )
+    ),
+    OAuthModule.forRoot()
   ],
-  providers: [Okta, UserService, ApiService,
+  providers: [UserService, ApiService, AuthGuard,
     {
       provide: HTTP_INTERCEPTORS,
       useClass: MyFirstInterceptor,

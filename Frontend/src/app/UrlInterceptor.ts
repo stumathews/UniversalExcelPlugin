@@ -3,12 +3,15 @@ import { HttpEvent, HttpInterceptor, HttpHandler, HttpRequest } from '@angular/c
 import { Observable } from 'rxjs/Observable';
 import { UserService } from './UserService';
 
+
 @Injectable()
 export class MyFirstInterceptor implements HttpInterceptor {
   constructor(private currentUserService: UserService) { }
   intercept(req: HttpRequest<any>, next: HttpHandler): Observable<HttpEvent<any>> {
     // get the token from a service
+
     const token: string = this.currentUserService.token;
+    
     console.log('token is ' + token);
     // add it if we have one
     if (token) {
