@@ -12,7 +12,6 @@ export class MyFirstInterceptor implements HttpInterceptor {
     const auth = this.injector.get(OAuthService);
     const token: string = auth.getAccessToken();
     
-    console.log('token is ' + token);
     // add it if we have one
     if (token) {
       req = req.clone({ headers: req.headers.set('Authorization', 'Bearer ' + token) });

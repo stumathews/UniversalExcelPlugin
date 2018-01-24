@@ -1,22 +1,53 @@
+import { OAuthService } from 'angular-oauth2-oidc';
 import { Injectable } from '@angular/core';
-import * as OktaSignIn from '@okta/okta-signin-widget';
+import * as OktaAuth from '@okta/okta-auth-js';
+
+/**
+this.oauthService.redirectUri = window.location.origin;
+    this.oauthService.clientId = '0oa5ao43cLgHp80RG2p6';// george given: '0oa5ao43cLgHp80RG2p6'; 
+    this.oauthService.issuer = 'https://lusid.okta.com/oauth2/aus5al5yopbHW2wJn2p6'; //george given 'https://lusid.okta.com';
+ */
 
 @Injectable()
-export class Okta {
-  widget;
+export class OktaAuthWrapper {
 
-  constructor() {
-    this.widget = new OktaSignIn({
-      baseUrl: 'https://lusid.okta.com',
-      clientId: 'aus5a776yendDqtEq2p6',
-      redirectUri: 'https://localhost.finbourne.com:4200',
-      authParams: {
-        issuer: 'https://lusid.okta.com/oauth2/default'
-      }
+  private authClient: any;
+
+  constructor(private oauthService: OAuthService) {
+    this.authClient = new OktaAuth({
+      url: 'https://lusid.okta.com',
+      issuer: 'aus5al5yopbHW2wJn2p6'
     });
   }
 
-  getWidget() {
-    return this.widget;
+  login(username: string, password: string): Promise<any> {
+    return this.oauthService.createAndSaveNonce().then(nonce => {
+      return this.authClient.signIn({
+        username: username,
+        password: password
+      }).then((response) => {
+        if (response.status === 'SUCCESS') {
+          return this.authClient.token.getWithoutPrompt({
+              clientId: this.oauthService.clientId,
+              responseType: ['id_token', 'token'],
+              scopes: ['openid', 'profile', 'email'],
+              sessionToken: response.sessionToken,
+              nonce: nonce,
+              redirectUri: window.location.origin
+            })
+            .then((tokens) => {
+              const idToken = tokens[0].idToken;
+              const accessToken = tokens[1].accessToken;
+              const keyValuePair = `#id_token=${encodeURIComponent(idToken)}&access_token=${encodeURIComponent(accessToken)}`;
+              return this.oauthService.tryLogin({
+                customHashFragment: keyValuePair,
+                disableOAuth2StateCheck: true
+              });
+            });
+        } else {
+          return Promise.reject('We cannot handle the ' + response.status + ' status');
+        }
+      });
+    });
   }
 }

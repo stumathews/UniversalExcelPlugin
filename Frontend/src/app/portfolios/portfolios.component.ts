@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { ApiService } from '../apiService';
-import { ListPortfolioRootsResponse, ErrorResponse } from '@finbourne/lusidtypes';
+import { ListPortfolioRootsResponse, ErrorResponse, GetPortfolioRootResponse } from '@finbourne/lusidtypes';
+import { Observable } from 'rxjs/Observable';
 
 
 declare const Excel: any;
@@ -11,13 +12,17 @@ declare const Excel: any;
 })
 export class PortfoliosComponent implements OnInit {
 
-  constructor(private api: ApiService) { }
-
-  ngOnInit() {
+  constructor(private Api: ApiService) { }
+  portfolios: ListPortfolioRootsResponse;
+  ngOnInit() { 
+    this.Api.GetAllPortfolios('finbourne')
+      .subscribe((response: ListPortfolioRootsResponse) => this.portfolios = response,
+                                                  error => console.log('Cannot get all portfolios: ' + error));
+    
   }
 
   onGetExcelVersion() {
-    this.api.GetLatestExcelAddinVersion().subscribe((value: number | ErrorResponse) => {
+    this.Api.GetLatestExcelAddinVersion().subscribe((value: number | ErrorResponse) => {
       /* Deal with response here */
       console.log('Got response as: ' + value);
     }, error => {

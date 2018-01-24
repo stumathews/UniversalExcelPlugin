@@ -324,8 +324,6 @@ export class ApiService {
         
         console.log('Entry: GetAllPortfolios...');
             return this.http.get(this.GetPortfolios.replace('{scope}', scope))
-                .map((response: Response) => <ListPortfolioRootsResponse | ErrorResponse>response.json())
-                .do((data => console.log('All: ' + JSON.stringify(data))))
                 .catch(this.handleError);
         
     }

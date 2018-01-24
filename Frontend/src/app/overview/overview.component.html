@@ -1,8 +1,11 @@
-<div *ngIf="givenName">
+<h1>Overview</h1>
+<div *ngIf="LoggedIn">
   <h2>Logged In.</h2>
   <button (click)="logout()">Logout</button>
 </div>
 
-<div *ngIf="!givenName">
+<div *ngIf="!LoggedIn">
   <button (click)="login()">Login</button>
 </div>
+
+<button (click)="explicitLogin('stuart.mathews@finbourne.com','2tQ/egbqy6:?*HRK;hdx/99inADE%i')">ExplLogin</button>

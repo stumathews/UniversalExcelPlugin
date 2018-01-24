@@ -1,6 +1,4 @@
 import { Component, ChangeDetectorRef, OnInit } from '@angular/core';
-
-import { UserService } from './UserService';
 import { OAuthService, JwksValidationHandler } from 'angular-oauth2-oidc';
 import { OAuthEvent } from 'angular-oauth2-oidc';
 import { RouterModule, Routes, Router } from '@angular/router';

@@ -10,6 +10,8 @@ import { ApiService } from './apiService';
 import { HTTP_INTERCEPTORS } from '@angular/common/http';
 import { MyFirstInterceptor } from './UrlInterceptor';
 import { HttpClientModule } from '@angular/common/http';
+import Oktaservice = require('./shared/okta.service');
+import OktaAuthWrapper = Oktaservice.OktaAuthWrapper;
 
 const appRoutes: Routes = [
  

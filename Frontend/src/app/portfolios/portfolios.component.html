@@ -1,5 +1,22 @@
-<p>
-  portfolios works!
-</p>
+<h1>Portfolios</h1>
 <button (click)="onColorMe()">Color Me</button>
 <button (click)="onGetExcelVersion()">GetExcel Version</button>
+
+<table *ngIf="portfolios" class="table table-hover">
+  <thead>
+  <th>Name</th>
+  <th>Created</th>
+  <th>Version</th>
+  </thead>   
+  <tr *ngFor="let portfolio of portfolios.items">
+    <td>         
+      <a *ngIf="portfolio">{{ portfolio.name }}</a>                
+    </td>
+    <td>
+        <a *ngIf="portfolio">{{ portfolio.created }}</a>
+    </td>
+    <td>
+        <a *ngIf="portfolio">{{ portfolio.version }}</a>
+    </td>
+  </tr>
+</table>
