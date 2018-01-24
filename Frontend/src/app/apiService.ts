@@ -189,9 +189,8 @@ export class ApiService {
     }
     
     // GET one
-    GetLatestExcelAddinVersion(): Observable<any> {      
-      return this.http.get(this.GetLatestExcelVersion)
-        .map((response: Response) => <any>response.json());
+    GetLatestExcelAddinVersion(): Observable<any> {
+      return this.http.get(this.GetLatestExcelVersion);
     }
     
     private handleError(error: Response) {

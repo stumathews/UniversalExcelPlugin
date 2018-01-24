@@ -9,7 +9,7 @@ export class MyFirstInterceptor implements HttpInterceptor {
   constructor(private injector: Injector) { }
   intercept(req: HttpRequest<any>, next: HttpHandler): Observable<HttpEvent<any>> {
     // get the token from a service
-
+    console.log(req);
     const auth = this.injector.get(OAuthService);
     const token: string = auth.getAccessToken();
     
@@ -30,7 +30,7 @@ export class MyFirstInterceptor implements HttpInterceptor {
 
     // setting the accept header
 
-    req = req.clone({ headers: req.headers.set('Accept', 'application/json') });
+    //req = req.clone({ headers: req.headers.set('Accept', 'application/json') });
     return next.handle(req);
   }
 }

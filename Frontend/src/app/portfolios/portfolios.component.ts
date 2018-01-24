@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { ApiService } from '../apiService';
 import { ListPortfolioRootsResponse, ErrorResponse } from '@finbourne/lusidtypes';
 
+
 declare const Excel: any;
 @Component({
   selector: 'app-portfolios',
@@ -21,6 +22,7 @@ export class PortfoliosComponent implements OnInit {
       console.log('Got response as: ' + value);
     }, error => {
       /* Deal with error here*/
+      console.log('Got error response as: ' + error);
     });
   }
 

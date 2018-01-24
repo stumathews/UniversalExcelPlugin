@@ -31,7 +31,8 @@ const appRoutes: Routes = [
     RouterModule.forRoot(
       appRoutes,
       {
-        enableTracing: true,
+        enableTracing: true, useHash: true,
+        initialNavigation: false // <- turn off the initial redirect, used for redirect or hash routing strategy
       } // <-- debugging purposes only
     ),
     OAuthModule.forRoot()
