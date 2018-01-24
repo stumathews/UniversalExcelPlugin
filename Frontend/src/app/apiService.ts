@@ -11,7 +11,7 @@ import { ListPortfolioRootsResponse, ErrorResponse  } from '@finbourne/lusidtype
 import 'rxjs/add/operator/map'
 import 'rxjs/add/operator/do'
 import 'rxjs/add/operator/catch';
-import { UserService } from './UserService';
+
 import { HttpClient } from '@angular/common/http';
 
 @Injectable()
@@ -19,14 +19,13 @@ export class ApiService {
 
 
     constructor(private http: HttpClient,
-                private _router: Router,
-                private currentUserService: UserService) { }
+                private _router: Router) { }
 
     private RootUrl = '';
     private IssuerIdUrl = '';
     private AuthorizationUrl = '';
     private ClientId = '';
-    private BaseUrl = 'https://api-am-ci.finbourne.com/v1/api';
+    private BaseUrl = 'https://api-am-prod.finbourne.com/v1/api';
 
     /* URL Endpoints */
     private AggregationUrlEndpoint = this.BaseUrl + '/aggregation';

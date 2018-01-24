@@ -1,16 +1,17 @@
-import { Injectable } from '@angular/core';
 import { HttpEvent, HttpInterceptor, HttpHandler, HttpRequest } from '@angular/common/http';
 import { Observable } from 'rxjs/Observable';
-import { UserService } from './UserService';
+import { OAuthService } from 'angular-oauth2-oidc';
+import {Injectable, Injector} from "@angular/core";
 
 
 @Injectable()
 export class MyFirstInterceptor implements HttpInterceptor {
-  constructor(private currentUserService: UserService) { }
+  constructor(private injector: Injector) { }
   intercept(req: HttpRequest<any>, next: HttpHandler): Observable<HttpEvent<any>> {
     // get the token from a service
 
-    const token: string = this.currentUserService.token;
+    const auth = this.injector.get(OAuthService);
+    const token: string = auth.getAccessToken();
     
     console.log('token is ' + token);
     // add it if we have one

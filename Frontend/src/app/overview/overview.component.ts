@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { OAuthService, JwksValidationHandler } from 'angular-oauth2-oidc';
-import { UserService } from '../UserService';
+
 import { Router } from '@angular/router';
 
 
@@ -10,6 +10,24 @@ import { Router } from '@angular/router';
   styleUrls: ['./overview.component.css']
 })
 export class OverviewComponent implements OnInit {
-  constructor() {  }
+  constructor(private oauthService: OAuthService) {  }
+
+  login() {
+    this.oauthService.initImplicitFlow();
+  }
+
+  logout() {
+    this.oauthService.logOut();
+  }
+
+  get givenName() {
+    
+    const claims = this.oauthService.getIdentityClaims();
+    if (!claims) {      
+      return null;
+    }
+    return claims['name'];
+  }
+
   ngOnInit() { }
 }

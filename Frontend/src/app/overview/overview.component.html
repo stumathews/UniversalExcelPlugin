@@ -1,2 +1,8 @@
-Overview
+<div *ngIf="givenName">
+  <h2>Welcome, {{givenName}}!</h2>
+  <button (click)="logout()">Logout</button>
+</div>
 
+<div *ngIf="!givenName">
+  <button (click)="login()">Login</button>
+</div>
