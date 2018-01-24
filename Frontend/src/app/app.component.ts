@@ -25,7 +25,7 @@ export class AppComponent implements OnInit {
     this.oauthService.clientId = '0oa5ao43cLgHp80RG2p6';// george given: '0oa5ao43cLgHp80RG2p6'; 
     this.oauthService.issuer = 'https://lusid.okta.com/oauth2/aus5al5yopbHW2wJn2p6'; //george given 'https://lusid.okta.com';
     this.oauthService.responseType = 'token';
-    this.oauthService.scope = 'openid';
+    this.oauthService.scope = 'openid email';
     
     this.oauthService.tokenValidationHandler = new JwksValidationHandler();
 

@@ -31,14 +31,14 @@ const appRoutes: Routes = [
     RouterModule.forRoot(
       appRoutes,
       {
-        enableTracing: true, useHash: true,
+        enableTracing: true, // <-- debugging purposes only
+        useHash: true,
         initialNavigation: false // <- turn off the initial redirect, used for redirect or hash routing strategy
-      } // <-- debugging purposes only
+      } 
     ),
     OAuthModule.forRoot()
   ],
-  providers: [ApiService, AuthGuard,
-    { provide: HTTP_INTERCEPTORS, useClass: MyFirstInterceptor, multi: true }
+  providers: [ApiService, AuthGuard, { provide: HTTP_INTERCEPTORS, useClass: MyFirstInterceptor, multi: true }
   ]
   ,
   bootstrap: [AppComponent]

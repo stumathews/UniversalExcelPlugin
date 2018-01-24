@@ -21,12 +21,7 @@ export class OverviewComponent implements OnInit {
   }
 
   get givenName() {
-    
-    const claims = this.oauthService.getIdentityClaims();
-    if (!claims) {      
-      return null;
-    }
-    return claims['name'];
+    return this.oauthService.hasValidIdToken();
   }
 
   ngOnInit() { }

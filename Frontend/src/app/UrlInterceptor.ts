@@ -3,7 +3,6 @@ import { Observable } from 'rxjs/Observable';
 import { OAuthService } from 'angular-oauth2-oidc';
 import {Injectable, Injector} from "@angular/core";
 
-
 @Injectable()
 export class MyFirstInterceptor implements HttpInterceptor {
   constructor(private injector: Injector) { }
@@ -24,13 +23,13 @@ export class MyFirstInterceptor implements HttpInterceptor {
     // set it, but if we don't have one, set it to 
     // default --> json
 
-    //if (!req.headers.has('Content-Type')) {
-    //  req = req.clone({ headers: req.headers.set('Content-Type', 'application/json') });
-    //}
+    if (!req.headers.has('Content-Type')) {
+      req = req.clone({ headers: req.headers.set('Content-Type', 'application/json') });
+    }
 
     // setting the accept header
 
-    //req = req.clone({ headers: req.headers.set('Accept', 'application/json') });
+    req = req.clone({ headers: req.headers.set('Accept', 'application/json') });
     return next.handle(req);
   }
 }
