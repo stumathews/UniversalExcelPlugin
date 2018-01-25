@@ -2,47 +2,38 @@ import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
 import { AppComponent } from './app.component';
 import { OAuthModule } from 'angular-oauth2-oidc';
-import { OverviewComponent } from './overview/overview.component';
+import { HomeComponent } from './home/home.component';
 import { AuthGuard } from './shared';
 import { RouterModule, Routes } from '@angular/router';
 import { PortfoliosComponent } from './portfolios/portfolios.component';
 import { ApiService } from './apiService';
 import { HTTP_INTERCEPTORS } from '@angular/common/http';
-import { MyFirstInterceptor } from './UrlInterceptor';
+import { UrlInterceptor as MyFirstInterceptor } from './UrlInterceptor';
 import { HttpClientModule } from '@angular/common/http';
-import Oktaservice = require('./shared/okta.service');
-import OktaAuthWrapper = Oktaservice.OktaAuthWrapper;
 
 const appRoutes: Routes = [
  
-  { path: 'overview', component: OverviewComponent },
+  { path: 'home', component: HomeComponent },
   { path: 'portfolios', component: PortfoliosComponent, canActivate: [AuthGuard] },
-  { path: '', redirectTo: '/overview', pathMatch: 'full' },
-  { path: '**', redirectTo: 'overview' }
+  { path: '', redirectTo: '/home', pathMatch: 'full' },
+  { path: '**', redirectTo: 'home' }
   
 ];
 
 @NgModule({
-  declarations: [
-    AppComponent,
-    OverviewComponent,
-    PortfoliosComponent
-  ],
+  declarations: [ AppComponent, HomeComponent, PortfoliosComponent ],
   imports: [
-    BrowserModule, HttpClientModule,
-    RouterModule.forRoot(
+    BrowserModule, HttpClientModule, RouterModule.forRoot(
       appRoutes,
       {
         enableTracing: true, // <-- debugging purposes only
-        useHash: true,
+        useHash: true, // Required for excel add-in interaction
         initialNavigation: false // <- turn off the initial redirect, used for redirect or hash routing strategy
       } 
     ),
     OAuthModule.forRoot()
   ],
-  providers: [ApiService, AuthGuard, { provide: HTTP_INTERCEPTORS, useClass: MyFirstInterceptor, multi: true }
-  ]
-  ,
+  providers: [ApiService, AuthGuard, { provide: HTTP_INTERCEPTORS, useClass: MyFirstInterceptor, multi: true }],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

@@ -1,42 +1,41 @@
 import { Component, OnInit } from '@angular/core';
 import { ApiService } from '../apiService';
-import { ListPortfolioRootsResponse, ErrorResponse, GetPortfolioRootResponse } from '@finbourne/lusidtypes';
-import { Observable } from 'rxjs/Observable';
+import { ListPortfolioRootsResponse, ErrorResponse } from '@finbourne/lusidtypes';
 
-
+// This object will exist when we load into Excel's sandbox
 declare const Excel: any;
 @Component({
   selector: 'app-portfolios',
   templateUrl: './portfolios.component.html',
   styleUrls: ['./portfolios.component.css']
 })
-export class PortfoliosComponent implements OnInit {
-
-  constructor(private Api: ApiService) { }
-  portfolios: ListPortfolioRootsResponse;
-  ngOnInit() { 
-    this.Api.GetAllPortfolios('finbourne')
-      .subscribe((response: ListPortfolioRootsResponse) => this.portfolios = response,
-                                                  error => console.log('Cannot get all portfolios: ' + error));
+export class PortfoliosComponent implements OnInit
+{
+  listPortfolioResponse: ListPortfolioRootsResponse;
+  constructor(private readonly apiService: ApiService) { }
+  ngOnInit()
+  { 
+    this.apiService.GetAllPortfolios('finbourne')
+      .subscribe((response: ListPortfolioRootsResponse) => this.listPortfolioResponse = response,
+                                                  error => console.log(`Cannot get all ListPortfolioResponse: ${error}`));
     
   }
 
-  onGetExcelVersion() {
-    this.Api.GetLatestExcelAddinVersion().subscribe((value: number | ErrorResponse) => {
-      /* Deal with response here */
-      console.log('Got response as: ' + value);
+  onGetExcelVersion()
+  {
+    this.apiService.GetLatestExcelAddinVersion().subscribe((value: number | ErrorResponse) => {
+      console.log(`Got response as: ${value}`);
     }, error => {
-      /* Deal with error here*/
-      console.log('Got error response as: ' + error);
+      console.log(`Got error response as: ${error}`);
     });
   }
 
-  onColorMe() {
+  onColorMe()
+  {
     Excel.run(async (context) => {
       const range = context.workbook.getSelectedRange();
       range.format.fill.color = 'green';
       await context.sync();
     });
   }
-
 }
