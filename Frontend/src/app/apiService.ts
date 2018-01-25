@@ -18,13 +18,8 @@ import { HttpClient } from '@angular/common/http';
 export class ApiService {
 
 
-    constructor(private http: HttpClient,
-                private _router: Router) { }
-
-    private RootUrl = '';
-    private IssuerIdUrl = '';
-    private AuthorizationUrl = '';
-    private ClientId = '';
+    constructor(private readonly Http: HttpClient,
+                private readonly Router: Router) { }
     private BaseUrl = 'https://api-am-prod.finbourne.com/v1/api';
 
     /* URL Endpoints */
@@ -180,26 +175,19 @@ export class ApiService {
     private CreateSecurities = this.SearchProxyUrlEndpoint + '';
     
 
-    ObtainAuthorizationGrantfromUser(AuthorizationUrl: string): Observable<any> {
-        console.log('Enter: ObtainAuthorizationGrantfromUser Url=' + AuthorizationUrl);
-        return this.http.get(this.AuthorizationUrl)
-            .map((response: Response) => <number>response.json())
-            .do((data: number) => console.log('ObtainAuthorizationGrantfromUser: ' + JSON.stringify(data)))
-            .catch(this.handleError);
-    }
-    
-    // GET one
     GetLatestExcelAddinVersion(): Observable<any> {
-      return this.http.get(this.GetLatestExcelVersion);
+      return this.Http.get(this.GetLatestExcelVersion);
     }
     
-    private handleError(error: Response) {
-        console.error(error);
-        return Observable.throw(error.json().error || 'server error');
+
+    GetAllPortfolios(scope: string): Observable<ListPortfolioRootsResponse | ErrorResponse> {
+        
+        console.log('Entry: GetAllPortfolios...');
+            return this.Http.get(this.GetPortfolios.replace('{scope}', scope))
+                .catch(this.handleError);
     }
 
-
-    /*
+  /*
     // POST
     GetInvestmentGraphData(type: EntityTypes, investmentID: number): Observable<any> {
 
@@ -320,13 +308,10 @@ export class ApiService {
     }
     */
 
-    GetAllPortfolios(scope: string): Observable<ListPortfolioRootsResponse | ErrorResponse> {
-        
-        console.log('Entry: GetAllPortfolios...');
-            return this.http.get(this.GetPortfolios.replace('{scope}', scope))
-                .catch(this.handleError);
-        
-    }
+  private handleError(error: Response) {
+    console.error(error);
+    return Observable.throw(error.json().error || 'server error');
+  }
   
     
 }
