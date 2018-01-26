@@ -10,6 +10,7 @@ import { ApiService } from './apiService';
 import { HTTP_INTERCEPTORS } from '@angular/common/http';
 import { UrlInterceptor as MyFirstInterceptor } from './UrlInterceptor';
 import { HttpClientModule } from '@angular/common/http';
+import { ReactiveFormsModule, FormsModule } from '@angular/forms';
 
 const appRoutes: Routes = [
  
@@ -26,12 +27,12 @@ const appRoutes: Routes = [
     BrowserModule, HttpClientModule, RouterModule.forRoot(
       appRoutes,
       {
-        enableTracing: true, // <-- debugging purposes only
+        //enableTracing: true, // <-- debugging purposes only
         useHash: true, // Required for excel add-in interaction
         initialNavigation: false // <- turn off the initial redirect, used for redirect or hash routing strategy
       } 
     ),
-    OAuthModule.forRoot()
+    OAuthModule.forRoot(), FormsModule, ReactiveFormsModule
   ],
   providers: [ApiService, AuthGuard, { provide: HTTP_INTERCEPTORS, useClass: MyFirstInterceptor, multi: true }],
   bootstrap: [AppComponent]

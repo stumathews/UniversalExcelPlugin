@@ -11,7 +11,7 @@ if (environment.production) {
   enableProdMode();
 } 
 
-//Office.initialize = () => {
-//  platformBrowserDynamic().bootstrapModule(AppModule);
-//};
-platformBrowserDynamic().bootstrapModule(AppModule);
+Office.initialize = () => {
+  platformBrowserDynamic().bootstrapModule(AppModule);
+};
+//platformBrowserDynamic().bootstrapModule(AppModule);

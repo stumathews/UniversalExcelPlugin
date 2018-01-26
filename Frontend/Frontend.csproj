@@ -72,6 +72,7 @@
     <Content Include=".angular-cli.json" />
     <Content Include="ExcelReadMe.txt" />
     <Content Include="package.json" />
+    <Content Include="webpack.config.js" />
     <None Include="packages.config" />
     <Content Include="src\app\Models\EntityTypes.js" />
     <Content Include="src\app\Models\LoginData.js" />

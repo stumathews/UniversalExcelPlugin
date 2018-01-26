@@ -1,6 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { OAuthService } from 'angular-oauth2-oidc';
 import * as OktaAuth from '@okta/okta-auth-js';
+import { FormGroup, FormControl, Validators } from '@angular/forms';
+import { LoginData } from '../Models/LoginData';
 
 @Component({
   selector: 'app-home',
@@ -9,8 +11,19 @@ import * as OktaAuth from '@okta/okta-auth-js';
 })
 export class HomeComponent implements OnInit
 {
-  constructor(private readonly oauthService: OAuthService) {}
-  ngOnInit() {}
+  form;
+  constructor(private readonly oauthService: OAuthService) { }
+
+  onSubmit(form: LoginData ) {
+    this.explicitLogin(form.username, form.password);
+  }
+
+  ngOnInit() {
+    this.form = new FormGroup({
+      username: new FormControl('', [<any>Validators.required, <any>Validators.minLength(1)]),
+      password: new FormControl('', [<any>Validators.required, <any>Validators.minLength(1)]),
+    });
+  }
 
   private authClient: any;
   /**
@@ -18,11 +31,11 @@ export class HomeComponent implements OnInit
    * @param username 
    * @param password
    */
-  explicitLogin(username: string, password: string): Promise<any>
-  {
+  explicitLogin(username: string, password: string): Promise<any> {
+    console.log('explicitly logging in..');
     this.authClient = new OktaAuth({
       url: 'https://lusid.okta.com',
-      issuer: 'aus5al5yopbHW2wJn2p6'
+      issuer: 'aus5al5yopbHW2wJn2p6',
     });
 
     return this.oauthService.createAndSaveNonce().then(nonce => {
@@ -37,7 +50,7 @@ export class HomeComponent implements OnInit
               scopes: ['openid', 'profile', 'email'],
               sessionToken: response.sessionToken,
               nonce: nonce,
-              redirectUri: window.location.origin
+              redirectUri: window.location.origin,
             })
             .then((tokens) => {
               const idToken = tokens[0].idToken;
@@ -68,8 +81,7 @@ export class HomeComponent implements OnInit
   /**
    * Attempt to logout
    */
-  logout()
-  {
+  logout() {
     this.oauthService.logOut();
   }
 
