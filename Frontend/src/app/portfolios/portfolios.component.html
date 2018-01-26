@@ -1,23 +1,33 @@
-<h1>Portfolios</h1>
-<p>These are the list of ListPortfolioResponse in the database</p>
-<table *ngIf="listPortfolioResponse" class="table table-hover">
-  <thead>
-  <th>Name</th>
-  <th>Created</th>
-  <th>Version</th>
-  </thead>
-  <tr *ngFor="let portfolio of listPortfolioResponse.items">
-    <td>
-      <a *ngIf="portfolio">{{ portfolio.name }}</a>
-    </td>
-    <td>
-      <a *ngIf="portfolio">{{ portfolio.created }}</a>
-    </td>
-    <td>
-      <a *ngIf="portfolio">{{ portfolio.version }}</a>
-    </td>
-  </tr>
-</table>
+<body class="ms-Fabric">
+  <span class="ms-font-su ms-fontColor-themePrimary">Portfolios</span>
+  <p>These are the list of ListPortfolioResponse in the database</p>
+  
+<i class="ms-Icon ms-font-xl ms-Icon--Table ms-fontColor-themePrimary"></i>
+<ul class="ms-List">
+    <li *ngFor="let portfolio of listPortfolioResponse.items" class="ms-ListItem is-selectable" tabindex="0">
+      <span class="ms-ListItem-primaryText">{{ portfolio.name }}</span>
+      <span class="ms-ListItem-secondaryText">Created:{{ portfolio.created }}</span>
+      <span class="ms-ListItem-tertiaryText">{{ portfolio.version }}</span>
+      <span class="ms-ListItem-metaText">{{ portfolio.version }}</span>
+      <div class="ms-ListItem-selectionTarget"></div>
+      <div class="ms-ListItem-actions">
+        <div class="ms-ListItem-action">
+          <i class="ms-Icon ms-Icon--Mail"></i>
+        </div>
+        <div class="ms-ListItem-action">
+          <i class="ms-Icon ms-Icon--Delete"></i>
+        </div>
+        <div class="ms-ListItem-action">
+          <i class="ms-Icon ms-Icon--Flag"></i>
+        </div>
+        <div class="ms-ListItem-action">
+          <i class="ms-Icon ms-Icon--Pinned"></i>
+        </div>
+      </div>
+    </li>
+  </ul>
 
 <button (click)="onColorMe()">Color Me</button>
 <button (click)="onGetExcelVersion()">GetExcel Version</button>
+
+</body>

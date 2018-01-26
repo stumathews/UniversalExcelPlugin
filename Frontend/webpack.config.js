@@ -9,6 +9,7 @@ const autoprefixer = require('autoprefixer');
 const postcssUrl = require('postcss-url');
 const cssnano = require('cssnano');
 const postcssImports = require('postcss-import');
+var webpack = require("webpack");
 
 const { NoEmitOnErrorsPlugin, SourceMapDevToolPlugin, NamedModulesPlugin } = require('webpack');
 const { NamedLazyChunksWebpackPlugin, BaseHrefWebpackPlugin } = require('@angular/cli/plugins/webpack');
@@ -414,6 +415,10 @@ module.exports = {
     ]
   },
   "plugins": [
+    new webpack.ProvidePlugin({
+      $: 'jquery',
+      jQuery: 'jquery'
+    }),
     new NoEmitOnErrorsPlugin(),
     new CopyWebpackPlugin([
       {

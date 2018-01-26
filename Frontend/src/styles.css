@@ -1,2 +1,4 @@
-@import "bootstrap/dist/css/bootstrap.css";
+@import '~bootstrap/dist/css/bootstrap.css';
+@import '~office-ui-fabric/dist/css/fabric.components.css';
+@import '~office-ui-fabric/dist/css/fabric.css';
 
