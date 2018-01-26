@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { ApiService } from '../apiService';
 import { ListPortfolioRootsResponse, ErrorResponse } from '@finbourne/lusidtypes';
+import * as OfficeUiFabric from 'office-ui-fabric'; // import the typescript for office-ui-fabric
 
 // This object will exist when we load into Excel's sandbox
 declare const Excel: any;
