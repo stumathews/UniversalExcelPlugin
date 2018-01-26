@@ -501,7 +501,7 @@ module.exports = {
       "filename": "[file].map[query]",
       "moduleFilenameTemplate": "[resource-path]",
       "fallbackModuleFilenameTemplate": "[resource-path]?[hash]",
-      "sourceRoot": "webpack:///"
+      "sourceRoot": "webpack:///src"
     }),
     new CommonsChunkPlugin({
       "name": [
