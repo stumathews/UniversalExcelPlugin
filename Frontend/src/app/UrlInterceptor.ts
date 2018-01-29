@@ -9,7 +9,6 @@ export class UrlInterceptor implements HttpInterceptor
   constructor(private readonly injector: Injector) {}
 
   intercept(req: HttpRequest<any>, next: HttpHandler): Observable<HttpEvent<any>> {
-    console.log(req);
     const auth = this.injector.get(OAuthService);
     const token = auth.getAccessToken();
 

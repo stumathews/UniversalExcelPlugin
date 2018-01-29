@@ -1,8 +1,10 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ViewEncapsulation } from '@angular/core';
 import { OAuthService } from 'angular-oauth2-oidc';
 import * as OktaAuth from '@okta/okta-auth-js';
 import { FormGroup, FormControl, Validators } from '@angular/forms';
 import { LoginData } from '../Models/LoginData';
+
+import { fabric } from 'office-ui-fabric/dist/js/jquery.fabric';
 
 @Component({
   selector: 'app-home',
@@ -12,6 +14,11 @@ import { LoginData } from '../Models/LoginData';
 export class HomeComponent implements OnInit
 {
   form;
+  minDate = new Date(2017, 5, 10);
+  maxDate = new Date(2018, 9, 15);
+  bsValue: Date = new Date();
+  bsRangeValue: any = [new Date(2017, 7, 4), new Date(2017, 7, 20)];
+
   constructor(private readonly oauthService: OAuthService) { }
 
   onSubmit(form: LoginData ) {

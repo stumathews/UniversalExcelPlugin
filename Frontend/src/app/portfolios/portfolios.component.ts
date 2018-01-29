@@ -5,7 +5,7 @@ import { NgZone, ViewEncapsulation } from '@angular/core';
 /// <reference path='../node_modules/@types/office-js/index.d.ts' />
 /// <reference path='../typings.d.ts' />
 
-import { fabric } from 'office-ui-fabric/dist/js/jquery.fabric';
+import { fabric } from 'office-ui-fabric/dist/js/jquery.fabric.min';
 
 
 //declare var fabric: any;
@@ -13,8 +13,7 @@ import { fabric } from 'office-ui-fabric/dist/js/jquery.fabric';
 @Component({
   selector: 'app-portfolios',
   templateUrl: './portfolios.component.html',
-  styleUrls: ['./portfolios.component.css'],
-  encapsulation: ViewEncapsulation.None
+  styleUrls: ['./portfolios.component.css']
 })
 export class PortfoliosComponent implements OnInit
 {

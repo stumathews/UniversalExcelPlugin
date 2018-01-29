@@ -1,8 +1,10 @@
-<body class="ms-Fabric">
+<body *ngIf="listPortfolioResponse?.items" class="ms-Fabric">
   <span class="ms-font-su ms-fontColor-themePrimary">Portfolios</span>
-  <p>These are the list of ListPortfolioResponse in the database</p>
+<p>These are the list of ListPortfolioResponse in the database</p>
+
+
   
-<i class="ms-Icon ms-font-xl ms-Icon--Table ms-fontColor-themePrimary"></i>
+
 <ul class="ms-List">
     <li *ngFor="let portfolio of listPortfolioResponse.items" class="ms-ListItem is-selectable" tabindex="0">
       <span class="ms-ListItem-primaryText">{{ portfolio.name }}</span>

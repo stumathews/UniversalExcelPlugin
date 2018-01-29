@@ -11,6 +11,7 @@ import { HTTP_INTERCEPTORS } from '@angular/common/http';
 import { UrlInterceptor as MyFirstInterceptor } from './UrlInterceptor';
 import { HttpClientModule } from '@angular/common/http';
 import { ReactiveFormsModule, FormsModule } from '@angular/forms';
+import { BsDatepickerModule } from 'ngx-bootstrap';
 
 const appRoutes: Routes = [
  
@@ -23,7 +24,7 @@ const appRoutes: Routes = [
 
 @NgModule({
   declarations: [ AppComponent, HomeComponent, PortfoliosComponent ],
-  imports: [
+  imports: [BsDatepickerModule.forRoot(),
     BrowserModule, HttpClientModule, RouterModule.forRoot(
       appRoutes,
       {
