@@ -4,8 +4,6 @@ import * as OktaAuth from '@okta/okta-auth-js';
 import { FormGroup, FormControl, Validators } from '@angular/forms';
 import { LoginData } from '../Models/LoginData';
 
-import { fabric } from 'office-ui-fabric/dist/js/jquery.fabric';
-
 @Component({
   selector: 'app-home',
   templateUrl: './home.component.html',

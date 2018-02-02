@@ -16,7 +16,10 @@ export class AppComponent implements OnInit {
   title = 'app';
   navRoutes: Object[] = [
     { path: '/portfolios', title: 'Portfolios' },
-    { path: '/home', title: 'Home' }];
+    { path: '/home', title: 'Home' },
+    { path: '/layout', title: 'Layout Component' },
+    { path: '/selection-tests', title:'Selection Tests'}
+  ];
 
   ngOnInit(): void { }
 
@@ -32,6 +35,6 @@ export class AppComponent implements OnInit {
     // Load Discovery Document and then try to login the user
     this.oauthService.loadDiscoveryDocument().then(() => {
       this.oauthService.tryLogin().then(_ => { this.router.navigate(['/']); });
-    });
+    }).catch(reason => { console.log(`Problem authenticating ${reason}`)});
   }
 }

@@ -24,6 +24,7 @@
     "@angular/platform-browser-dynamic": "^5.1.0",
     "@angular/router": "^5.2.1",
     "@finbourne/lusidtypes": "^0.4.86",
+    "@microsoft/office-js": "^1.1.4",
     "@okta/okta-angular": "0.0.13",
     "@okta/okta-signin-widget": "^2.5.0",
     "angular-oauth2-oidc": "^3.1.4",

@@ -72,6 +72,10 @@
     <Content Include=".angular-cli.json" />
     <Content Include="ExcelReadMe.txt" />
     <Content Include="package.json" />
+    <Content Include="src\app\layout\layout.component.css" />
+    <Content Include="src\app\layout\layout.component.html" />
+    <Content Include="src\app\selection-test\selection-test.component.css" />
+    <Content Include="src\app\selection-test\selection-test.component.html" />
     <Content Include="webpack.config.js" />
     <None Include="packages.config" />
     <Content Include="src\app\Models\EntityTypes.js" />
@@ -111,6 +115,10 @@
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
+    <TypeScriptCompile Include="src\app\layout\layout.component.spec.ts" />
+    <TypeScriptCompile Include="src\app\layout\layout.component.ts" />
+    <TypeScriptCompile Include="src\app\selection-test\selection-test.component.spec.ts" />
+    <TypeScriptCompile Include="src\app\selection-test\selection-test.component.ts" />
     <TypeScriptCompile Include="src\app\shared\auth.guard.service.ts" />
     <TypeScriptCompile Include="src\app\shared\index.ts" />
     <TypeScriptCompile Include="src\app\apiService.ts" />

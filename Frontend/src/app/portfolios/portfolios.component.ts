@@ -5,9 +5,6 @@ import { NgZone, ViewEncapsulation } from '@angular/core';
 /// <reference path='../node_modules/@types/office-js/index.d.ts' />
 /// <reference path='../typings.d.ts' />
 
-import { fabric } from 'office-ui-fabric/dist/js/jquery.fabric.min';
-
-
 //declare var fabric: any;
 
 @Component({
@@ -43,9 +40,5 @@ export class PortfoliosComponent implements OnInit
       range.format.fill.color = 'green';
       await context.sync();
     });
-    var SpinnerElements = document.querySelectorAll(".ms-Spinner");
-    for (var i = 0; i < SpinnerElements.length; i++) {
-      new fabric['Spinner'](SpinnerElements[i]);
-    }
   }
 }
