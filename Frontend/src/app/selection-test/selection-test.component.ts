@@ -81,8 +81,12 @@ export class SelectionTestComponent implements OnInit {
     // excel interation
 
     Excel.run(context => {
-        const currentWorksheet = context.workbook.worksheets.getActiveWorksheet();
-        const expensesTable = currentWorksheet.tables.add('A1:' + this.xlsColumnDef[columns.length] + ':1', true /*hasHeaders*/);
+      const currentWorksheet = context.workbook.worksheets.getActiveWorksheet();
+      const range = 'A1:' + this.xlsColumnDef[columns[0].length-1] + '1';
+        console.log(`programatic range is ${range}`);
+        const expensesTable = currentWorksheet.tables.add(range, true /*hasHeaders*/);
+
+        //const expensesTable = currentWorksheet.tables.add(range, true /*hasHeaders*/);
         
         expensesTable.name = 'PortfolioTable';
         expensesTable.getHeaderRowRange().values = columns;
