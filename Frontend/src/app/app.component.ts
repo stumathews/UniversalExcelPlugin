@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ViewEncapsulation } from '@angular/core';
 import { OAuthService, JwksValidationHandler } from 'angular-oauth2-oidc';
 import { Router } from '@angular/router';
 
@@ -10,10 +10,11 @@ import { Router } from '@angular/router';
 @Component({
   selector: 'app-root',
   templateUrl: './app.component.html',
-  styleUrls: ['./app.component.css']
+  styleUrls: ['./app.component.css'],
 })
 export class AppComponent implements OnInit {
-  title = 'app';
+  title = 'Lusid';
+  isCollapsed = true;
   navRoutes: Object[] = [
     { path: '/portfolios', title: 'Portfolios' },
     { path: '/home', title: 'Home' },
@@ -35,6 +36,20 @@ export class AppComponent implements OnInit {
     // Load Discovery Document and then try to login the user
     this.oauthService.loadDiscoveryDocument().then(() => {
       this.oauthService.tryLogin().then(_ => { this.router.navigate(['/']); });
-    }).catch(reason => { console.log(`Problem authenticating ${reason}`)});
+    }).catch(reason => console.log(`Problem authenticating ${reason}`));
   }
+
+  /**
+   * Check if client is IE and in compatibility view
+   *
+   * @returns {boolean}
+  */
+  isIeCompatibilityMode() {
+    const ua = navigator.userAgent;
+    if (ua.indexOf('MSIE') === -1) {
+        return false;
+    }
+    return (ua.indexOf('compatible') !== -1);
+  }
+
 }

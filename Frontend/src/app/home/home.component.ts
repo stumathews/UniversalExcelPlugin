@@ -3,6 +3,7 @@ import { OAuthService } from 'angular-oauth2-oidc';
 import * as OktaAuth from '@okta/okta-auth-js';
 import { FormGroup, FormControl, Validators } from '@angular/forms';
 import { LoginData } from '../Models/LoginData';
+import { JwksValidationHandler } from 'angular-oauth2-oidc';
 
 @Component({
   selector: 'app-home',
@@ -40,7 +41,7 @@ export class HomeComponent implements OnInit
     console.log('explicitly logging in..');
     this.authClient = new OktaAuth({
       url: 'https://lusid.okta.com',
-      issuer: 'aus5al5yopbHW2wJn2p6',
+      issuer: 'aus5al5yopbHW2wJn2p6'
     });
 
     return this.oauthService.createAndSaveNonce().then(nonce => {

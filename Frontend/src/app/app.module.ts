@@ -1,5 +1,5 @@
 import { BrowserModule } from '@angular/platform-browser';
-import { NgModule } from '@angular/core';
+import { NgModule, ErrorHandler } from '@angular/core';
 import { AppComponent } from './app.component';
 import { OAuthModule } from 'angular-oauth2-oidc';
 import { HomeComponent } from './home/home.component';
@@ -14,6 +14,8 @@ import { ReactiveFormsModule, FormsModule } from '@angular/forms';
 import { BsDatepickerModule } from 'ngx-bootstrap';
 import { LayoutComponent } from './layout/layout.component';
 import { SelectionTestComponent } from './selection-test/selection-test.component';
+import { CollapseModule, BsDropdownModule } from 'ngx-bootstrap';
+import { CustomErrorHandler } from './ErrorCatcher';
 
 const appRoutes: Routes = [
   { path: 'layout', component: LayoutComponent },
@@ -31,14 +33,15 @@ const appRoutes: Routes = [
     BrowserModule, HttpClientModule, RouterModule.forRoot(
       appRoutes,
       {
-        enableTracing: true, // <-- debugging purposes only
+        //enableTracing: true, // <-- debugging purposes only
         useHash: true, // Required for excel add-in interaction
         initialNavigation: false // <- turn off the initial redirect, used for redirect or hash routing strategy
-      } 
+      }
     ),
-    OAuthModule.forRoot(), FormsModule, ReactiveFormsModule
+    OAuthModule.forRoot(), FormsModule, ReactiveFormsModule,  CollapseModule.forRoot(), BsDropdownModule.forRoot()
   ],
-  providers: [ApiService, AuthGuard, { provide: HTTP_INTERCEPTORS, useClass: MyFirstInterceptor, multi: true }],
+  providers: [{ provide: ErrorHandler,  useClass: CustomErrorHandler }
+, ApiService, AuthGuard, { provide: HTTP_INTERCEPTORS, useClass: MyFirstInterceptor, multi: true }],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

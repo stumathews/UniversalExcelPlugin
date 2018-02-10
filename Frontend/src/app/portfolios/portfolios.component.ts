@@ -12,20 +12,16 @@ import { NgZone, ViewEncapsulation } from '@angular/core';
   templateUrl: './portfolios.component.html',
   styleUrls: ['./portfolios.component.css']
 })
-export class PortfoliosComponent implements OnInit
-{
+export class PortfoliosComponent implements OnInit {
   listPortfolioResponse: ListPortfolioRootsResponse;
   constructor(private readonly apiService: ApiService, private zone: NgZone) { }
-  ngOnInit()
-  { 
+  ngOnInit() {
     this.apiService.GetAllPortfolios('finbourne')
       .subscribe((response: ListPortfolioRootsResponse) => this.listPortfolioResponse = response,
                                                   error => console.log(`Cannot get all ListPortfolioResponse: ${error}`));
-    
   }
 
-  onGetExcelVersion()
-  {
+  onGetExcelVersion() {
     this.apiService.GetLatestExcelAddinVersion().subscribe((value: number | ErrorResponse) => {
       console.log(`Got response as: ${value}`);
     }, error => {
@@ -33,8 +29,7 @@ export class PortfoliosComponent implements OnInit
     });
   }
 
-  onColorMe()
-  {
+  onColorMe() {
     Excel.run(async (context) => {
       const range = context.workbook.getSelectedRange();
       range.format.fill.color = 'green';
