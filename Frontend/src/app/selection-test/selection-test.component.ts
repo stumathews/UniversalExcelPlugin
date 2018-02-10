@@ -11,6 +11,9 @@ import { ListPortfolioRootsResponse, ErrorResponse, GetPortfolioRootResponse, Er
 })
 export class SelectionTestComponent implements OnInit {
 
+  private xlsColumnDef: string[] = ['A', 'B', 'C', 'D', 'E', 'F', 'G', 'H',
+                                      'I', 'J', 'K', 'L', 'M', 'N', 'O', 'P',
+                                      'Q', 'R', 'S', 'T', 'U', 'V', 'W', 'X', 'Y', 'Z']; 
   selectionInfo: string = '';
   constructor() { }
 
@@ -79,12 +82,10 @@ export class SelectionTestComponent implements OnInit {
 
     Excel.run(context => {
         const currentWorksheet = context.workbook.worksheets.getActiveWorksheet();
-        //const expensesTable = currentWorksheet.tables.add('A1:D1', true /*hasHeaders*/);
-        const expensesTable = currentWorksheet.tables.add('A1:M1', true /*hasHeaders*/);
+        const expensesTable = currentWorksheet.tables.add('A1:' + this.xlsColumnDef[columns.length] + ':1', true /*hasHeaders*/);
         
         expensesTable.name = 'PortfolioTable';
-        //expensesTable.getHeaderRowRange().values = columns;
-        expensesTable.getHeaderRowRange().values = [['name', 'id', 'created', 'error', 'meta', 'status', 'version', 'properties', 'details', 'self', 'schema', 'referencePortfolioId', 'referenceScope']];
+        expensesTable.getHeaderRowRange().values = columns;
 
         expensesTable.rows.add(null /*add at the end*/, rows);
         //expensesTable.columns.getItemAt(3).getRange().numberFormat = [['€#,##0.00']];
