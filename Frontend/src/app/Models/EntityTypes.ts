@@ -1,4 +1,4 @@
-﻿export enum EntityTypes {
+export enum LusidEntityTypes {
     AggregationUrl,
     AnalyticsUrl,
     MetadataUrl,

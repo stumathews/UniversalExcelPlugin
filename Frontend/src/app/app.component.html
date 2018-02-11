@@ -17,19 +17,26 @@
         <li *ngFor="let route of navRoutes">
           <a class="ms-link" [routerLink]="[route.path]">{{route.title}}</a>
         </li>
+
+        <li role="presentation"><a [routerLink]="['Investments']">Investments</a></li>
+        <li role="presentation"><a [routerLink]="['Factors']">Factors</a></li>
+        <li role="presentation"><a [routerLink]="['Groups']">Groups</a></li>
+        <li role="presentation"><a [routerLink]="['Risks']">Risks</a></li>
+        <li role="presentation"><a [routerLink]="['Regions']">Regions</a></li>
+
         <!-- <li class="active"><a href="#layout">Portfolios <span class="sr-only">(current)</span></a></li>
-            <li><a href="#">Securities</a></li>
-            <li><a href="#">Trades</a></li> -->
+  <li><a href="#">Securities</a></li>
+  <li><a href="#">Trades</a></li> -->
         <!--<li class="dropdown" dropdown>
-          <a href="#" dropdownToggle class="dropdown-toggle">Dropdown <span class="caret"></span></a>
-          <ul *dropdownMenu class="dropdown-menu" role="menu">
-            <li role="menuitem"><a class="dropdown-item" href="#">Action</a></li>
-            <li role="menuitem"><a class="dropdown-item" href="#">Another action</a></li>
-            <li role="menuitem"><a class="dropdown-item" href="#">Something else here</a></li>
-            <li class="divider dropdown-divider"></li>
-            <li role="menuitem"><a class="dropdown-item" href="#">Separated link</a></li>
-          </ul>
-        </li>-->
+    <a href="#" dropdownToggle class="dropdown-toggle">Dropdown <span class="caret"></span></a>
+    <ul *dropdownMenu class="dropdown-menu" role="menu">
+      <li role="menuitem"><a class="dropdown-item" href="#">Action</a></li>
+      <li role="menuitem"><a class="dropdown-item" href="#">Another action</a></li>
+      <li role="menuitem"><a class="dropdown-item" href="#">Something else here</a></li>
+      <li class="divider dropdown-divider"></li>
+      <li role="menuitem"><a class="dropdown-item" href="#">Separated link</a></li>
+    </ul>
+  </li>-->
       </ul>
 
       <!--<form class="navbar-form navbar-left">
