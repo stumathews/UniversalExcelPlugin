@@ -7,18 +7,20 @@ import { Http, Response, RequestOptions, URLSearchParams, Headers } from '@angul
 import { Observable } from 'rxjs/Observable';
 import { LusidEntityTypes } from './Models/EntityTypes';
 import { LoginData } from './Models/LoginData';
-import { ListPortfolioRootsResponse, ErrorResponse  } from '@finbourne/lusidtypes';
+import { ListPortfolioRootsResponse, ErrorResponse, PortfolioRootResponse  } from '@finbourne/lusidtypes';
 import 'rxjs/add/operator/map'
 import 'rxjs/add/operator/do'
 import 'rxjs/add/operator/catch';
 
 import { HttpClient } from '@angular/common/http';
+import {InternalId} from '@finbourne/lusidtypes/index';
+import {GetPortfolioDetailsResponse} from '@finbourne/lusidtypes/index';
 
 @Injectable()
 export class ApiService {
+  
 
-
-    constructor(private readonly Http: HttpClient,
+  constructor(private readonly Http: HttpClient,
                 private readonly Router: Router) { }
     private BaseUrl = 'https://api-am-prod.finbourne.com/v1/api';
 
@@ -114,7 +116,7 @@ export class ApiService {
     private DeletePortfolios = this.PortfoliosUrlEndpoint + '/{scope}/{portfolioId}/properties/all';
     private GetPortfolios = this.PortfoliosUrlEndpoint + '/{scope}';
     private GetPortfolio = this.PortfoliosUrlEndpoint + '/{scope}/{portfolioId}/root';
-    private GetProtfolioDetails = this.PortfoliosUrlEndpoint + '/{scope}/{portfolioId}/details';
+    private GetProtfolioDetails = this.PortfoliosUrlEndpoint + '/{scope}/{portfolioId}/details?effectiveDate=2018-01-01';
     private GetPortfolioPrties = this.PortfoliosUrlEndpoint + '/{scope}/{portfolioId}/properties';
     private GetPortfolioTrades = this.PortfoliosUrlEndpoint + '/{scope}/{portfolioId}/trades';
     private LookPortfolioByName = this.PortfoliosUrlEndpoint + '/{scope}/lookup/{name}';
@@ -185,6 +187,16 @@ export class ApiService {
         console.log('Entry: GetAllPortfolios...');
             return this.Http.get(this.GetPortfolios.replace('{scope}', scope))
                 .catch(this.handleError);
+    }
+
+
+    GetPortfolioDetails(id: InternalId): Observable<GetPortfolioDetailsResponse | ErrorResponse> {
+      console.log(`Entry: Get Portfolio details for id ${id.id}`);
+      const url = this.GetProtfolioDetails.replace('{portfolioId}', `${id.id}`)
+        .replace('{scope}', 'finbourne');
+      console.log('url is ' + url);
+      return this.Http.get(url)
+        .catch(this.handleError);
     }
 
   /*

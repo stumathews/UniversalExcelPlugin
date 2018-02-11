@@ -63,6 +63,7 @@ import {InvestmentService} from './investment.service';
 const appRoutes: Routes = [
 
   { path: 'Investments', component: InvestmentComponent },
+  
   { path: 'InvestmentDetails/:id', component: InvestmentDetailComponent },
   { path: 'Factors', component: FactorComponent },
   { path: 'FactorDetails/:id', component: FactorDetailsComponent },
