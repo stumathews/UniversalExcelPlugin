@@ -10,6 +10,7 @@ import {ApiService} from '../../apiService';
 import { Trade, InternalId, GetPortfolioTradesResponse, ErrorResponse } from '@finbourne/lusidtypes';
 import { ReflectionUtils } from '../../shared/reflection-utils';
 import {StringUtils} from '../../shared/string-utils';
+import {ExcelUtils} from '../../shared/excel-utils';
 
 @Component({
   selector: 'app-list-factors',
@@ -21,6 +22,7 @@ export class ListFactorsComponent implements OnInit, DoCheck {
   private columns: string[];
   private trades: Trade[] = [];
   private portfolioId: string;
+
 
   @Input() set PortfolioId(portfolioId: string | null) {
     this.portfolioId = portfolioId;
@@ -44,6 +46,9 @@ export class ListFactorsComponent implements OnInit, DoCheck {
   }
   get PortfolioId(): string {
     return this.portfolioId;
+  }
+  sync() {
+    ExcelUtils.EntitiesToGrid<Trade>(this.trades, 'Trades',true);
   }
   differ: any;
   constructor(private apiService: ApiService, private differs: KeyValueDiffers ) {

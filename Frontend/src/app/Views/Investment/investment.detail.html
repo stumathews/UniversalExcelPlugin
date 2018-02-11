@@ -27,6 +27,7 @@
     <tabset>
       <tab heading="Trades" id="tab1">
         <app-list-factors *ngIf="Entity" [PortfolioId]="Entity.root.id"></app-list-factors>
+        
         <!--<app-list-groups-via-grouplinks *ngIf="Entity" [ParentId]="Entity.id" [GroupLinks]="Entity.groups"></app-list-groups-via-grouplinks>
   <button type="button" class="btn btn-primary" (click)="openModalWithAssociateGroupsComponent()">Add a group</button>
   <app-graph [EntityType]="EntityTypes.InvestmentGroup" [InvestmentId]="Entity.id"></app-graph>

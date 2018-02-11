@@ -1,6 +1,6 @@
 export class ReflectionUtils {
 
-  static getEntityProperties<T>(entity: T): string[][] {
+  static getEntityProperties<T>(entity: T, exclComplexTypes?: boolean): string[][] {
     console.log('Entry: getEntityProperties.');
     console.log('scanning entity properties: ' + JSON.stringify(entity));
     const dummy = entity;
@@ -8,6 +8,9 @@ export class ReflectionUtils {
     const r: string[] = [];
     for (let key in dummy) {
       if (dummy.hasOwnProperty(key) && typeof dummy[key] !== 'function') {
+        if (exclComplexTypes && (typeof dummy[key] === 'object' || Array.isArray(dummy[key]))) {
+          continue;
+        }
         console.log('found: ' + key);
         r.push(key);
       }

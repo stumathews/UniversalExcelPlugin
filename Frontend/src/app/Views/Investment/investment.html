@@ -1,46 +1,29 @@
-<h1>Investments</h1>
-<p>Investments represent the assets that are valuable to you. </p>
+<h1>Portfolios</h1>
+<p>Portfolios represent your holdings, trades and securities</p>
 <p>
-    <a [routerLink]="['/NewInvestmentWizard']" class="btn btn-primary">Create Investment</a>    
+  <a [routerLink]="['/NewInvestmentWizard']" class="btn">Create Investment</a>
+  <a (click)="sync()" class="btn btn-primary">Syncronize</a>
 </p>
 <table *ngIf="listPortfolioResponse" class="table table-hover">
-    <thead>
-        <th>Name</th>
-        <th>Created</th>
-        <th>Risks</th>
-        <th>Factors</th>
-        <th>Groups</th>
-        <th>Value</th>
-        <th></th> <!--Delete -->
-    </thead>   
-        <tr *ngFor="let portfolio of listPortfolioResponse?.items">
-            <td>         
-                <strong><a *ngIf="portfolio" [routerLink]="['/InvestmentDetails', portfolio.id]">{{ portfolio.name }}</a></strong>
-            </td>
-            <td>
-                <!--<span *ngFor="let region of portfolio.regions">
-                    <a *ngIf="region" [routerLink]="['/RegionDetails', region.region?.id]">{{ region.region?.name }}</a>
-                </span>-->                
-            </td>
-            <td>
-                <!--<span *ngFor="let risk of portfolio.risks">
-                        <a *ngIf="risk" [routerLink]="['/RiskDetails', risk?.investmentRisk?.id]">{{ risk.investmentRisk?.name }}</a>  
-                </span>-->                
-            </td>
-            <td>
-                <!--<span *ngFor="let factor of portfolio.factors">
-                    <a *ngIf="factor" [routerLink]="['/FactorDetails', factor.investmentInfluenceFactorID]">{{ factor.investmentInfluenceFactor?.name }}</a> 
-                </span>-->                
-            </td>
-            <td>
-                <!--<span *ngFor="let group of portfolio.groups">
-                        <a *ngIf="group" [routerLink]="['/GroupDetails', group.investmentGroupID]">{{ group.investmentGroup?.name }}</a> 
-                </span>-->
-            </td>
-            <td>
-                <!--<span>{{ portfolio.symbol}} {{ portfolio.value }} </span><br />-->
-            </td>
-            <td><a (click)="delete(portfolio.id)" href="javascript:void(0)">Delete portfolio</a></td>            
-        </tr>
+  <thead>
+    <tr>
+      <th>Name</th>
+      <th>Created</th>
+      <th>Id</th>
+      <th>referencePortfolioId</th>
+      <th>referenceScope</th>
+      <th></th> <!--Delete -->
+    </tr>
+  </thead>
+  <tr *ngFor="let portfolio of listPortfolioResponse?.items">
+    <td>
+      <strong><a *ngIf="portfolio" [routerLink]="['/InvestmentDetails', portfolio.id]">{{ portfolio.name }}</a></strong>
+    </td>
+    <td>{{portfolio.created}}</td>
+    <td>{{portfolio.id}}</td>
+    <td>{{portfolio.referencePortfolioId}}</td>
+    <td>{{portfolio.referenceScope}}</td>
+    <td><a (click)="delete(portfolio.id)" href="javascript:void(0)">Delete portfolio</a></td>
+  </tr>
 </table>
 <p>Total: {{listPortfolioResponse?.items.length}}</p>
