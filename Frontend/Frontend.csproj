@@ -180,6 +180,8 @@
     <TypeScriptCompile Include="src\app\portfolios\portfolios.component.spec.ts" />
     <TypeScriptCompile Include="src\app\portfolios\portfolios.component.ts" />
     <TypeScriptCompile Include="src\app\shared\okta.service.ts" />
+    <TypeScriptCompile Include="src\app\shared\string-utils.ts" />
+    <TypeScriptCompile Include="src\app\shared\reflection-utils.ts" />
     <TypeScriptCompile Include="src\app\UrlInterceptor.ts" />
     <TypeScriptCompile Include="src\app\Utilities.ts" />
     <TypeScriptCompile Include="src\app\Views\Factor\factor-details.ts" />

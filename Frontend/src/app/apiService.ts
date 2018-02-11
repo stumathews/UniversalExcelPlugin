@@ -14,7 +14,7 @@ import 'rxjs/add/operator/catch';
 
 import { HttpClient } from '@angular/common/http';
 import {InternalId} from '@finbourne/lusidtypes/index';
-import {GetPortfolioDetailsResponse} from '@finbourne/lusidtypes/index';
+import {GetPortfolioDetailsResponse, GetPortfolioTradesResponse} from '@finbourne/lusidtypes/index';
 
 @Injectable()
 export class ApiService {
@@ -116,7 +116,7 @@ export class ApiService {
     private DeletePortfolios = this.PortfoliosUrlEndpoint + '/{scope}/{portfolioId}/properties/all';
     private GetPortfolios = this.PortfoliosUrlEndpoint + '/{scope}';
     private GetPortfolio = this.PortfoliosUrlEndpoint + '/{scope}/{portfolioId}/root';
-    private GetProtfolioDetails = this.PortfoliosUrlEndpoint + '/{scope}/{portfolioId}/details?effectiveDate=2018-01-01';
+    private GetProtfolioDetails = this.PortfoliosUrlEndpoint + '/{scope}/{portfolioId}/details';
     private GetPortfolioPrties = this.PortfoliosUrlEndpoint + '/{scope}/{portfolioId}/properties';
     private GetPortfolioTrades = this.PortfoliosUrlEndpoint + '/{scope}/{portfolioId}/trades';
     private LookPortfolioByName = this.PortfoliosUrlEndpoint + '/{scope}/lookup/{name}';
@@ -189,11 +189,22 @@ export class ApiService {
                 .catch(this.handleError);
     }
 
+    doGetPortfolioTrades(id: string): Observable<GetPortfolioTradesResponse | ErrorResponse> {
+      
+      console.log(`Entry: doGetPortfolioTrades() for id ${id}`);
+      const url = this.GetPortfolioTrades.replace('{portfolioId}', `${id}`)
+        .replace('{scope}', 'finbourne');
+
+      console.log('url is ' + url);
+      return this.Http.get(url).catch(this.handleError);
+    }
 
     GetPortfolioDetails(id: InternalId): Observable<GetPortfolioDetailsResponse | ErrorResponse> {
       console.log(`Entry: Get Portfolio details for id ${id.id}`);
       const url = this.GetProtfolioDetails.replace('{portfolioId}', `${id.id}`)
-        .replace('{scope}', 'finbourne');
+        .replace('{scope}', 'finbourne') +
+        '?effectiveDate=2018-01-01';
+
       console.log('url is ' + url);
       return this.Http.get(url)
         .catch(this.handleError);

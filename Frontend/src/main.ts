@@ -9,7 +9,7 @@ import { environment } from './environments/environment';
 //   enableProdMode();
 // }
 
-  Office.initialize = () => {
-    platformBrowserDynamic().bootstrapModule(AppModule);
-  };
-//platformBrowserDynamic().bootstrapModule(AppModule);
+  //Office.initialize = () => {
+  //  platformBrowserDynamic().bootstrapModule(AppModule);
+  //};
+platformBrowserDynamic().bootstrapModule(AppModule);

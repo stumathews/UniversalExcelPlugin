@@ -60,6 +60,7 @@ import { Angular2FontawesomeModule } from 'angular2-fontawesome/angular2-fontawe
 import {InvestmentService} from './investment.service';
 
 
+
 const appRoutes: Routes = [
 
   { path: 'Investments', component: InvestmentComponent },

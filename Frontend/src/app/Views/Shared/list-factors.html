@@ -1,27 +1,24 @@
-﻿<div>
-    <h4>Influence Factors</h4>
+<div>
+    <h4>Portfolio Trades</h4>
     <p>
-        Influence Factors are anything what influences the companies balance sheet(assets and liabilities) or income(profit/loss) statement.
-        These factors usually affect the underlying value of the investment either positively and negatively.
+        These are te trades that have been made on this portfolio
     </p>
     <table class="table table-hover">
-        <thead>
-        <tr>
-            <th>Name</th>
-            <th>Description</th>
-            <th>Linked investments</th>
-            <th>Dissasociate</th>
-           
-        </tr>
-        </thead>
-        <tr *ngFor="let factor of Factors">
-            <td><a [routerLink]="['/FactorDetails', factor.id]">{{ factor.name }}</a>   </td>
-
-            <td>{{ factor.description }}</td>
-            <td><a [routerLink]="['/FactorDetails', factor.id]">{{ factor.investments.length }}</a></td>
-            <td><a *ngIf="factor"  href="javascript:void(0)" (click)="DissasociateEntityFromInvestment(factor.id, ParentId)">Dissasociate</a></td>
-        </tr>
+      <thead>
+      <tr>
+        <th *ngFor="let column of columns">
+          {{column}}
+        </th>
+      </tr>
+      </thead>
+      
+      <tr *ngFor="let row of rows">
+        <td *ngFor="let ritem of row"> {{ritem}}</td>
+        <!--<td><a [routerLink]="['/FactorDetails', factor.id]">{{ trade.name }}</a></td>
+        <td><a *ngIf="factor" href="javascript:void(0)" (click)="DissasociateEntityFromInvestment(factor.id, ParentId)">Dissasociate</a></td>-->
+      </tr>
+      
 
     </table>
-    <p><strong>Total: {{ Factors.length }}</strong></p>
+    <p><strong>Total: {{ rows.length }}</strong></p>
 </div>
