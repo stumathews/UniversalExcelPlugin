@@ -14,7 +14,8 @@ import 'rxjs/add/operator/catch';
 
 import { HttpClient } from '@angular/common/http';
 import {InternalId} from '@finbourne/lusidtypes/index';
-import {GetPortfolioDetailsResponse, GetPortfolioTradesResponse} from '@finbourne/lusidtypes/index';
+import {GetPortfolioDetailsResponse, GetPortfolioTradesResponse, GetPortfolioHoldingsResponse} from '@finbourne/lusidtypes/index';
+import {DateUtils} from './shared/date-utils';
 
 @Injectable()
 export class ApiService {
@@ -181,7 +182,6 @@ export class ApiService {
       return this.Http.get(this.GetLatestExcelVersion);
     }
     
-
     GetAllPortfolios(scope: string): Observable<ListPortfolioRootsResponse | ErrorResponse> {
         
         console.log('Entry: GetAllPortfolios...');
@@ -209,6 +209,15 @@ export class ApiService {
       return this.Http.get(url)
         .catch(this.handleError);
     }
+
+  doGetPortfolioHoldings(portfolioId: string, scope: string = 'finbourne', effectiveAt:string = DateUtils.GetTodaysDate()): Observable<GetPortfolioHoldingsResponse> {
+    const url = this.GetPortfolioAggregateHoldings.replace('{portfolioId}', `${portfolioId}`)
+      .replace('{scope}', scope) +
+      '?effectiveDate='+ effectiveAt;
+
+    console.log('url is ' + url);
+    return this.Http.get(url).catch(this.handleError);
+  }
 
   /*
     // POST

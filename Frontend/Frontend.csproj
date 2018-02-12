@@ -151,6 +151,7 @@
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
+    <TypeScriptCompile Include="src\app\BreadCrumbs.ts" />
     <TypeScriptCompile Include="src\app\ErrorCatcher.ts" />
     <TypeScriptCompile Include="src\app\investment.service.ts" />
     <TypeScriptCompile Include="src\app\layout\layout.component.spec.ts" />
@@ -181,6 +182,7 @@
     <TypeScriptCompile Include="src\app\portfolios\portfolios.component.ts" />
     <TypeScriptCompile Include="src\app\shared\okta.service.ts" />
     <TypeScriptCompile Include="src\app\shared\excel-utils.ts" />
+    <TypeScriptCompile Include="src\app\shared\date-utils.ts" />
     <TypeScriptCompile Include="src\app\shared\string-utils.ts" />
     <TypeScriptCompile Include="src\app\shared\reflection-utils.ts" />
     <TypeScriptCompile Include="src\app\UrlInterceptor.ts" />

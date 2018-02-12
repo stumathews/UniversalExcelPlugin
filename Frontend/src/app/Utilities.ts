@@ -8,6 +8,7 @@ import { FormGroup, FormControl, Validators } from '@angular/forms';
 import { CheckModel } from './Models/CheckModel';
 import { Link } from './Models/Link';
 import {ApiService} from './apiService';
+import {LusidEntityTypes} from './Models/EntityTypes';
 
 
 export abstract class SelectEntitiesComponent {
@@ -73,9 +74,7 @@ export abstract class SelectEntitiesComponent {
 }
 
 export abstract class DetailComponentBase implements OnInit  {
-    EntityTypes = EntityTypes;
     Entity: any;
-    MyType: EntityTypes;
     errorMessage: string;
     constructor(protected apiService: ApiService) { }
 

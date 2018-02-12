@@ -6,7 +6,7 @@
   
 
 <ul class="ms-List">
-    <li *ngFor="let portfolio of listPortfolioResponse.items" class="ms-ListItem is-selectable" tabindex="0">
+    <li *ngFor="let portfolio of listPortfolioResponse.items" class="ms-ListItem" tabindex="0">
       <span class="ms-ListItem-primaryText">{{ portfolio.name }}</span>
       <span class="ms-ListItem-secondaryText">Created:{{ portfolio.created }}</span>
       <span class="ms-ListItem-tertiaryText">{{ portfolio.version }}</span>

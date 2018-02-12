@@ -1,27 +1,12 @@
-import { Component, OnInit, Input, TemplateRef, ViewChild } from '@angular/core';
-import { Investment, RisksLink, FactorsLink, GroupsLink, RegionsLink } from '../../Models/investment';
+import { Component, OnInit, ViewChild } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { Location } from '@angular/common';
 import { BsModalService, ModalDirective  } from 'ngx-bootstrap/modal';
 import { BsModalRef } from 'ngx-bootstrap/modal/bs-modal-ref.service';
-import { TabsModule } from 'ngx-bootstrap';
 
-import { AssociateRisksComponent } from './associate-risks';
-import { InvestmentRisk } from '../../Models/InvestmentRisk';
-import { InvestmentNote } from '../../Models/InvestmentNote';
-import { NewInvestmentNoteComponent } from '../Note/new-note';
-import { InvestmentInfluenceFactor } from '../../Models/InvestmentInfluenceFactor';
-import { AssociateFactorsComponent } from './associate-factors';
-import { AssociateGroupsComponent } from './associate-groups';
-import { InvestmentGroup } from '../../Models/InvestmentGroup';
-import { AssociateRegionsComponent } from './associate-regions';
-import { Region } from '../../Models/Region';
-
-
-
-import { EntityTypes, DetailComponentBase } from '../../Utilities';
 import {ApiService} from '../../apiService';
 import { GetPortfolioDetailsResponse, InternalId, ErrorResponse} from '@finbourne/lusidtypes/index';
+import {DetailComponentBase} from '../../Utilities';
 
 @Component({
   selector: 'app-investment-detail',
@@ -29,9 +14,9 @@ import { GetPortfolioDetailsResponse, InternalId, ErrorResponse} from '@finbourn
   })
 
 export class InvestmentDetailComponent extends DetailComponentBase implements OnInit {
-  EntityTypes = EntityTypes;
+
   Entity: GetPortfolioDetailsResponse | ErrorResponse;
-  Notes: InvestmentNote[] = [];
+  
   errorMessage: string;
   modalRef: BsModalRef;
   internalId: InternalId = {id:''};
@@ -42,18 +27,13 @@ export class InvestmentDetailComponent extends DetailComponentBase implements On
     private modalService: BsModalService,
     private router: Router) {
     super(apiService);
-    this.MyType = EntityTypes.Investment;
    }
 
   ngOnInit(): void {
     
         this.internalId.id = this.route.snapshot.paramMap.get('id');
         console.log(`portfolio is is ${this.internalId.id}`);
-
-      
-    //const id = +this.route.snapshot.paramMap.get(this.portfolioId);
-    /*this.apiService.GetInvestment(id)
-        .subscribe(investment => this.Entity = investment, error => this.errorMessage = <any>error);  */
+    
     this.apiService.GetPortfolioDetails(this.internalId)
       .subscribe(response => {
         this.Entity = response;

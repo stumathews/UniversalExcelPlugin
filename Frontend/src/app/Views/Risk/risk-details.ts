@@ -14,7 +14,6 @@ export class RiskDetailsComponent extends DetailComponentBase implements OnInit 
   Entity: InvestmentRisk;
   constructor(protected apiService: ApiService, private route: ActivatedRoute, private location: Location) {
     super(apiService);
-    this.MyType = EntityTypes.InvestmentRisk;
    }
 
   errorMessage: string;

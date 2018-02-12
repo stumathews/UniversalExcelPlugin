@@ -15,7 +15,6 @@ export class GroupDetailsComponent extends DetailComponentBase implements OnInit
   Entity: InvestmentGroup;
   constructor(protected apiService: ApiService, private route: ActivatedRoute, private location: Location) { 
     super(apiService);
-    this.MyType = EntityTypes.InvestmentGroup;
   }
 
   errorMessage: string;

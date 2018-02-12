@@ -15,12 +15,15 @@ import { Router } from '@angular/router';
 export class AppComponent implements OnInit {
   title = 'Lusid';
   isCollapsed = true;
+  
   navRoutes: Object[] = [
     { path: '/portfolios', title: 'Portfolios' },
-    { path: '/home', title: 'Home' },
-    { path: '/layout', title: 'Layout Component' },
-    { path: '/selection-tests', title:'Selection Tests'}
+    { path: '/home', title: 'Home' }
   ];
+
+  rndRoutes: Object[] = [
+    { path: '/layout', title: 'Layout Component' },
+    { path: '/selection-tests', title: 'Selection Tests' }];
 
   ngOnInit(): void { }
 

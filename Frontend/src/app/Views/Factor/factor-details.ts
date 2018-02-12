@@ -15,7 +15,6 @@ export class FactorDetailsComponent extends DetailComponentBase implements OnIni
   Entity: InvestmentInfluenceFactor;
   constructor(protected apiService: ApiService, private route: ActivatedRoute, private location: Location) { 
     super(apiService);
-    this.MyType = EntityTypes.InvestmentInfluenceFactor;
   }
   errorMessage: string;
   ngOnInit(): void {

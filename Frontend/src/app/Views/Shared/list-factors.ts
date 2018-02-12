@@ -18,8 +18,6 @@ import {ExcelUtils} from '../../shared/excel-utils';
 })
 
 export class ListFactorsComponent implements OnInit, DoCheck {
-  private rows: string[][];
-  private columns: string[];
   private trades: Trade[] = [];
   private portfolioId: string;
 
@@ -32,14 +30,6 @@ export class ListFactorsComponent implements OnInit, DoCheck {
     this.apiService.doGetPortfolioTrades(this.portfolioId).subscribe(
       (result: GetPortfolioTradesResponse) => {
         console.log('got trades...');
-        // generate columns
-        console.log('generate columns...');
-        let col_result = ReflectionUtils.getEntityProperties<Trade>(result.items[0]);
-        
-        this.columns = col_result[0].map(item => { return StringUtils.Displayify(item); });
-        console.log('final columns are ' + JSON.stringify(this.columns));
-        console.log('generate rows...');
-        this.rows = ReflectionUtils.getEntitiesPropertyValues<Trade>(result.items, col_result);
         this.trades = result.items;
       },
       error => { });

@@ -8,59 +8,55 @@
         <span class="icon-bar"></span>
         <span class="icon-bar"></span>
       </button>
-      <a class="navbar-brand" href="#home">Compatibility Mode = {{isIeCompatibilityMode()}}</a>
+      <a class="navbar-brand" href="#home"><breadcrumbs></breadcrumbs></a>
     </div>
 
     <!-- Collect the nav links, forms, and other content for toggling -->
-    <div class="collapse navbar-collapse" [collapse]=isCollapsed>
+    <div class="collapse navbar-collapse" [collapse]="isCollapsed">
       <ul class="nav navbar-nav">
         <li *ngFor="let route of navRoutes">
-          <a class="ms-link" [routerLink]="[route.path]">{{route.title}}</a>
+          <a (click)="isCollapsed = !isCollapsed" class="ms-link" [routerLink]="[route.path]">{{route.title}}</a>
         </li>
 
-        <li role="presentation"><a [routerLink]="['Investments']">Investments</a></li>
-        <li role="presentation"><a [routerLink]="['Factors']">Factors</a></li>
-        <li role="presentation"><a [routerLink]="['Groups']">Groups</a></li>
-        <li role="presentation"><a [routerLink]="['Risks']">Risks</a></li>
-        <li role="presentation"><a [routerLink]="['Regions']">Regions</a></li>
+        <li (click)="isCollapsed = !isCollapsed" role="presentation"><a [routerLink]="['Investments']"><span class="glyphicon glyphicon-briefcase" aria-hidden="true"></span> Portfolios</a></li>
+        <!--<li (click)="isCollapsed = !isCollapsed" class="active" role="presentation"><a [routerLink]="['Investments']">Portfolios<span class="sr-only">(current)</span></a></li>-->
 
-        <!-- <li class="active"><a href="#layout">Portfolios <span class="sr-only">(current)</span></a></li>
-  <li><a href="#">Securities</a></li>
-  <li><a href="#">Trades</a></li> -->
-        <!--<li class="dropdown" dropdown>
-    <a href="#" dropdownToggle class="dropdown-toggle">Dropdown <span class="caret"></span></a>
-    <ul *dropdownMenu class="dropdown-menu" role="menu">
-      <li role="menuitem"><a class="dropdown-item" href="#">Action</a></li>
-      <li role="menuitem"><a class="dropdown-item" href="#">Another action</a></li>
-      <li role="menuitem"><a class="dropdown-item" href="#">Something else here</a></li>
-      <li class="divider dropdown-divider"></li>
-      <li role="menuitem"><a class="dropdown-item" href="#">Separated link</a></li>
-    </ul>
-  </li>-->
+
+        <li class="dropdown" dropdown>
+          <a href="#" dropdownToggle class="dropdown-toggle">R&D<span class="caret"></span></a>
+          <ul *dropdownMenu class="dropdown-menu" role="menu">
+            <li *ngFor="let route of rndRoutes" role="menuitem"><a (click)="isCollapsed = !isCollapsed" class="dropdown-item" [routerLink]="[route.path]">{{route.title}}</a></li>
+            <li class="divider dropdown-divider"></li>
+            <li role="menuitem"><a class="dropdown-item" href="#">Separated link</a></li>
+          </ul>
+        </li>
       </ul>
 
-      <!--<form class="navbar-form navbar-left">
+      <form class="navbar-form navbar-left">
         <div class="form-group">
           <input type="text" class="form-control" placeholder="Search">
         </div>
         <button type="submit" class="btn btn-default">Submit</button>
-      </form>-->
+      </form>
 
       <ul class="nav navbar-nav navbar-right">
-        <!--<li><a href="#">Link</a></li>
+        <li><a (click)="sync()">Syncronize</a></li>
         <li class="dropdown" dropdown>
-          <a href="#" dropdownToggle class="dropdown-toggle">Dropdown <span class="caret"></span></a>
-            <ul *dropdownMenu class="dropdown-menu" role="menu">
-              <li role="menuitem"><a class="dropdown-item" href="#">Action</a></li>
-              <li role="menuitem"><a class="dropdown-item" href="#">Another action</a></li>
-              <li role="menuitem"><a class="dropdown-item" href="#">Something else here</a></li>
-              <li class="divider dropdown-divider"></li>
-              <li role="menuitem"><a class="dropdown-item" href="#">Separated link</a></li>
-            </ul>
-        </li>-->
+          <a href="#" dropdownToggle class="dropdown-toggle">Future<span class="caret"></span></a>
+          <ul *dropdownMenu class="dropdown-menu" role="menu">
+            <li role="menuitem"><a class="dropdown-item" [routerLink]="['Factors']">Factors</a></li>
+            <li role="menuitem"><a class="dropdown-item" [routerLink]="['Groups']">Groups</a></li>
+            <li role="menuitem"><a class="dropdown-item" [routerLink]="['Risks']">Risks</a></li>
+            <li role="menuitem"><a class="dropdown-item" [routerLink]="['Regions']">Regions</a></li>
+            <li class="divider dropdown-divider"></li>
+            <li role="menuitem"><a class="dropdown-item" href="#">Separated link</a></li>
+          </ul>
+        </li>
       </ul>
     </div><!-- /.navbar-collapse -->
   </div><!-- /.container-fluid -->
 </nav>
+
+
 <!-- SPA pages outlet -->
 <router-outlet></router-outlet>

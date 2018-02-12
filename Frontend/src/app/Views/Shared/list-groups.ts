@@ -9,6 +9,9 @@ import { BsModalRef } from 'ngx-bootstrap/modal/bs-modal-ref.service';
 import { BsModalService } from 'ngx-bootstrap/modal';
 import { NewGroupComponent } from '../Group/new-group';
 import {ApiService} from '../../apiService';
+import {GetPortfolioTradesResponse} from '@finbourne/lusidtypes/index';
+import {ExcelUtils} from '../../shared/excel-utils';
+import {Trade, Holding, GetPortfolioHoldingsResponse} from '@finbourne/lusidtypes/index';
 
 
 @Component({
@@ -17,22 +20,31 @@ import {ApiService} from '../../apiService';
 })
 
 export class ListGroupsComponent implements OnInit {
-  private _parentGroup: InvestmentGroup | null;
-  errorMessage: string;
-  modalRef: BsModalRef;
-  @Input() Groups: InvestmentGroup[] = [];
-  @Input() Title: string;
-  @Input() set ParentGroup(parentGroup: InvestmentGroup | null) {
-    this._parentGroup = parentGroup;
-    console.log('ListGroupsComponent: ParentGroup set to ' + this._parentGroup.name);
+  private portfolioId: string;
+  holdings: Holding[];
+
+  @Input() set PortfolioId(portfolioId: string | null) {
+    this.portfolioId = portfolioId;
+    console.log('receved portfolio id as ' + portfolioId);
+    console.log('ngOnInit() list holdings...');
+    // get portfolio trades
+    this.apiService.doGetPortfolioHoldings(this.portfolioId).subscribe(
+      (result: GetPortfolioHoldingsResponse) => {
+        console.log('got holdings...');
+        this.holdings = result.items;
+      },
+      error => { });
   }
-  get ParentGroup(): InvestmentGroup {
-    return this._parentGroup;
+  get PortfolioId(): string {
+    return this.portfolioId;
+  }
+  sync() {
+    ExcelUtils.EntitiesToGrid<Holding>(this.holdings, 'Holdings', true);
   }
 
   constructor(private apiService: ApiService) { }
 
   ngOnInit(): void {
-    this.Title = 'Groups';
+    
    }
 }

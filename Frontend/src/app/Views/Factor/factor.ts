@@ -10,21 +10,12 @@ import {ApiService} from '../../apiService';
   templateUrl: './factor.html'
 })
 export class FactorComponent implements OnInit {
-  Factors: InvestmentInfluenceFactor[];
-  constructor(private apiService: ApiService) { }
+  portfolioId: string;
+  constructor(private readonly apiService: ApiService,
+              private readonly router: Router,
+              private readonly route: ActivatedRoute) { }
 
-  errorMessage: string;
   ngOnInit(): void {
-    /*this.apiService.GetFactors().subscribe(factors => this.Factors = factors,
-                   error => this.errorMessage = <any>error);*/
-  }
-  public delete(id: string) {
-    console.log('deleting id=' + id);
-    /*this.apiService.DeleteEntity(EntityTypes.InvestmentInfluenceFactor, +id)
-                    .finally(() => {
-                      this.ngOnInit();
-                    })
-                   .subscribe(entity => console.log('Received: ' + JSON.stringify(entity)),
-                              error => this.errorMessage = <any>error); */
+    this.portfolioId = this.route.snapshot.paramMap.get('id');
   }
 }

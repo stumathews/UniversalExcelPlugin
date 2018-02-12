@@ -58,17 +58,21 @@ import { TabsModule } from 'ngx-bootstrap/tabs';
 import { InlineEditorModule } from '@qontu/ngx-inline-editor';
 import { Angular2FontawesomeModule } from 'angular2-fontawesome/angular2-fontawesome';
 import {InvestmentService} from './investment.service';
-
+import { BreadcrumbsComponent } from './BreadCrumbs'
+import { ProgressbarModule } from 'ngx-bootstrap';
 
 
 const appRoutes: Routes = [
 
-  { path: 'Investments', component: InvestmentComponent },
+  {
+    path: 'Investments', data: { breadcrumb: 'All Portfolios' }, component: InvestmentComponent,
+    children: []
+  },
+  { path: 'InvestmentDetails/:id', data: { breadcrumb: 'Portfolios Details' }, component: InvestmentDetailComponent },
   
-  { path: 'InvestmentDetails/:id', component: InvestmentDetailComponent },
-  { path: 'Factors', component: FactorComponent },
+  { path: 'Factors/:id', data: { breadcrumb: 'Portfolios Trades' }, component: FactorComponent },
   { path: 'FactorDetails/:id', component: FactorDetailsComponent },
-  { path: 'Groups', component: GroupComponent },
+  { path: 'Groups/:id', data: { breadcrumb: 'Portfolios Holdings' }, component: GroupComponent },
   { path: 'GroupDetails/:id', component: GroupDetailsComponent },
   { path: 'Risks', component: RiskComponent },
   { path: 'RiskDetails/:id', component: RiskDetailsComponent },
@@ -80,9 +84,10 @@ const appRoutes: Routes = [
   { path: 'NewRegion', component: NewRegionComponent },
   { path: 'NewRisk', component: NewRiskComponent },
   {
-    path: 'NewInvestmentWizard', component: NewInvestmentWizardComponent, children: [
-      { path: 'NewInvestment', component: NewInvestmentComponent, outlet: 'NewInvestmentWizardOutlet' },
-      { path: 'SelectFactors', component: SelectFactorsComponent, outlet: 'NewInvestmentWizardOutlet' },
+    path: 'NewInvestmentWizard', component: NewInvestmentWizardComponent, data: { breadcrumb: 'NewInvestmentWizard' },
+    children: [
+      { path: 'NewInvestment', data: { breadcrumb: '1' },component: NewInvestmentComponent, outlet: 'NewInvestmentWizardOutlet' },
+      { path: 'SelectFactors', data: { breadcrumb: '2' },component: SelectFactorsComponent, outlet: 'NewInvestmentWizardOutlet' },
       { path: 'SelectRisks', component: SelectRisksComponent, outlet: 'NewInvestmentWizardOutlet' },
       { path: 'SelectGroups', component: SelectGroupsComponent, outlet: 'NewInvestmentWizardOutlet' },
       { path: 'SelectRegions', component: SelectRegionsComponent, outlet: 'NewInvestmentWizardOutlet' },
@@ -94,10 +99,10 @@ const appRoutes: Routes = [
   { path: 'AssociateGroups/:id', component: AssociateGroupsComponent },
   { path: 'AssociateRegions/:id', component: AssociateRegionsComponent },
   { path: 'NewNote/:owningEntityType/:owningEntityId', component: NewInvestmentNoteComponent },
-  { path: 'layout', component: LayoutComponent },
-  { path: 'selection-tests', component: SelectionTestComponent },
-  { path: 'home', component: HomeComponent },
-  { path: 'portfolios', component: PortfoliosComponent, canActivate: [AuthGuard] },
+  { path: 'layout', data: { breadcrumb: 'layout' }, component: LayoutComponent },
+  { path: 'selection-tests', data: { breadcrumb: 'selection' },component: SelectionTestComponent },
+  { path: 'home', data: { breadcrumb: 'Home' }, component: HomeComponent },
+  { path: 'portfolios', data: { breadcrumb: 'portfolios' }, component: PortfoliosComponent, canActivate: [AuthGuard] },
   { path: '', redirectTo: '/home', pathMatch: 'full' },
   { path: '**', redirectTo: 'home' }
 ];
@@ -113,19 +118,19 @@ const appRoutes: Routes = [
     NewInvestmentWizardComponent, SelectRisksComponent, SelectGroupsComponent, SelectRegionsComponent,
     SummaryOfNewInvestmentComponent, AssociateFactorsComponent, AssociateRisksComponent,
     AssociateGroupsComponent, AssociateRegionsComponent, ListGroupsComponent,
-    ListNotesComponent, NewInvestmentNoteComponent],
+    ListNotesComponent, NewInvestmentNoteComponent, BreadcrumbsComponent],
   imports: [BsDatepickerModule.forRoot(),
     BrowserModule, HttpClientModule, RouterModule.forRoot(
       appRoutes,
       {
-        enableTracing: true, // <-- debugging purposes only
+        // enableTracing: true, // <-- debugging purposes only
         useHash: true, // Required for excel add-in interaction
         initialNavigation: false // <- turn off the initial redirect, used for redirect or hash routing strategy
       }
     ),
     OAuthModule.forRoot(), FormsModule, ReactiveFormsModule, CollapseModule.forRoot(), BsDropdownModule.forRoot(),
     TabsModule.forRoot(),
-    AlertModule.forRoot(), ModalModule.forRoot(), InlineEditorModule, Angular2FontawesomeModule
+    AlertModule.forRoot(), ModalModule.forRoot(), InlineEditorModule, Angular2FontawesomeModule, ProgressbarModule.forRoot()
   ],
   providers: [{ provide: ErrorHandler,  useClass: CustomErrorHandler }
 , ApiService, InvestmentService, AuthGuard, { provide: HTTP_INTERCEPTORS, useClass: MyFirstInterceptor, multi: true }],

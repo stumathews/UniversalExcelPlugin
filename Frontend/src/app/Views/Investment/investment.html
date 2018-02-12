@@ -1,29 +1,26 @@
-<h1>Portfolios</h1>
-<p>Portfolios represent your holdings, trades and securities</p>
-<p>
-  <a [routerLink]="['/NewInvestmentWizard']" class="btn">Create Investment</a>
-  <a (click)="sync()" class="btn btn-primary">Syncronize</a>
-</p>
-<table *ngIf="listPortfolioResponse" class="table table-hover">
-  <thead>
-    <tr>
-      <th>Name</th>
-      <th>Created</th>
-      <th>Id</th>
-      <th>referencePortfolioId</th>
-      <th>referenceScope</th>
-      <th></th> <!--Delete -->
-    </tr>
-  </thead>
-  <tr *ngFor="let portfolio of listPortfolioResponse?.items">
-    <td>
-      <strong><a *ngIf="portfolio" [routerLink]="['/InvestmentDetails', portfolio.id]">{{ portfolio.name }}</a></strong>
-    </td>
-    <td>{{portfolio.created}}</td>
-    <td>{{portfolio.id}}</td>
-    <td>{{portfolio.referencePortfolioId}}</td>
-    <td>{{portfolio.referenceScope}}</td>
-    <td><a (click)="delete(portfolio.id)" href="javascript:void(0)">Delete portfolio</a></td>
-  </tr>
-</table>
-<p>Total: {{listPortfolioResponse?.items.length}}</p>
+<div class="panel panel-default">
+  <progressbar class="progress-striped active" *ngIf="!isPageComplete" [value]="100"><i>Loading...</i></progressbar>
+  <div class="panel-body" *ngIf="isPageComplete">
+    <div class="list-group">
+      <a *ngFor="let portfolio of listPortfolioResponse?.items" class="list-group-item" [routerLink]="['/InvestmentDetails', portfolio.id]">
+        <h4 class="list-group-item-heading">{{ portfolio.name }}</h4>
+        <p class="list-group-item-text">{{ portfolio.created }}</p>
+      </a>
+    </div>
+    <div class="btn-group" dropdown>
+      <button dropdownToggle type="button" class="btn btn-primary dropdown-toggle">
+        Actions <span class="caret"></span>
+      </button>
+      <ul *dropdownMenu class="dropdown-menu" role="menu">
+        <li role="menuitem"><a [routerLink]="['/NewInvestmentWizard']" class="dropdown-item">Create Investment</a></li>
+        <li class="divider dropdown-divider"></li>
+        <li role="menuitem">
+          <a (click)="sync()" class="dropdown-item">Syncronize</a>
+        </li>
+      </ul>
+    </div>
+
+  </div>
+</div>
+
+

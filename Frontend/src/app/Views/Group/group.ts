@@ -1,7 +1,5 @@
 import { Component, OnInit, Input } from '@angular/core';
 
-import { InvestmentGroup } from '../../Models/InvestmentGroup';
-import { EntityTypes  } from '../../Utilities';
 import { ActivatedRoute , Router} from '@angular/router';
 import {ApiService} from '../../apiService';
 
@@ -10,24 +8,12 @@ import {ApiService} from '../../apiService';
   templateUrl: './group.html'
 })
 export class GroupComponent implements OnInit {
-  @Input() Groups: InvestmentGroup[];
-  constructor(private apiService: ApiService,
-    private route: ActivatedRoute,
-    private router: Router) { }
+  portfolioId: string;
+  constructor(private readonly apiService: ApiService,
+    private readonly router: Router,
+    private readonly route: ActivatedRoute) { }
 
-  errorMessage: string;
   ngOnInit(): void {
-    /*this.apiService.GetGroups()
-        .subscribe(groups => this.Groups = groups,
-                   error => this.errorMessage = <any>error); */
-  }
-  public delete(id: string) {
-    console.log('deleting id=' + id);
-    /*this.apiService.DeleteEntity(EntityTypes.InvestmentGroup, +id)
-                   .finally(() => {
-                     this.ngOnInit();
-                   })
-                   .subscribe(entity => console.log(JSON.stringify(entity)),
-                    error => this.errorMessage = <any>error); */
+    this.portfolioId = this.route.snapshot.paramMap.get('id');
   }
 }
