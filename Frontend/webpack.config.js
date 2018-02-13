@@ -425,7 +425,7 @@ module.exports = {
         "context": "src",
         "to": "",
         "from": {
-          "glob": "C:\\Users\\stuar\\Documents\\UniversalExcelPlugin\\Frontend\\src\\assets\\**\\*",
+          "glob": "assets\\**\\*",
           "dot": true
         }
       },
@@ -433,7 +433,7 @@ module.exports = {
         "context": "src",
         "to": "",
         "from": {
-          "glob": "C:\\Users\\stuar\\Documents\\UniversalExcelPlugin\\Frontend\\src\\favicon.ico",
+          "glob": "assets\\**\\*",
           "dot": true
         }
       }
