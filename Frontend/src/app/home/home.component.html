@@ -1,52 +1,74 @@
 <body class="ms-Fabric">
   <div class="panel panel-default">
     <div class="panel-body">
-      <div *ngIf="LoggedIn">
-        <h2>Logged In.</h2>
-        <!--<button (click)="logout()">Logout</button> -->
+      <div class="row">
+        <img src="{{fullImagePath}}" class="img-responsive img-rounded" style="height: 100px;" alt="Responsive image">
+        <!--<div class="col-xs-6 col-md-3">
+          <a class="thumbnail">
+            <img src="{{fullImagePath}}" alt="finbourne logo">
+          </a>
+        </div>-->
       </div>
+      <div class="row">
+        <div *ngIf="!LoggedIn">
+          <form [formGroup]="form" (ngSubmit)="onSubmit(form.value)">
+            <div class="form-horizontal">
+              <hr />
+              <div class="form-group">
+                <label class="control-label col-md-2">User name</label>
+                <div class="col-md-10">
+                  <input type="text" name="username" class="form-control" formControlName="username" />
+                </div>
+              </div>
+              <div *ngIf="form.controls.username.errors?.pattern">
+                nope
+                <!--<alert type="warning">
+                  <strong>Warning!</strong> Better check yourself, you're not looking too good.
+                </alert>-->
+              </div>
+              <div class="form-group">
+                <label class="control-label col-md-2">Password</label>
+                <div class="col-md-10">
+                  <input type="password" name="password" class="form-control" formControlName="password" />
+                </div>
+              </div>
+              <div *ngIf="form.controls.password.errors?.pattern">
+                <!--<alert type="warning">
+                  <strong>Warning!</strong> Better check yourself, you're not looking too good.
+                </alert>-->
+                nope
+              </div>
 
-      <div *ngIf="!LoggedIn">
-
-        <!-- <button (click)="login()">Login</button> -->
-        <form [formGroup]="form" (ngSubmit)="onSubmit(form.value)">
-          <div class="form-horizontal">
-            <hr/>
-            <div class="form-group">
-              <label class="control-label col-md-2">User name</label>
-              <div class="col-md-10">
-                <input type="text" name="username" class="form-control" formControlName="username"/>
+              <div class="form-group">
+                <div class="col-md-offset-2 col-md-10">
+                  <input type="submit" value="Login" class="btn btn-default" [disabled]="!form.valid" />
+                </div>
               </div>
             </div>
-            <div *ngIf="form.controls.username.errors?.pattern">
-              nope
-              <!--<alert type="warning">
-                <strong>Warning!</strong> Better check yourself, you're not looking too good.
-              </alert>-->
-            </div>
-            <div class="form-group">
-              <label class="control-label col-md-2">Password</label>
-              <div class="col-md-10">
-                <input type="password" name="password" class="form-control" formControlName="password"/>
-              </div>
-            </div>
-            <div *ngIf="form.controls.password.errors?.pattern">
-              <!--<alert type="warning">
-                <strong>Warning!</strong> Better check yourself, you're not looking too good.
-              </alert>-->
-              nope
+          </form>
+        </div>
+      </div>
+      <div class="row">
+        <div *ngIf="LoggedIn">
+          <h3 class="text-center">Directions <small>What you wannu do first?</small></h3>
+          <div class="panel panel-default">
+            <!-- Default panel contents -->
+            <div class="panel-heading">Directions</div>
+            <div class="panel-body">
+              <p>Here you have access your data, you can view your portfolios, see the trades and current holdings</p>
+              <p>You can pull your data into your spreadsheet and synchonise changes back.</p>
             </div>
 
-            <div class="form-group">
-              <div class="col-md-offset-2 col-md-10">
-                <input type="submit" value="Login" class="btn btn-default" [disabled]="!form.valid"/>
-              </div>
-            </div>
+            <!-- List group -->
+            <ul class="list-group">
+              <li class="list-group-item">View your portfolios</li>
+              <li class="list-group-item">View Lusid API documentation</li>
+            </ul>
           </div>
-        </form>
+        </div>
+      </div>
       </div>
     </div>
-  </div>
 </body>
 
 

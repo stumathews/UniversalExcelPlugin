@@ -2,9 +2,9 @@
   <progressbar class="progress-striped active" *ngIf="!isPageComplete" [value]="100"><i>Loading...</i></progressbar>
   <div class="panel-body" *ngIf="isPageComplete">
     <div class="list-group">
-      <a *ngFor="let portfolio of listPortfolioResponse?.items" class="list-group-item" [routerLink]="['/InvestmentDetails', portfolio.id]">
+      <a *ngFor="let portfolio of listPortfolioResponse?.items" class="list-group-item" [routerLink]="['InvestmentDetails', portfolio.id]">
         <h4 class="list-group-item-heading">{{ portfolio.name }}</h4>
-        <p class="list-group-item-text">{{ portfolio.created }}</p>
+        <p class="list-group-item-text">{{ portfolio.created }} / {{portfolio.id}}</p>
       </a>
     </div>
     <div class="btn-group" dropdown>

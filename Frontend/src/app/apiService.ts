@@ -14,7 +14,7 @@ import 'rxjs/add/operator/catch';
 
 import { HttpClient } from '@angular/common/http';
 import {InternalId} from '@finbourne/lusidtypes/index';
-import {GetPortfolioDetailsResponse, GetPortfolioTradesResponse, GetPortfolioHoldingsResponse} from '@finbourne/lusidtypes/index';
+import {GetPortfolioDetailsResponse, GetPortfolioTradesResponse, GetPortfolioHoldingsResponse, Trade, UpsertPortfolioTradesResponse, ErrorMessage} from '@finbourne/lusidtypes/index';
 import {DateUtils} from './shared/date-utils';
 
 @Injectable()
@@ -197,6 +197,16 @@ export class ApiService {
 
       console.log('url is ' + url);
       return this.Http.get(url).catch(this.handleError);
+    }
+
+    AddTradeToPortfolio(id: string, trades: Trade[], scope: string = 'finbourne', effectiveAt: string = DateUtils.GetTodaysDate()): Observable<UpsertPortfolioTradesResponse | ErrorMessage> {
+
+      console.log(`Entry: AddTradeToPortfolio for id ${id}`);
+      const url = this.AddPortfolioTrades.replace('{portfolioId}', `${id}`)
+        .replace('{scope}', scope);
+
+      return this.Http.post(url, trades)
+        .catch(this.handleError);
     }
 
     GetPortfolioDetails(id: InternalId): Observable<GetPortfolioDetailsResponse | ErrorResponse> {

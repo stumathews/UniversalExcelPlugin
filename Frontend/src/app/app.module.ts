@@ -64,16 +64,9 @@ import { ProgressbarModule } from 'ngx-bootstrap';
 
 const appRoutes: Routes = [
 
-  {
-    path: 'Investments', data: { breadcrumb: 'All Portfolios' }, component: InvestmentComponent,
-    children: []
-  },
-  { path: 'InvestmentDetails/:id', data: { breadcrumb: 'Portfolios Details' }, component: InvestmentDetailComponent },
   
-  { path: 'Factors/:id', data: { breadcrumb: 'Portfolios Trades' }, component: FactorComponent },
-  { path: 'FactorDetails/:id', component: FactorDetailsComponent },
-  { path: 'Groups/:id', data: { breadcrumb: 'Portfolios Holdings' }, component: GroupComponent },
-  { path: 'GroupDetails/:id', component: GroupDetailsComponent },
+  
+  
   { path: 'Risks', component: RiskComponent },
   { path: 'RiskDetails/:id', component: RiskDetailsComponent },
   { path: 'Regions', component: RegionComponent },
@@ -101,8 +94,16 @@ const appRoutes: Routes = [
   { path: 'NewNote/:owningEntityType/:owningEntityId', component: NewInvestmentNoteComponent },
   { path: 'layout', data: { breadcrumb: 'layout' }, component: LayoutComponent },
   { path: 'selection-tests', data: { breadcrumb: 'selection' },component: SelectionTestComponent },
-  { path: 'home', data: { breadcrumb: 'Home' }, component: HomeComponent },
-  { path: 'portfolios', data: { breadcrumb: 'portfolios' }, component: PortfoliosComponent, canActivate: [AuthGuard] },
+  { path: 'home', data: { breadcrumb: 'Home' }, component: HomeComponent, children: [] },
+  { path: 'portfolios', data: { breadcrumb: 'portfolios' }, component: PortfoliosComponent, canActivate: [AuthGuard], children: [
+      { path: '', data: { breadcrumb: 'All Portfolios' }, component: InvestmentComponent },
+      { path: 'Investments', data: { breadcrumb: 'All Portfolios' }, component: InvestmentComponent },
+      { path: 'InvestmentDetails/:id', data: { breadcrumb: 'Portfolios Details' }, component: InvestmentDetailComponent } ]
+  },
+  { path: 'Factors/:id', data: { breadcrumb: 'Portfolios Trades' }, component: FactorComponent },
+  { path: 'FactorDetails/:id', component: FactorDetailsComponent },
+  { path: 'Groups/:id', data: { breadcrumb: 'Portfolios Holdings' }, component: GroupComponent },
+  { path: 'GroupDetails/:id', component: GroupDetailsComponent },
   { path: '', redirectTo: '/home', pathMatch: 'full' },
   { path: '**', redirectTo: 'home' }
 ];

@@ -9,6 +9,9 @@
         <span class="icon-bar"></span>
       </button>
       <a class="navbar-brand" href="#home"><breadcrumbs></breadcrumbs></a>
+
+      <p *ngIf="oauthService.hasValidIdToken()" class="navbar-text">Signed in.</p>
+      <p *ngIf="!oauthService.hasValidIdToken()" class="navbar-text">You need to sign in</p>
     </div>
 
     <!-- Collect the nav links, forms, and other content for toggling -->
@@ -18,7 +21,7 @@
           <a (click)="isCollapsed = !isCollapsed" class="ms-link" [routerLink]="[route.path]">{{route.title}}</a>
         </li>
 
-        <li (click)="isCollapsed = !isCollapsed" role="presentation"><a [routerLink]="['Investments']"><span class="glyphicon glyphicon-briefcase" aria-hidden="true"></span> Portfolios</a></li>
+        <!--<li (click)="isCollapsed = !isCollapsed" role="presentation"><a [routerLink]="['Investments']"><span class="glyphicon glyphicon-briefcase" aria-hidden="true"></span> Portfolios</a></li>-->
         <!--<li (click)="isCollapsed = !isCollapsed" class="active" role="presentation"><a [routerLink]="['Investments']">Portfolios<span class="sr-only">(current)</span></a></li>-->
 
 

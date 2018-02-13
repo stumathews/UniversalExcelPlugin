@@ -12,6 +12,7 @@ import { JwksValidationHandler } from 'angular-oauth2-oidc';
 })
 export class HomeComponent implements OnInit
 {
+  fullImagePath = 'assets/logo.jpg';
   form;
   minDate = new Date(2017, 5, 10);
   maxDate = new Date(2018, 9, 15);

@@ -1,5 +1,16 @@
 export class ReflectionUtils {
 
+  static toObject<T>(arr: any, properties: string[]): T {
+      var rv = {};
+      for (var i = 0; i < arr.length; ++i)
+        if (arr[i] !== undefined) rv[properties[i]] = arr[i];
+      return <T>rv;
+  }
+
+  static getPropertyType<T, K extends keyof T>(obj: T, key: K) {
+    return obj[key];
+  }
+
   static getEntityProperties<T>(entity: T, exclComplexTypes?: boolean): string[][] {
     console.log('Entry: getEntityProperties.');
     console.log('scanning entity properties: ' + JSON.stringify(entity));
@@ -8,7 +19,7 @@ export class ReflectionUtils {
     const r: string[] = [];
     for (let key in dummy) {
       if (dummy.hasOwnProperty(key) && typeof dummy[key] !== 'function') {
-        if (exclComplexTypes && (typeof dummy[key] === 'object' || Array.isArray(dummy[key]))) {
+        if (exclComplexTypes && (ReflectionUtils.isComplexType(dummy[key]))) {
           continue;
         }
         console.log('found: ' + key);
@@ -19,6 +30,11 @@ export class ReflectionUtils {
     console.log('returning: ' + JSON.stringify(columns));
     return columns;
   }
+
+  static isComplexType(property): boolean {
+    return (typeof property === 'object' || Array.isArray(property || Object.prototype.toString.call(property) === '[object Date]'))
+  }
+
 
   /**
    * Returns [ 
@@ -35,7 +51,11 @@ export class ReflectionUtils {
       const row: string[] = [];
       columns.forEach((column: string[]) => {
         column.forEach((c: string) => {
-          row.push(entity[c]);
+          if (ReflectionUtils.isComplexType(entity[c])) {
+            row.push(JSON.stringify(entity[c]));
+          } else {
+            row.push(entity[c]);
+          }
         });
       });
       rows.push(row);
