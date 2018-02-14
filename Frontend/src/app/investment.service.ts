@@ -6,7 +6,7 @@ import { InvestmentInfluenceFactor } from './Models/InvestmentInfluenceFactor';
 import { InvestmentRisk } from './Models/InvestmentRisk';
 import { InvestmentGroup } from './Models/InvestmentGroup';
 import { Region } from './Models/Region';
-import { InvestmentComponent } from './Views/Investment/investment';
+import { PortfolioComponent } from './Views/Investment/portfolio';
 import { CheckModel } from './Models/CheckModel';
 
 

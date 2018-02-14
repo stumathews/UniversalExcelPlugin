@@ -1,0 +1,41 @@
+<div class="container-fluid">
+  <div class="row">
+    <div class="col-xs-12">
+      <div *ngIf="Entity">
+        <div class="panel panel-default">
+        <div class="panel-heading">
+          <h3 class="panel-title">Name: {{Entity.root.name}}</h3>
+        </div>
+        <div class="panel-body">
+      
+          <ul class="list-group">
+            <li class="list-group-item">
+              Portfolio Id: {{Entity.root.id}}
+            </li>
+            <li class="list-group-item">
+              Created Date: {{Entity.root.created}}
+            </li>
+            <li class="list-group-item">
+              Base Currency: {{Entity.baseCurrency}}
+            </li>
+            <li class="list-group-item">
+              Source Portfolio Id: {{Entity.sourcePortfolioId}}
+            </li>
+            <li class="list-group-item">
+              Source Portfolio Scope: {{Entity.sourceScope}}
+            </li>
+            <li class="list-group-item">
+              <a [routerLink]="['/Trades', Entity.root.id]">View Portfolio Trades</a>
+            </li>
+            <li class="list-group-item">
+              <a [routerLink]="['/Holdings', Entity.root.id]">View Portfolio Holdings</a>
+            </li>
+          </ul>
+        </div>
+      </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!--<pre>{{ Entity | json }}</pre>--> 

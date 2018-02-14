@@ -18,11 +18,11 @@ import { LayoutComponent } from './layout/layout.component';
 import { SelectionTestComponent } from './selection-test/selection-test.component';
 import { CollapseModule, BsDropdownModule } from 'ngx-bootstrap';
 import { CustomErrorHandler } from './ErrorCatcher';
-import {InvestmentComponent} from './Views/Investment/investment';
-import {InvestmentDetailComponent} from './Views/Investment/investment.detail';
-import {FactorComponent} from './Views/Factor/factor';
+import {PortfolioComponent} from './Views/Investment/portfolio';
+import {PortfolioDetailComponent} from './Views/Investment/portfolio.detail';
+import {TradeComponent} from './Views/Factor/trade';
 import {FactorDetailsComponent} from './Views/Factor/factor-details';
-import {GroupComponent} from './Views/Group/group';
+import {HoldingComponent} from './Views/Group/holding';
 import {GroupDetailsComponent} from './Views/Group/group-details';
 import {RiskComponent} from './Views/Risk/risk';
 import {RiskDetailsComponent} from './Views/Risk/risk-details';
@@ -46,12 +46,12 @@ import {AssociateRegionsComponent} from './Views/Investment/associate-regions';
 import {NewInvestmentNoteComponent} from './Views/Note/new-note';
 import {SideNavComponent} from './Views/Shared/side-nav';
 import {ListRiskComponent} from './Views/Shared/list-risks';
-import {ListFactorsComponent} from './Views/Shared/list-factors';
+import {ListTradesComponent as ListFactorsComponent} from './Views/Shared/list-trades';
 import {ListGroupsViaGroupLinksComponent} from './Views/Shared/list-groups-via-grouplinks';
 import {ListRegionsComponent} from './Views/Shared/list-regions';
 import {ListInvestmentsComponent} from './Views/Shared/list-investments';
 import {SelectItemsComponent} from './Views/Investment/select-items';
-import {ListGroupsComponent} from './Views/Shared/list-groups';
+import {ListHoldingsComponent as ListGroupsComponent} from './Views/Shared/list-holdings';
 import {ListNotesComponent} from './Views/Shared/list-notes';
 import { BsModalService } from 'ngx-bootstrap/modal';
 import { TabsModule } from 'ngx-bootstrap/tabs';
@@ -96,13 +96,13 @@ const appRoutes: Routes = [
   { path: 'selection-tests', data: { breadcrumb: 'selection' },component: SelectionTestComponent },
   { path: 'home', data: { breadcrumb: 'Home' }, component: HomeComponent, children: [] },
   { path: 'portfolios', data: { breadcrumb: 'portfolios' }, component: PortfoliosComponent, canActivate: [AuthGuard], children: [
-      { path: '', data: { breadcrumb: 'All Portfolios' }, component: InvestmentComponent },
-      { path: 'Investments', data: { breadcrumb: 'All Portfolios' }, component: InvestmentComponent },
-      { path: 'InvestmentDetails/:id', data: { breadcrumb: 'Portfolios Details' }, component: InvestmentDetailComponent } ]
+      { path: '', data: { breadcrumb: 'All Portfolios' }, component: PortfolioComponent },
+      { path: 'Portfolios', data: { breadcrumb: 'All Portfolios' }, component: PortfolioComponent },
+      { path: 'PortfolioDetails/:id', data: { breadcrumb: 'Portfolios Details' }, component: PortfolioDetailComponent } ]
   },
-  { path: 'Factors/:id', data: { breadcrumb: 'Portfolios Trades' }, component: FactorComponent },
-  { path: 'FactorDetails/:id', component: FactorDetailsComponent },
-  { path: 'Groups/:id', data: { breadcrumb: 'Portfolios Holdings' }, component: GroupComponent },
+  { path: 'Trades/:id', data: { breadcrumb: 'Portfolios Trades' }, component: TradeComponent },
+  { path: 'TradeDetails/:id', component: FactorDetailsComponent },
+  { path: 'Holdings/:id', data: { breadcrumb: 'Portfolios Holdings' }, component: HoldingComponent },
   { path: 'GroupDetails/:id', component: GroupDetailsComponent },
   { path: '', redirectTo: '/home', pathMatch: 'full' },
   { path: '**', redirectTo: 'home' }
@@ -110,8 +110,8 @@ const appRoutes: Routes = [
 
 @NgModule({
   declarations: [AppComponent, HomeComponent, PortfoliosComponent, LayoutComponent, SelectionTestComponent,
-    SideNavComponent, InvestmentComponent,
-    FactorComponent, GroupComponent, RiskComponent, RegionComponent, InvestmentDetailComponent,
+    SideNavComponent, PortfolioComponent,
+    TradeComponent, HoldingComponent, RiskComponent, RegionComponent, PortfolioDetailComponent,
     ListRiskComponent, ListFactorsComponent, ListGroupsViaGroupLinksComponent, ListRegionsComponent,
     FactorDetailsComponent, GroupDetailsComponent, RegionDetailsComponent, ListInvestmentsComponent,
     RiskDetailsComponent, NewInvestmentComponent, NewFactorComponent, NewGroupComponent,

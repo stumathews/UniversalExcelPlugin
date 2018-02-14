@@ -8,7 +8,7 @@ import { GetRequiredTextValidators, GetRequiredNumberValidators, EntityTypes, Se
 import { CheckModel } from '../../Models/CheckModel';
 import { SelectItemsComponent } from './select-items';
 import { InvestmentRisk } from '../../Models/InvestmentRisk';
-import { InvestmentComponent } from './investment';
+
 import { OnChanges, SimpleChanges } from '@angular/core/src/metadata/lifecycle_hooks';
 import {ApiService} from '../../apiService';
 

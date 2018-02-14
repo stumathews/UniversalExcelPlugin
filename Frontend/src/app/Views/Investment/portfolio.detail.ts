@@ -9,11 +9,11 @@ import { GetPortfolioDetailsResponse, InternalId, ErrorResponse} from '@finbourn
 import {DetailComponentBase} from '../../Utilities';
 
 @Component({
-  selector: 'app-investment-detail',
-  templateUrl: './investment.detail.html',
+  selector: 'app-portfolio-detail',
+  templateUrl: './portfolio.detail.html',
   })
 
-export class InvestmentDetailComponent extends DetailComponentBase implements OnInit {
+export class PortfolioDetailComponent extends DetailComponentBase implements OnInit {
 
   Entity: GetPortfolioDetailsResponse | ErrorResponse;
   

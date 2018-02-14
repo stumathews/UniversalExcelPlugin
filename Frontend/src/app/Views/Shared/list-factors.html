@@ -1,9 +1,0 @@
-<div>
-  <div class="list-group">
-    <a *ngFor="let trade of trades" href="#" class="list-group-item">
-      {{trade.units}} units @ {{trade.currency}} {{trade.price}} traded on {{trade.tradeDate}} ({{trade.type}})
-    </a>
-  </div>
-  <p><strong>Total: {{ rows.length }}</strong></p>
-  <p><a (click)="sync()" class="btn btn-primary">Syncronize</a></p>
-</div>

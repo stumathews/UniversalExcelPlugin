@@ -1,24 +1,20 @@
-<body class="ms-Fabric">
-  <div class="panel panel-default">
-    <div class="panel-body">
+<body >
+  <div class="container-fluid">
       <div class="row">
-        <img src="{{fullImagePath}}" class="img-responsive img-rounded" style="height: 100px;" alt="Responsive image">
-        <!--<div class="col-xs-6 col-md-3">
-          <a class="thumbnail">
-            <img src="{{fullImagePath}}" alt="finbourne logo">
-          </a>
-        </div>-->
+        <div class="col-xs-12 col-md-8">
+          <img src="{{fullImagePath}}" class="img-responsive img-rounded" style="height: 100px;" alt="Responsive image">
+        </div>
       </div>
       <div class="row">
-        <div *ngIf="!LoggedIn">
-          <form [formGroup]="form" (ngSubmit)="onSubmit(form.value)">
-            <div class="form-horizontal">
-              <hr />
+        <div class="col-xs-12 col-md-8">
+          <div *ngIf="!LoggedIn">
+            <form [formGroup]="form" (ngSubmit)="onSubmit(form.value)">
+
               <div class="form-group">
-                <label class="control-label col-md-2">User name</label>
-                <div class="col-md-10">
-                  <input type="text" name="username" class="form-control" formControlName="username" />
-                </div>
+                <label>User name</label>
+
+                <input type="text" name="username" class="form-control" formControlName="username" />
+
               </div>
               <div *ngIf="form.controls.username.errors?.pattern">
                 nope
@@ -27,10 +23,8 @@
                 </alert>-->
               </div>
               <div class="form-group">
-                <label class="control-label col-md-2">Password</label>
-                <div class="col-md-10">
-                  <input type="password" name="password" class="form-control" formControlName="password" />
-                </div>
+                <label>Password</label>
+                <input type="password" name="password" class="form-control" formControlName="password" />
               </div>
               <div *ngIf="form.controls.password.errors?.pattern">
                 <!--<alert type="warning">
@@ -40,35 +34,28 @@
               </div>
 
               <div class="form-group">
-                <div class="col-md-offset-2 col-md-10">
-                  <input type="submit" value="Login" class="btn btn-default" [disabled]="!form.valid" />
-                </div>
-              </div>
-            </div>
-          </form>
-        </div>
-      </div>
-      <div class="row">
-        <div *ngIf="LoggedIn">
-          <h3 class="text-center">Directions <small>What you wannu do first?</small></h3>
-          <div class="panel panel-default">
-            <!-- Default panel contents -->
-            <div class="panel-heading">Directions</div>
-            <div class="panel-body">
-              <p>Here you have access your data, you can view your portfolios, see the trades and current holdings</p>
-              <p>You can pull your data into your spreadsheet and synchonise changes back.</p>
-            </div>
 
-            <!-- List group -->
-            <ul class="list-group">
-              <li class="list-group-item">View your portfolios</li>
-              <li class="list-group-item">View Lusid API documentation</li>
-            </ul>
+                <input type="submit" value="Login" class="btn btn-default" [disabled]="!form.valid" />
+
+              </div>
+
+            </form>
           </div>
         </div>
       </div>
-      </div>
-    </div>
+      <div class="row">
+        <div class="col-xs-12 col-md-8">
+          <div *ngIf="LoggedIn">
+            <div class="list-group">
+              <button type="button" (click)="gotoPortfolios()" class="list-group-item">View your portfolios</button>
+              <button type="button" class="list-group-item">Goto product documentation</button>
+              <button type="button" class="list-group-item">Goto tests page</button>
+              <button type="button" class="list-group-item">Goto layout page</button>
+            </div>
+          </div>
+          </div>
+        </div>
+   </div>
 </body>
 
 

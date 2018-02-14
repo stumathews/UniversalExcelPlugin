@@ -1,0 +1,14 @@
+<div class="container-fluid">
+<div class="row">
+  <div class="col-xs-12">
+    <div class="list-group">
+      <a *ngFor="let trade of trades" class="list-group-item">
+        {{trade.units}} units @ {{trade.currency}} {{trade.price}} traded on {{trade.tradeDate}} ({{trade.type}})
+      </a>
+    </div>
+    <p><strong>Total: {{ trades.length }}</strong></p>
+    <p><a (click)="sync()" class="btn btn-primary">Syncronize</a></p>
+    <p class="bg-primary">{{message}}</p>
+  </div>
+</div>
+</div>

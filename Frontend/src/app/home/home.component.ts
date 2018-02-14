@@ -4,6 +4,7 @@ import * as OktaAuth from '@okta/okta-auth-js';
 import { FormGroup, FormControl, Validators } from '@angular/forms';
 import { LoginData } from '../Models/LoginData';
 import { JwksValidationHandler } from 'angular-oauth2-oidc';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-home',
@@ -19,7 +20,7 @@ export class HomeComponent implements OnInit
   bsValue: Date = new Date();
   bsRangeValue: any = [new Date(2017, 7, 4), new Date(2017, 7, 20)];
 
-  constructor(private readonly oauthService: OAuthService) { }
+  constructor(private readonly oauthService: OAuthService, private router: Router) { }
 
   onSubmit(form: LoginData ) {
     this.explicitLogin(form.username, form.password);
@@ -99,6 +100,10 @@ export class HomeComponent implements OnInit
   get LoggedIn()
   {
     return this.oauthService.hasValidIdToken();
+  }
+
+  gotoPortfolios() {
+    this.router.navigate(['/portfolios']);
   }
 
   

@@ -17,13 +17,14 @@ export class AppComponent implements OnInit {
   isCollapsed = true;
   
   navRoutes: Object[] = [
+    { path: '/home', title: 'Home' },
     { path: '/portfolios', title: 'Portfolios' },
-    { path: '/home', title: 'Home' }
+    { path: '/layout', title: 'Layout' },
+    { path: '/selection-tests', title: 'Tests' }
+
   ];
 
-  rndRoutes: Object[] = [
-    { path: '/layout', title: 'Layout Component' },
-    { path: '/selection-tests', title: 'Selection Tests' }];
+  
 
   ngOnInit(): void { }
 

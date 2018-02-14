@@ -12,11 +12,11 @@ export function getProgressbarConfig(): ProgressbarConfig {
 }
 
 @Component({
-  selector: 'app-investment',
-  templateUrl: './investment.html',
+  selector: 'app-portfolio',
+  templateUrl: './portfolio.html',
   providers: [{ provide: ProgressbarConfig, useFactory: getProgressbarConfig }]
 })
-export class InvestmentComponent extends InvestmentUtilities implements OnInit {
+export class PortfolioComponent extends InvestmentUtilities implements OnInit {
   listPortfolioResponse: ListPortfolioRootsResponse;
   errorMessage: string;
   isPageComplete: boolean = false;

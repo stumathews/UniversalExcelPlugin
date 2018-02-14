@@ -8,8 +8,11 @@ import { environment } from './environments/environment';
 // if (environment.production) {
 //   enableProdMode();
 // }
-
+var bootstrapped = false;
   Office.initialize = () => {
     platformBrowserDynamic().bootstrapModule(AppModule);
-  };
-//platformBrowserDynamic().bootstrapModule(AppModule);
+    bootstrapped = true;
+};
+if (!bootstrapped) {
+  platformBrowserDynamic().bootstrapModule(AppModule);
+}
