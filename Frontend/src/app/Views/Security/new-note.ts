@@ -12,7 +12,7 @@ import {ApiService} from '../../apiService';
 @Component({
   selector: 'app-new-note',
   templateUrl: 'new-note.html',
-  styleUrls: ['../Investment/select-entities.css']
+  styleUrls: ['../Portfolio/select-entities.css']
   })
 
 export class NewInvestmentNoteComponent extends InvestmentUtilities implements OnInit {

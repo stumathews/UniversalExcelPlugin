@@ -7,14 +7,20 @@ import { Http, Response, RequestOptions, URLSearchParams, Headers } from '@angul
 import { Observable } from 'rxjs/Observable';
 import { LusidEntityTypes } from './Models/EntityTypes';
 import { LoginData } from './Models/LoginData';
-import { ListPortfolioRootsResponse, ErrorResponse, PortfolioRootResponse  } from '@finbourne/lusidtypes';
+
 import 'rxjs/add/operator/map'
 import 'rxjs/add/operator/do'
 import 'rxjs/add/operator/catch';
 
-import { HttpClient } from '@angular/common/http';
-import {InternalId} from '@finbourne/lusidtypes/index';
-import {GetPortfolioDetailsResponse, GetPortfolioTradesResponse, GetPortfolioHoldingsResponse, Trade, UpsertPortfolioTradesResponse, ErrorMessage} from '@finbourne/lusidtypes/index';
+import { HttpClient, HttpErrorResponse } from '@angular/common/http';
+import {
+  ListPortfolioRootsResponse,
+  IErrorResponse, GetPropertyKeysResponse, GetPortfolioDetailsResponse,
+  GetPortfolioTradesResponse, GetPortfolioHoldingsResponse,
+  Trade, UpsertPortfolioTradesResponse, ErrorMessage,
+  PropertyDefinition, GetPropertyDefinitionResponse, TryAddClientSecuritiesResponse,
+  ClientSecurityDefinitionData
+} from 'lusid-client/models';
 import {DateUtils} from './shared/date-utils';
 
 @Injectable()
@@ -172,24 +178,24 @@ export class ApiService {
     private SearchPropertyDefinitions = this.PropertiesUrlEndpoint + '/search';
 
     /* Securities */
-    private LookupSecurityByIsin = this.SearchProxyUrlEndpoint + '/lookup/{codeType}/{code}';
-    private LookupSecurities = this.SearchProxyUrlEndpoint + '/lookup/{codeType}';
-    private DeleteSecurities = this.SearchProxyUrlEndpoint + '';
-    private CreateSecurities = this.SearchProxyUrlEndpoint + '';
+    private LookupSecurityByIsin = this.SecuritiesUrlEndpoint + '/lookup/{codeType}/{code}';
+    private LookupSecurities = this.SecuritiesUrlEndpoint + '/lookup/{codeType}';
+    private DeleteSecurities = this.SecuritiesUrlEndpoint + '';
+    private CreateSecurities = this.SecuritiesUrlEndpoint + '';
     
 
     GetLatestExcelAddinVersion(): Observable<any> {
       return this.Http.get(this.GetLatestExcelVersion);
     }
     
-    GetAllPortfolios(scope: string): Observable<ListPortfolioRootsResponse | ErrorResponse> {
+    GetAllPortfolios(scope: string): Observable<ListPortfolioRootsResponse | IErrorResponse> {
         
         console.log('Entry: GetAllPortfolios...');
             return this.Http.get(this.GetPortfolios.replace('{scope}', scope))
                 .catch(this.handleError);
     }
 
-    doGetPortfolioTrades(id: string): Observable<GetPortfolioTradesResponse | ErrorResponse> {
+    doGetPortfolioTrades(id: string): Observable<GetPortfolioTradesResponse | IErrorResponse> {
       
       console.log(`Entry: doGetPortfolioTrades() for id ${id}`);
       const url = this.GetPortfolioTrades.replace('{portfolioId}', `${id}`)
@@ -199,7 +205,7 @@ export class ApiService {
       return this.Http.get(url).catch(this.handleError);
     }
 
-    AddTradeToPortfolio(id: string, trades: Trade[], scope: string = 'finbourne', effectiveAt: string = DateUtils.GetTodaysDate()): Observable<UpsertPortfolioTradesResponse | ErrorMessage> {
+    AddTradeToPortfolio(id: string, trades: Trade[], scope: string = 'finbourne', effectiveAt: string = DateUtils.GetTodaysDate()): Observable<UpsertPortfolioTradesResponse> {
 
       console.log(`Entry: AddTradeToPortfolio for id ${id}`);
       const url = this.AddPortfolioTrades.replace('{portfolioId}', `${id}`)
@@ -209,9 +215,9 @@ export class ApiService {
         .catch(this.handleError);
     }
 
-    GetPortfolioDetails(id: InternalId): Observable<GetPortfolioDetailsResponse | ErrorResponse> {
-      console.log(`Entry: Get Portfolio details for id ${id.id}`);
-      const url = this.GetProtfolioDetails.replace('{portfolioId}', `${id.id}`)
+    GetPortfolioDetails(id: string): Observable<GetPortfolioDetailsResponse | IErrorResponse> {
+      console.log(`Entry: Get Portfolio details for id ${id}`);
+      const url = this.GetProtfolioDetails.replace('{portfolioId}', `${id}`)
         .replace('{scope}', 'finbourne') +
         '?effectiveDate=2018-01-01';
 
@@ -227,8 +233,25 @@ export class ApiService {
 
     console.log('url is ' + url);
     return this.Http.get(url).catch(this.handleError);
+    }
+
+  GetPropertyTypes(scope: string = 'finbourne'): Observable<any | ErrorMessage> {
+    return this.Http.get(this.GetPropertyDefinitions).catch(this.handleError);
   }
 
+  GetProperties(domain: string, scope: string = 'finbourne'): Observable<GetPropertyKeysResponse> {
+    return this.Http.get(this.GetPropertyDefinitionsByDomain.replace('{domain}', domain));
+  }
+
+  CreateNewProperty(property: PropertyDefinition, scope: string = 'finbourne'): Observable<GetPropertyDefinitionResponse> {
+    return this.Http.post(this.CreatePropertyDefinition, property)
+      .catch(this.handleError);
+  }
+
+  CreateNewSecurity(securities: ClientSecurityDefinitionData[], scope: string = 'finbourne'): Observable<TryAddClientSecuritiesResponse > {
+    return this.Http.post(this.CreateSecurities, securities)
+      .catch(this.handleError);
+  }
   /*
     // POST
     GetInvestmentGraphData(type: EntityTypes, investmentID: number): Observable<any> {

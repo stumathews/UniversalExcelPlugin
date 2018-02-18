@@ -18,39 +18,39 @@ import { LayoutComponent } from './layout/layout.component';
 import { SelectionTestComponent } from './selection-test/selection-test.component';
 import { CollapseModule, BsDropdownModule } from 'ngx-bootstrap';
 import { CustomErrorHandler } from './ErrorCatcher';
-import {PortfolioComponent} from './Views/Investment/portfolio';
-import {PortfolioDetailComponent} from './Views/Investment/portfolio.detail';
-import {TradeComponent} from './Views/Factor/trade';
-import {FactorDetailsComponent} from './Views/Factor/factor-details';
-import {HoldingComponent} from './Views/Group/holding';
-import {GroupDetailsComponent} from './Views/Group/group-details';
+import {PortfolioComponent} from './Views/Portfolio/portfolio';
+import {PortfolioDetailComponent} from './Views/Portfolio/portfolio.detail';
+import {TradeComponent} from './Views/Trade/trade';
+import {FactorDetailsComponent} from './Views/Trade/factor-details';
+import {HoldingComponent} from './Views/Holding/holding';
+import {GroupDetailsComponent} from './Views/Holding/group-details';
 import {RiskComponent} from './Views/Risk/risk';
 import {RiskDetailsComponent} from './Views/Risk/risk-details';
-import {RegionComponent} from './Views/Region/region';
-import {RegionDetailsComponent} from './Views/Region/region-details';
-import {NewInvestmentComponent} from './Views/Investment/new-investment';
-import {NewFactorComponent} from './Views/Factor/new-factor';
-import {NewGroupComponent} from './Views/Group/new-group';
-import {NewRegionComponent} from './Views/Region/new-region';
+import {PropertyTypeComponent} from './Views/PropertyType/property-type';
+import { RegionDetailsComponent } from './Views/PropertyType/region-details';
+import {NewInvestmentComponent} from './Views/Portfolio/new-investment';
+import {NewFactorComponent} from './Views/Trade/new-factor';
+import {NewGroupComponent} from './Views/Holding/new-group';
+import { NewRegionComponent } from './Views/PropertyType/new-region';
 import {NewRiskComponent} from './Views/Risk/new-risk';
-import {NewInvestmentWizardComponent} from './Views/Investment/new-investment-wizard';
-import {SelectFactorsComponent} from './Views/Investment/select-factors';
-import {SelectRisksComponent} from './Views/Investment/select-risks';
-import {SelectGroupsComponent} from './Views/Investment/select-groups';
-import {SelectRegionsComponent} from './Views/Investment/select-regions';
-import {SummaryOfNewInvestmentComponent} from './Views/Investment/summary-of-new-investment';
-import {AssociateFactorsComponent} from './Views/Investment/associate-factors';
-import {AssociateRisksComponent} from './Views/Investment/associate-risks';
-import {AssociateGroupsComponent} from './Views/Investment/associate-groups';
-import {AssociateRegionsComponent} from './Views/Investment/associate-regions';
-import {NewInvestmentNoteComponent} from './Views/Note/new-note';
+import {NewInvestmentWizardComponent} from './Views/Portfolio/new-investment-wizard';
+import {SelectFactorsComponent} from './Views/Portfolio/select-factors';
+import {SelectRisksComponent} from './Views/Portfolio/select-risks';
+import {SelectGroupsComponent} from './Views/Portfolio/select-groups';
+import {SelectRegionsComponent} from './Views/Portfolio/select-regions';
+import {SummaryOfNewInvestmentComponent} from './Views/Portfolio/summary-of-new-investment';
+import {AssociateFactorsComponent} from './Views/Portfolio/associate-factors';
+import {AssociateRisksComponent} from './Views/Portfolio/associate-risks';
+import {AssociateGroupsComponent} from './Views/Portfolio/associate-groups';
+import {AssociateRegionsComponent} from './Views/Portfolio/associate-regions';
+import {NewInvestmentNoteComponent} from './Views/Security/new-note';
 import {SideNavComponent} from './Views/Shared/side-nav';
 import {ListRiskComponent} from './Views/Shared/list-risks';
 import {ListTradesComponent as ListFactorsComponent} from './Views/Shared/list-trades';
 import {ListGroupsViaGroupLinksComponent} from './Views/Shared/list-groups-via-grouplinks';
-import {ListRegionsComponent} from './Views/Shared/list-regions';
+import {ListPropertiesComponent} from './Views/Shared/list-properties';
 import {ListInvestmentsComponent} from './Views/Shared/list-investments';
-import {SelectItemsComponent} from './Views/Investment/select-items';
+import {SelectItemsComponent} from './Views/Portfolio/select-items';
 import {ListHoldingsComponent as ListGroupsComponent} from './Views/Shared/list-holdings';
 import {ListNotesComponent} from './Views/Shared/list-notes';
 import { BsModalService } from 'ngx-bootstrap/modal';
@@ -60,16 +60,16 @@ import { Angular2FontawesomeModule } from 'angular2-fontawesome/angular2-fontawe
 import {InvestmentService} from './investment.service';
 import { BreadcrumbsComponent } from './BreadCrumbs'
 import { ProgressbarModule } from 'ngx-bootstrap';
-
+import { PropertyComponent } from './Views/property/property.component';
+import { SecurityComponent } from './Views/Security/security'
 
 const appRoutes: Routes = [
 
-  
-  
-  
   { path: 'Risks', component: RiskComponent },
+  { path: 'Security', component: SecurityComponent},
   { path: 'RiskDetails/:id', component: RiskDetailsComponent },
-  { path: 'Regions', component: RegionComponent },
+  { path: 'PropertyTypes', component: PropertyTypeComponent },
+  { path: 'Property/:domain', component: PropertyComponent },
   { path: 'RegionDetails/:id', component: RegionDetailsComponent },
   { path: 'NewInvestment', component: NewInvestmentComponent },
   { path: 'NewFactor', component: NewFactorComponent },
@@ -111,15 +111,16 @@ const appRoutes: Routes = [
 @NgModule({
   declarations: [AppComponent, HomeComponent, PortfoliosComponent, LayoutComponent, SelectionTestComponent,
     SideNavComponent, PortfolioComponent,
-    TradeComponent, HoldingComponent, RiskComponent, RegionComponent, PortfolioDetailComponent,
-    ListRiskComponent, ListFactorsComponent, ListGroupsViaGroupLinksComponent, ListRegionsComponent,
+    TradeComponent, HoldingComponent, RiskComponent, PropertyTypeComponent, PortfolioDetailComponent,
+    ListRiskComponent, ListFactorsComponent, ListGroupsViaGroupLinksComponent, ListPropertiesComponent,
     FactorDetailsComponent, GroupDetailsComponent, RegionDetailsComponent, ListInvestmentsComponent,
     RiskDetailsComponent, NewInvestmentComponent, NewFactorComponent, NewGroupComponent,
     NewRegionComponent, NewRiskComponent, SelectItemsComponent, SelectFactorsComponent,
     NewInvestmentWizardComponent, SelectRisksComponent, SelectGroupsComponent, SelectRegionsComponent,
     SummaryOfNewInvestmentComponent, AssociateFactorsComponent, AssociateRisksComponent,
     AssociateGroupsComponent, AssociateRegionsComponent, ListGroupsComponent,
-    ListNotesComponent, NewInvestmentNoteComponent, BreadcrumbsComponent],
+    ListNotesComponent, NewInvestmentNoteComponent, BreadcrumbsComponent, PropertyComponent,
+    SecurityComponent],
   imports: [BsDatepickerModule.forRoot(),
     BrowserModule, HttpClientModule, RouterModule.forRoot(
       appRoutes,

@@ -11,6 +11,17 @@ export class ReflectionUtils {
     return obj[key];
   }
 
+  /**
+   * Fills in a type uing the names of the peroperties founf in thinEntity
+   * @param entity entity to fill in
+   * @param thinEntity the entity with properties to transfer to @param entity
+   */
+  static FillInProperties<T>(entity: T, thinEntity: any) {
+    for (let property in thinEntity) {
+      (<T>entity)[property] = (<any>thinEntity)[property];
+    }
+  }
+
   static getEntityProperties<T>(entity: T, exclComplexTypes?: boolean): string[][] {
     console.log('Entry: getEntityProperties.');
     console.log('scanning entity properties: ' + JSON.stringify(entity));
@@ -53,6 +64,8 @@ export class ReflectionUtils {
         column.forEach((c: string) => {
           if (ReflectionUtils.isComplexType(entity[c])) {
             row.push(JSON.stringify(entity[c]));
+            //row.push(converters[c].toString(entity[c]));
+            //row.push(converters[c].fromString(entity[c]));
           } else {
             row.push(entity[c]);
           }

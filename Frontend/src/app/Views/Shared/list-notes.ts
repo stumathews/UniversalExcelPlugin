@@ -2,7 +2,7 @@ import { Component, Input, Output, OnInit } from '@angular/core';
 import { Investment } from '../../Models/investment';
 import { InvestmentUtilities, EntityTypes } from '../../Utilities';
 import { InvestmentNote } from '../../Models/InvestmentNote';
-import { NewInvestmentNoteComponent } from '../Note/new-note';
+import { NewInvestmentNoteComponent } from '../Security/new-note';
 import { BsModalService } from 'ngx-bootstrap/modal';
 import { BsModalRef } from 'ngx-bootstrap/modal/bs-modal-ref.service';
 import { ApiService } from '../../apiService';

@@ -1,0 +1,13 @@
+<div class="container-fluid">
+  <div class="row">
+    <div class="col-xs-12">
+      <div class="list-group">
+        <a *ngFor="let type of Properties"  [routerLink]="['/Property', type.domain]" class="list-group-item">
+          {{type.domain}}
+        </a>
+      </div>
+      <p><strong>Total: {{ Properties.length }}</strong></p>
+      <p><a (click)="sync()" class="btn btn-primary">Syncronize</a></p>
+    </div>
+  </div>
+</div>

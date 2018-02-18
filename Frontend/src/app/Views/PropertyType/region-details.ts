@@ -17,8 +17,8 @@ export class RegionDetailsComponent extends DetailComponentBase implements OnIni
    }
   errorMessage: string;
   ngOnInit(): void {
-    const id = +this.route.snapshot.paramMap .get('id');
-    /*this.apiService.GetRegion(id).subscribe(region => this.Entity = region,
+    /*const id = +this.route.snapshot.paramMap .get('id');
+    this.apiService.GetPropertyTypes().subscribe(region => this.Entity = region,
                    error => this.errorMessage = <any>error);*/
   }
 }

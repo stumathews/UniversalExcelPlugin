@@ -1,5 +1,5 @@
 import { Component, OnInit, Input } from '@angular/core';
-import { ListPortfolioRootsResponse, GetPortfolioRootResponse } from '@finbourne/lusidtypes';
+import { ListPortfolioRootsResponse, GetPortfolioRootResponse, IErrorResponse } from 'lusid-client/models';
 import { ApiService } from '../../apiService';
 import { InvestmentUtilities } from '../../Utilities';
 import { StringUtils } from '../../shared/string-utils';
@@ -34,7 +34,7 @@ export class PortfolioComponent extends InvestmentUtilities implements OnInit {
   
   ngOnInit(): void {
     this.apiService.GetAllPortfolios('finbourne')
-      .subscribe((response: ListPortfolioRootsResponse) => {
+      .subscribe((response: ListPortfolioRootsResponse | IErrorResponse) => {
           this.listPortfolioResponse = response;
           this.isPageComplete = true;
         },

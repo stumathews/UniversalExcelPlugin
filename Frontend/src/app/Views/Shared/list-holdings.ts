@@ -1,7 +1,7 @@
 import { Component, Input, OnInit } from '@angular/core';
 import {ApiService} from '../../apiService';
 import {ExcelUtils} from '../../shared/excel-utils';
-import { Holding, GetPortfolioHoldingsResponse} from '@finbourne/lusidtypes/index';
+import { Holding, GetPortfolioHoldingsResponse} from 'lusid-client/models';
 
 
 @Component({

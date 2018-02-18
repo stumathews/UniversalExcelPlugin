@@ -13,21 +13,19 @@ import { Router } from '@angular/router';
   styleUrls: ['./app.component.css'],
 })
 export class AppComponent implements OnInit {
-  title = 'Lusid';
-  isCollapsed = true;
-  
+
   navRoutes: Object[] = [
     { path: '/home', title: 'Home' },
     { path: '/portfolios', title: 'Portfolios' },
     { path: '/layout', title: 'Layout' },
-    { path: '/selection-tests', title: 'Tests' }
+    { path: '/selection-tests', title: 'Tests' },
+    { path: 'PropertyTypes', title: 'PropertyTypes' },
+    { path: 'Security', title: 'Securities' }
 
   ];
 
-  
-
   ngOnInit(): void { }
-
+ 
   constructor(private readonly oauthService: OAuthService, private router: Router) {
     this.oauthService.redirectUri = window.location.origin;
     this.oauthService.clientId = '0oa5ao43cLgHp80RG2p6';
@@ -39,8 +37,14 @@ export class AppComponent implements OnInit {
 
     // Load Discovery Document and then try to login the user
     this.oauthService.loadDiscoveryDocument().then(() => {
-      this.oauthService.tryLogin().then(_ => { this.router.navigate(['/']); });
+      this.oauthService.tryLogin().then(_ => {
+         this.router.navigate(['/']);
+      });
     }).catch(reason => console.log(`Problem authenticating ${reason}`));
+  }
+
+  isLoggedIn() {
+    return this.oauthService.hasValidAccessToken();
   }
 
   /**
