@@ -62,9 +62,12 @@ import { BreadcrumbsComponent } from './BreadCrumbs'
 import { ProgressbarModule } from 'ngx-bootstrap';
 import { SecurityComponent } from './Views/Security/security'
 import {PropertyComponent} from './Views/Property/property.component';
+import { ReferencePortfolioComponent } from './Views/ReferencePortfolio/reference-portfolio.component';
+
+
 
 const appRoutes: Routes = [
-
+  { path: 'ReferencePortfolio', component:  ReferencePortfolioComponent},
   { path: 'PortfolioGroup', component: PortfolioGroupComponent },
   { path: 'Security', component: SecurityComponent},
   { path: 'RiskDetails/:id', component: RiskDetailsComponent },
@@ -120,7 +123,8 @@ const appRoutes: Routes = [
     SummaryOfNewInvestmentComponent, AssociateFactorsComponent, AssociateRisksComponent,
     AssociateGroupsComponent, AssociateRegionsComponent, ListGroupsComponent,
     ListNotesComponent, NewInvestmentNoteComponent, BreadcrumbsComponent, PropertyComponent,
-    SecurityComponent],
+    SecurityComponent,
+    ReferencePortfolioComponent],
   imports: [BsDatepickerModule.forRoot(),
     BrowserModule, HttpClientModule, RouterModule.forRoot(
       appRoutes,

@@ -33,7 +33,7 @@ export class PropertyComponent implements OnInit {
     const dummy: PropertyDefinition = {
       "domain": this.domain,
       "lifeTime": "Perpetual",
-      "key": "PropertyKey",
+      "key": this.domain+"/{your-scope}/{your-property-name}",
       "valueType": "String",
       "valueRequired": true,
       "displayName": "NameToDisplay",

@@ -11,6 +11,7 @@ export class StringUtils {
       .replace(/([A-Z])/g, ' $1')
       // uppercase the first character
       .replace(/^./, str => str.toUpperCase());
+    
     console.log(`Displaify(${camelCase}) = ${result}`);
     return result;
   }

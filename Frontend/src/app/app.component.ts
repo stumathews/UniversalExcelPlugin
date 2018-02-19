@@ -21,7 +21,8 @@ export class AppComponent implements OnInit {
     { path: '/selection-tests', title: 'Tests' },
     { path: 'PropertyTypes', title: 'PropertyTypes' },
     { path: 'Security', title: 'Securities' },
-    { path: 'PortfolioGroup', title: 'Portfolio Groups' }
+    { path: 'PortfolioGroup', title: 'Portfolio Groups' },
+    { path: 'ReferencePortfolio', title: 'Reference Portfolio' }
 
   ];
 

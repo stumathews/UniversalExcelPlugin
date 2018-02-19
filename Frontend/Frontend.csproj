@@ -78,6 +78,8 @@
     <Content Include="src\app\selection-test\selection-test.component.html" />
     <Content Include="src\app\Views\Property\property.component.css" />
     <Content Include="src\app\Views\Property\property.component.html" />
+    <Content Include="src\app\Views\ReferencePortfolio\reference-portfolio.component.css" />
+    <Content Include="src\app\Views\ReferencePortfolio\reference-portfolio.component.html" />
     <Content Include="src\app\Views\Security\security.html" />
     <Content Include="src\app\Views\Trade\Delete.cshtml" />
     <Content Include="src\app\Views\Trade\factor-details.html" />
@@ -194,6 +196,8 @@
     <TypeScriptCompile Include="src\app\Utilities.ts" />
     <TypeScriptCompile Include="src\app\Views\Property\property.component.spec.ts" />
     <TypeScriptCompile Include="src\app\Views\Property\property.component.ts" />
+    <TypeScriptCompile Include="src\app\Views\ReferencePortfolio\reference-portfolio.component.spec.ts" />
+    <TypeScriptCompile Include="src\app\Views\ReferencePortfolio\reference-portfolio.component.ts" />
     <TypeScriptCompile Include="src\app\Views\Security\security.ts" />
     <TypeScriptCompile Include="src\app\Views\Trade\factor-details.ts" />
     <TypeScriptCompile Include="src\app\Views\Trade\trade.ts" />

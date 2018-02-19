@@ -33,7 +33,7 @@ export class PortfolioGroupComponent implements OnInit {
       "values": <ScopedIdentifier[]>[ { "scope": "string", "name": "string" } ],
       "subGroups": <ScopedIdentifier[]>[ { "scope": "string", "name": "string" } ]
     };
-    ExcelUtils.SyncTable(this.Groups.length > 0 ? this.Groups : [dummy], "portfolio-groups", false).then((changes: TableChange<PortfolioGroupState>[]) => {
+    ExcelUtils.SyncTable(this.Groups.length > 0 ? this.Groups : [dummy], "portfoliogroups", false).then((changes: TableChange<PortfolioGroupState>[]) => {
       // Create a new property for this domain
       changes.forEach((each: TableChange<PortfolioGroupState>) => {
         //asume added for now
@@ -43,6 +43,7 @@ export class PortfolioGroupComponent implements OnInit {
         entity.subGroups = [];
         this.apiService.CreateNewPortfolioGroup(entity).subscribe((result: GetPortfolioGroupResponse ) => {
           console.log('successfully created new group!!');
+          this.Groups.push(entity);
         }, error => {
           console.log('Error! ' + error);
         });

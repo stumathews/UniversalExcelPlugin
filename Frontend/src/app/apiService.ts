@@ -19,7 +19,9 @@ import {
   GetPortfolioTradesResponse, GetPortfolioHoldingsResponse,
   Trade, UpsertPortfolioTradesResponse, ErrorMessage,
   PropertyDefinition, GetPropertyDefinitionResponse, TryAddClientSecuritiesResponse,
-  ClientSecurityDefinitionData, ListPortfolioGroupResponse, PortfolioGroupState, GetPortfolioGroupResponse
+  ClientSecurityDefinitionData, ListPortfolioGroupResponse,
+  PortfolioGroupState, GetPortfolioGroupResponse, Portfolio,
+  ReferencePortfolioResponse
 } from 'lusid-client/models';
 import {DateUtils} from './shared/date-utils';
 
@@ -262,6 +264,16 @@ export class ApiService {
     return this.Http.post(this.CreateGroup.replace('{scope}', scope), portfolioGroupState)
       .catch(this.handleError);
   }
+
+  GetReferencePortfolios(scope: string = 'finbourne'): Observable<ListPortfolioRootsResponse> {
+    return this.Http.get(this.GetReferencePortfoliosByScope.replace('{scope}', scope));
+  }
+
+  CreateNewReferencePortfolio(portfolio: Portfolio, scope: string = 'finbourne'): Observable<ReferencePortfolioResponse> {
+    return this.Http.post(this.CreateReferencePortfolio.replace('{scope}', scope), portfolio)
+      .catch(this.handleError);
+  }
+
   /*
     // POST
     GetInvestmentGraphData(type: EntityTypes, investmentID: number): Observable<any> {
