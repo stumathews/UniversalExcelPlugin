@@ -56,4 +56,6 @@ export class PropertyComponent implements OnInit {
     });
   }
 
+  ngOninit() {}
+
 }

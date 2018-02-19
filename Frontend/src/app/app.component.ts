@@ -20,7 +20,8 @@ export class AppComponent implements OnInit {
     { path: '/layout', title: 'Layout' },
     { path: '/selection-tests', title: 'Tests' },
     { path: 'PropertyTypes', title: 'PropertyTypes' },
-    { path: 'Security', title: 'Securities' }
+    { path: 'Security', title: 'Securities' },
+    { path: 'PortfolioGroup', title: 'Portfolio Groups' }
 
   ];
 

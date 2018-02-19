@@ -20,7 +20,7 @@ export class SecurityComponent  implements OnInit {
 
   errorMessage: string;
   ngOnInit(): void {
-    // Get securities?
+    // Currently no way to get securities?
   }
 
   sync() {
@@ -39,6 +39,7 @@ export class SecurityComponent  implements OnInit {
         //asume added for now
         let entity: ClientSecurityDefinitionData = {};
         ReflectionUtils.FillInProperties<ClientSecurityDefinitionData>(entity, each.value);
+        // dont support entering the following fields from excel so set manually
         entity.properties = [];
         entity.instrument = dummy.instrument;
         entity.aliases = [];

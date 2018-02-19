@@ -102,8 +102,21 @@ export class HomeComponent implements OnInit
     return this.oauthService.hasValidIdToken();
   }
 
-  gotoPortfolios() {
-    this.router.navigate(['/portfolios']);
+  goto(where: string) {
+    switch (where) {
+    case 'portfolios':
+        this.router.navigate(['/portfolios']);
+        break;
+    case 'portfolio-groups':
+      this.router.navigate(['PortfolioGroup']);
+      break;
+    case 'property-types':
+      this.router.navigate(['PropertyType']);
+      break;
+    case 'securities':
+      this.router.navigate(['Security']);
+      break;
+    }
   }
 
   

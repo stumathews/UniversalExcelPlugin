@@ -19,7 +19,7 @@ import {
   GetPortfolioTradesResponse, GetPortfolioHoldingsResponse,
   Trade, UpsertPortfolioTradesResponse, ErrorMessage,
   PropertyDefinition, GetPropertyDefinitionResponse, TryAddClientSecuritiesResponse,
-  ClientSecurityDefinitionData
+  ClientSecurityDefinitionData, ListPortfolioGroupResponse, PortfolioGroupState, GetPortfolioGroupResponse
 } from 'lusid-client/models';
 import {DateUtils} from './shared/date-utils';
 
@@ -250,6 +250,16 @@ export class ApiService {
 
   CreateNewSecurity(securities: ClientSecurityDefinitionData[], scope: string = 'finbourne'): Observable<TryAddClientSecuritiesResponse > {
     return this.Http.post(this.CreateSecurities, securities)
+      .catch(this.handleError);
+  }
+
+  GetPortfolioGroups(scope: string = 'finbourne'): Observable<ListPortfolioGroupResponse > {
+    return this.Http.get(this.ListGroups.replace('{scope}', scope));
+  }
+
+  CreateNewPortfolioGroup(portfolioGroupState: PortfolioGroupState, scope: string = 'finbourne'):
+    Observable<GetPortfolioGroupResponse> {
+    return this.Http.post(this.CreateGroup.replace('{scope}', scope), portfolioGroupState)
       .catch(this.handleError);
   }
   /*

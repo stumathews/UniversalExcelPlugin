@@ -1,12 +1,16 @@
 <div class="container-fluid">
   <div class="row">
     <div class="col-xs-12">
-      <ul *ngIf="isLoggedIn()" class="nav nav-pills">
-        <li *ngFor="let route of navRoutes" role="presentation">
-          <a [routerLink]="[route.path]">{{route.title}}</a>
-        </li>
-      </ul>
-
+      <div class="btn-group" dropdown>
+        <button *ngIf="isLoggedIn()" dropdownToggle type="button" class="btn btn-primary dropdown-toggle">
+          Menu <span class="caret"></span>
+        </button>
+        <ul *dropdownMenu class="dropdown-menu" role="menu">
+          <li *ngFor="let route of navRoutes">
+            <a class="dropdown-item" [routerLink]="[route.path]">{{route.title}}</a>
+          </li>
+        </ul>
+      </div>
       <!-- SPA pages outlet -->
       <router-outlet></router-outlet>
     </div>
