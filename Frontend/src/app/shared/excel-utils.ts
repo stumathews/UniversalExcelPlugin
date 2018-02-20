@@ -47,105 +47,69 @@ export class ExcelUtils {
   }
 
 
-  static SyncTable<T>(entities: T[], tableName: string, exclComplexTypes: boolean = true): OfficeExtension.IPromise<any> {
-    // Get the named table.
-    // Get the number of rows, if its diffirenct find difdirent rows from the bottom, create those entries
-    let changes: TableChange<T>[] = [];
-    //
+  static SyncTable<T>(entities: T[], tableName: string, exclComplexTypes: boolean = true): OfficeExtension.
+    IPromise<any> {
     return Excel.run(context => {
-      const currentWorksheet = context.workbook.worksheets.getActiveWorksheet();
-      var table = currentWorksheet.tables.getItemOrNullObject(tableName);
-      var bodyRange;
-      return  context.sync().then(tableResult => {
-        // now should or should not have table?
-        if (table.isNullObject) {
-          // empty table - normal entityToGrid
-          console.log('Original row count is ' + entities.length);
-          ExcelUtils.EntitiesToGrid(entities, tableName, exclComplexTypes);
-        } else {
-          // Existing table, get table and check the number of extra rows
-          bodyRange = table.getDataBodyRange().load(['values', 'rowCount']); // cant use yet
-          return context.sync().then(dataBodyResult => {
-            console.log('RowCount is : ' + bodyRange.rowCount);
-            if (bodyRange.rowCount > entities.length) {
-              // get the added rows
-              var diffCount = bodyRange.rowCount - entities.length;
-              for (var i = 0; i < diffCount; i++) {
-                var itemIndex = entities.length + i;
-                var result = bodyRange.values[itemIndex];
-                var obj: T = ReflectionUtils.toObject<T>(result, ReflectionUtils.getEntityProperties(entities[0], exclComplexTypes)[0].sort());
-                var change: TableChange<T> = { change: 'a', value: <T>obj };
-                changes.push(change);
-                console.log('new row: ' + JSON.stringify(result));
+      // Get the named table.
+      // Get the number of rows, if its diffirenct find difdirent rows from the bottom, create those entries
+      let changes: TableChange<T>[] = [];
+      const desiredSheetName = `sheet_${tableName}`;
+      var sheet = context.workbook.worksheets.getItem(desiredSheetName);
+      sheet.activate();
+
+        return context.sync()
+          .then((ok) => {   /* Should have switch to correct sheet. */ },
+                (fail) => { /* could not switch to correct sheet, ok create it and then switch to it */
+                var sheets = context.workbook.worksheets;
+                sheet = sheets.add(desiredSheetName);
+                sheet.activate();
+                sheet.load('name, position');
+                return context.sync();
+              })
+          .then(ok => {
+            // ok we should be on the right sheet now
+            var table = sheet.tables.getItemOrNullObject(tableName);
+            var bodyRange: Excel.Range;
+            return context.sync().then(got_table_ok => {
+              if (table.isNullObject) {
+                // empty table - normal entityToGrid
+                console.log('Original row count is ' + entities.length);
+                ExcelUtils.EntitiesToGrid(entities, tableName, exclComplexTypes);
+              } else {
+                // Existing table, get table and check the number of extra rows
+                bodyRange = table.getDataBodyRange().load(['values', 'rowCount']); // cant use yet
+                return context.sync().then(got_bodyRange_ok => {
+                  console.log('RowCount is : ' + bodyRange.rowCount);
+                  if (bodyRange.rowCount > entities.length) {
+                    // get the added rows
+                    const diffCount = bodyRange.rowCount - entities.length;
+                    for (var i = 0; i < diffCount; i++) {
+                      const itemIndex = entities.length + i;
+                      const result = bodyRange.values[itemIndex];
+                      const obj: T = ReflectionUtils.toObject<T>(result, ReflectionUtils.getEntityProperties(entities[0], exclComplexTypes)[0].sort());
+                      const change: TableChange<T> = { change: 'a', value: <T>obj };
+                      changes.push(change);
+                      console.log('new row: ' + JSON.stringify(result));
+                    }
+                    return context.sync();
+                  } else if (bodyRange.rowCount > entities.length) {
+                    // note which rows were removed and get them from the original entities
+                  }
+                  return context.sync();
+                });
               }
-              //return new Promise<TableChange<T>[]>((resolve, reject) => { resolve(changes); });
-              return context.sync();
-            } else if (bodyRange.rowCount > entities.length) {
-              // note which rows were removed and get them from the original entities
-            }
-            //return new Promise<TableChange<T>[]>((resolve, reject) => { resolve(changes); });
-            return context.sync();
+          }).then(value => {
+              // the last thing we want to do after everything is complete is return the changes we've detected
+            return new OfficeExtension.Promise((resolve, reject) => resolve(changes));
           });
-        }
-        
-      })
-    }).then(value => {
-         return new OfficeExtension.Promise((resolve, reject) => resolve(changes));
-      })
+      }, fail=>{})
       .catch(error => {
-      console.log(`Error: ${error}`);
-      if (error instanceof OfficeExtension.Error) {
-        console.log(`Debug info: ${JSON.stringify(error.debugInfo)}`);
-      }
+        console.log(`Error: ${error}`);
+        if (error instanceof OfficeExtension.Error) {
+          console.log(`Debug info: ${JSON.stringify(error.debugInfo)}`);
+        }
+      });
     });
-    
-    
   }
 }
 
-/*
-Excel.run(context => {
-    const currentWorksheet = context.workbook.worksheets.getActiveWorksheet();
-    var table = currentWorksheet.tables.getItemOrNullObject(tableName);
-    var bodyRange;
-    context.sync().then(tableResult => {
-      // now should or should not have table?
-      if (table.isNullObject) {
-        // empty table - normal entityToGrid
-        console.log('Original row count is ' + entities.length);
-        ExcelUtils.EntitiesToGrid(entities, tableName);
-      } else {
-        // Existing table, get table and check the number of extra rows
-        bodyRange = table.getDataBodyRange().load(['values', 'rowCount']); // cant use yet
-      }
-      context.sync().then(dataBodyResult => {
-        console.log('RowCount is : ' + bodyRange.rowCount);
-        if (bodyRange.rowCount > entities.length) {
-          // get the added rows
-          var diffCount = bodyRange.rowCount - entities.length;
-          for (var i = 0; i < diffCount; i++) {
-            var itemIndex = entities.length + i;
-            var result = bodyRange.values[itemIndex];
-            var obj: T = ReflectionUtils.toObject<T>(result);
-            var change: TableChange<T> = { change: 'a', value: obj };
-            changes.push(change);
-            console.log('new row: ' + JSON.stringify(result));
-          }
-          return new Promise<TableChange<T>[]>((resolve, reject) => { resolve(changes); });
-          //return context.sync();
-        } else if (bodyRange.rowCount > entities.length) {
-          // note which rows were removed and get them from the original entities
-        }
-        return new Promise<TableChange<T>[]>((resolve, reject) => { resolve(changes); });
-        //return context.sync();
-      });
-    });
-  }).catch(error => {
-    console.log(`Error: ${error}`);
-    if (error instanceof OfficeExtension.Error) {
-      console.log(`Debug info: ${JSON.stringify(error.debugInfo)}`);
-    }
-  });
-
-  });
- */

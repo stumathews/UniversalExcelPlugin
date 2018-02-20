@@ -6,6 +6,7 @@ import { StringUtils } from '../../shared/string-utils';
 import {ReflectionUtils} from '../../shared/reflection-utils';
 import { ExcelUtils } from '../../shared/excel-utils';
 import { ProgressbarConfig } from 'ngx-bootstrap/progressbar';
+import {TableChange} from '../../shared/excel-utils';
 
 export function getProgressbarConfig(): ProgressbarConfig {
   return Object.assign(new ProgressbarConfig(), { animate: true, striped: true, max: 100 });
@@ -29,7 +30,21 @@ export class PortfolioComponent extends InvestmentUtilities implements OnInit {
    
    */
   sync() {
-    ExcelUtils.EntitiesToGrid(this.listPortfolioResponse.items, 'portfolios');
+    
+    const dummy: GetPortfolioRootResponse = {};
+    ExcelUtils.SyncTable(this.listPortfolioResponse.items.length > 0 ? this.listPortfolioResponse.items : [dummy], "portfolios", true).then((changes: TableChange<GetPortfolioRootResponse>[]) => {
+      // Create a new property for this domain
+      changes.forEach((each: TableChange<GetPortfolioRootResponse>) => {
+        //asume added for now
+        let entity: GetPortfolioRootResponse = {};
+        ReflectionUtils.FillInProperties<GetPortfolioRootResponse>(entity, each.value);
+        //this.apiService.CreateNewProperty(entity).subscribe((result: GetPropertyDefinitionResponse) => {
+        //  console.log('successfully created new property!!');
+        //}, error => {
+        //  console.log('Error! ' + error);
+        //});
+      });
+    });
   }
   
   ngOnInit(): void {

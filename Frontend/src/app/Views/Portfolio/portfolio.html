@@ -10,18 +10,7 @@
               <p class="list-group-item-text">{{ portfolio.created }} / {{portfolio.id}}</p>
             </a>
           </div>
-          <div class="btn-group" dropdown>
-            <button dropdownToggle type="button" class="btn btn-primary dropdown-toggle">
-              Actions <span class="caret"></span>
-            </button>
-            <ul *dropdownMenu class="dropdown-menu" role="menu">
-              <li role="menuitem"><a [routerLink]="['/NewInvestmentWizard']" class="dropdown-item">Create Investment</a></li>
-              <li class="divider dropdown-divider"></li>
-              <li role="menuitem">
-                <a (click)="sync()" class="dropdown-item">Syncronize</a>
-              </li>
-            </ul>
-          </div>
+        <p><a (click)="sync()" class="btn btn-primary">Syncronize</a></p>
         </div>
     </div>
   </div>
