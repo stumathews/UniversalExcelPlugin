@@ -38,7 +38,7 @@ export class ReferencePortfolioComponent implements OnInit {
       "type": "Portfolio"
     };
     ExcelUtils.SyncTable(this.ReferencePortfolios.length > 0 ? this.ReferencePortfolios.map((value:any, index, array) => { // some sort of bug here! have to use <any>
-       return <Portfolio> { created: value.referencePortfolio.created, id: value.referencePortfolio.id, name: value.referencePortfolio.name, referencePortfolioId: value.referencePortfolio.referencePortfolioId, referenceScope: value.referencePortfolio.referenceScope, type: 'Portfolio' }
+       return <Portfolio> { created: value.referencePortfolio.created, id: value.referencePortfolio.id, name: value.referencePortfolio.name, referencePortfolioId: value.referencePortfolioId, referenceScope: value.referenceScope, type: 'Portfolio' }
     }) : [dummy], "referenceportfolios", false).then((changes: TableChange<Portfolio>[]) => {
       // Create a new property for this domain
       changes.forEach((each: TableChange<Portfolio>) => {

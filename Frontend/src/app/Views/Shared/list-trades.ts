@@ -5,6 +5,8 @@ import { Trade, SecurityUid, GetPortfolioTradesResponse, UpsertPortfolioTradesRe
 import {ExcelUtils} from '../../shared/excel-utils';
 import {TableChange} from '../../shared/excel-utils';
 import {DateUtils} from '../../shared/date-utils';
+import {ReflectionUtils} from '../../shared/reflection-utils';
+import {PropertyDefinition} from 'lusid-client/models/index';
 
 @Component({
   selector: 'app-list-trades',
@@ -26,13 +28,11 @@ export class ListTradesComponent implements OnInit {
       var syncResults = <TableChange<Trade>[]>values;
       if (syncResults && syncResults.length) {
         syncResults.forEach(tableChange => {
-          var thinNewTrade: Trade = <Trade>{};
+          var newTrade = <Trade>{};
           var thinTradeRow = tableChange.value;
-          for (let property in thinTradeRow) {
-            (<Trade>thinNewTrade)[property] = (<any>thinTradeRow)[property];
-          }
+          ReflectionUtils.FillInProperties<Trade>(newTrade, thinTradeRow);
           this.zone.run(() => {
-            this.readyTradeForUpsert(thinNewTrade);
+            this.readyTradeForUpsert(newTrade);
           });
         });
       } else {
@@ -44,7 +44,9 @@ export class ListTradesComponent implements OnInit {
 
   readyTradeForUpsert(thinTrade: Trade | any) {
     const upsertTrade = thinTrade;
-    upsertTrade.properties = []; // wont support properties in this POC
+    // remove all fake properties and convert them into real ones.
+
+
     // Mandatory values that need to be setto something...
     upsertTrade.tradeId = upsertTrade.tradeId.length === 0 ? DateUtils.GetTodaysDate() + upsertTrade.nettingSet : upsertTrade.tradeId; // must have one else breaks server 
     upsertTrade.securityUid = JSON.parse(upsertTrade.securityUid);

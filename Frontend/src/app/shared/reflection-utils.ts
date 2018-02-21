@@ -1,3 +1,5 @@
+import { Property } from "lusid-client/models";
+
 export class ReflectionUtils {
 
   static toObject<T>(arr: any, properties: string[]): T {
@@ -17,9 +19,17 @@ export class ReflectionUtils {
    * @param thinEntity the entity with properties to transfer to @param entity
    */
   static FillInProperties<T>(entity: T, thinEntity: any) {
+    let properties: Property[] = [];
     for (let property in thinEntity) {
-      (<T>entity)[property] = (<any>thinEntity)[property];
+      if (property.match(/(.+)\/(.+)\/(.+)/g)) {
+        var prop: Property = { key: property, value: (<any>thinEntity)[property] };
+        properties.push(prop);
+      } else {
+        (<T>entity)[property] = (<any>thinEntity)[property];
+      }
     }
+    // Set properties.
+    (<any>entity).properties = properties;
   }
 
   static getEntityProperties<T>(entity: T, exclComplexTypes?: boolean): string[][] {
@@ -33,8 +43,12 @@ export class ReflectionUtils {
         if (exclComplexTypes && (ReflectionUtils.isComplexType(dummy[key]))) {
           continue;
         }
-        console.log('found: ' + key);
-        r.push(key);
+        if (key === 'properties') {
+          (<any>dummy[key]).forEach((property: Property) => r.push(property.key));
+        } else {
+          console.log('found: ' + key);
+          r.push(key);
+        }
       }
     }
     columns.push(r);
@@ -62,10 +76,17 @@ export class ReflectionUtils {
       const row: string[] = [];
       columns.forEach((column: string[]) => {
         column.forEach((c: string) => {
-          if (ReflectionUtils.isComplexType(entity[c])) {
-            row.push(JSON.stringify(entity[c]));
-            //row.push(converters[c].toString(entity[c]));
-            //row.push(converters[c].fromString(entity[c]));
+          if (ReflectionUtils.isComplexType(entity[c]) || c.includes('/')) {
+            if (c.includes('/')) {
+              const p: Property[] = <Property[]>(<any>entity['properties']).filter((property: Property) => property.key === c);
+              if (p[0]) { // found property value
+                row.push(p[0].value);
+              } else {
+                row.push(''); // dont have a value for this property
+              }
+            } else {
+              row.push(JSON.stringify(entity[c]));
+            }
           } else {
             row.push(entity[c]);
           }
