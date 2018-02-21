@@ -18,13 +18,14 @@ export class ListTradesComponent implements OnInit {
   constructor(private apiService: ApiService, private zone: NgZone) { }
   errorMessage: string;
   @Input() PortfolioId: string;
+  portfolioName: string;
   trades: Trade[] = [];
   message: string;
 
   
 
   sync() {
-    ExcelUtils.SyncTable<Trade>(this.trades, 'Trades', false).then((values) => {
+    ExcelUtils.SyncTable<Trade>(this.trades, 'Trades',this.portfolioName+'Trades', false).then((values) => {
       var syncResults = <TableChange<Trade>[]>values;
       if (syncResults && syncResults.length) {
         syncResults.forEach(tableChange => {
@@ -68,7 +69,10 @@ export class ListTradesComponent implements OnInit {
     this.zone.run(() => {
     this.apiService
       .doGetPortfolioTrades(this.PortfolioId)
-      .subscribe((result: GetPortfolioTradesResponse) => { this.trades = result.items; }, error => { });
+      .subscribe((result: GetPortfolioTradesResponse) => {
+         this.portfolioName = result.root.name;
+         this.trades = result.items;
+      }, error => { });
     });
   }
 }

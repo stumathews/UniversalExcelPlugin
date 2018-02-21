@@ -32,7 +32,7 @@ export class SecurityComponent  implements OnInit {
       lookThroughPortfolioId: 'portfolioId', lookThroughPortfolioScope: 'scope',
       instrument: <InstrumentDefinition>{ content:'context'}
     };
-    ExcelUtils.SyncTable( this.Securities.length > 0 ? this.Securities : [dummy], "securities", false).then((changes: TableChange<ClientSecurityDefinitionData>[]) => {
+    ExcelUtils.SyncTable( this.Securities.length > 0 ? this.Securities : [dummy], "securities", 'Securities', false).then((changes: TableChange<ClientSecurityDefinitionData>[]) => {
       // Create a new property for this domain
       let entities: ClientSecurityDefinitionData[] = [];
       changes.forEach((each: ITableChange<ClientSecurityDefinitionData>) => {

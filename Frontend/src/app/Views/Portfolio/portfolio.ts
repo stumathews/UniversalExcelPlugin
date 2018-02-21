@@ -32,7 +32,7 @@ export class PortfolioComponent extends InvestmentUtilities implements OnInit {
   sync() {
     
     const dummy: GetPortfolioRootResponse = {};
-    ExcelUtils.SyncTable(this.listPortfolioResponse.items.length > 0 ? this.listPortfolioResponse.items : [dummy], "portfolios", true).then((changes: TableChange<GetPortfolioRootResponse>[]) => {
+    ExcelUtils.SyncTable(this.listPortfolioResponse.items.length > 0 ? this.listPortfolioResponse.items : [dummy], "portfolios", 'portfolios', true).then((changes: TableChange<GetPortfolioRootResponse>[]) => {
       // Create a new property for this domain
       changes.forEach((each: TableChange<GetPortfolioRootResponse>) => {
         //asume added for now

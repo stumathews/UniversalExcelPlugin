@@ -47,13 +47,13 @@ export class ExcelUtils {
   }
 
 
-  static SyncTable<T>(entities: T[], tableName: string, exclComplexTypes: boolean = true): OfficeExtension.
+  static SyncTable<T>(entities: T[], tableName: string, sheetName: string, exclComplexTypes: boolean = true): OfficeExtension.
     IPromise<any> {
     return Excel.run(context => {
       // Get the named table.
       // Get the number of rows, if its diffirenct find difdirent rows from the bottom, create those entries
       let changes: TableChange<T>[] = [];
-      const desiredSheetName = `sheet_${tableName}`;
+      const desiredSheetName = sheetName;
       var sheet = context.workbook.worksheets.getItem(desiredSheetName);
       sheet.activate();
 
@@ -64,8 +64,18 @@ export class ExcelUtils {
                 sheet = sheets.add(desiredSheetName);
                 sheet.activate();
                 sheet.load('name, position');
-                return context.sync();
-              })
+                return context.sync().then((created) => { }, (failed) => {
+                  // could not create a new sheet, try create a tmp one and then rename it
+                  var sheets = context.workbook.worksheets;
+                  sheet = sheets.add('temp');
+                  sheet.activate();
+                  sheet.load('name, position');
+                  return context.sync().then((worked) => {
+                    sheet.name = desiredSheetName;
+                    return context.sync();
+                  }, (failed) => {});
+                });
+                })
           .then(ok => {
             // ok we should be on the right sheet now
             var table = sheet.tables.getItemOrNullObject(tableName);
