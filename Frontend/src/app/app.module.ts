@@ -32,7 +32,6 @@ import { PropertyComponent} from './Views/Property/property.component';
 import { ReferencePortfolioComponent } from './Views/ReferencePortfolio/reference-portfolio.component';
 import { SharedStateService} from './shared/shared-state.service';
 
-
 const appRoutes: Routes = [
   { path: 'ReferencePortfolio', component:  ReferencePortfolioComponent, canActivate: [AuthGuard]},
   { path: 'PortfolioGroup', component: PortfolioGroupComponent, canActivate: [AuthGuard] },
@@ -63,7 +62,7 @@ const appRoutes: Routes = [
       {
         // enableTracing: true, // <-- debugging purposes only
         useHash: true, // Required for excel add-in interaction
-        initialNavigation: false // <- turn off the initial redirect, used for redirect or hash routing strategy
+        initialNavigation: false // <- turn off the initial redirect, used for redirect or hash routing strategy (required for excel add-in)
       }
     ),
     OAuthModule.forRoot(), FormsModule, ReactiveFormsModule, CollapseModule.forRoot(), BsDropdownModule.forRoot(),
