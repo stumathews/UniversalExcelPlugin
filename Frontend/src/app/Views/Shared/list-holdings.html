@@ -1,14 +1,15 @@
 <div class="container-fluid">
 <div class="row">
   <div class="col-xs-12">
-    <div class="list-group">
-      <a *ngFor="let holding of holdings" href="#" class="list-group-item">
-        {{holding.units}} units @ {{holding.cost}} against securityUid: {{holding.securityUid}}
-
-      </a>
-    </div>
+    <p class="text-center"><a (click)="sync()">Sync</a></p>
     <p><strong>Total: {{ holdings.length }}</strong></p>
-    <p><a (click)="sync()" class="btn btn-primary">Syncronize</a></p>
-  </div>
+    <p class="text-center"> <a [routerLink]="['/PortfolioDetails', portfolioId]">back to portfolio</a></p>
+      <div class="list-group">
+        <a *ngFor="let holding of holdings" href="#" class="list-group-item">
+          {{holding.units}} units @ {{holding.cost}} against securityUid: {{holding.securityUid}}
+
+        </a>
+      </div>
+</div>
 </div>
 </div>

@@ -2,13 +2,15 @@
   <div class="row">
     <div class="col-xs-12">
       <div class="list-group">
-        domain is {{domain}}
-        <a *ngFor="let property of properties" href="#" class="list-group-item">
-          {{ property.name }} - {{property.key }} - {{property.scope}}
-        </a>
+          <div *ngIf="properties.length > 0">
+            <a *ngFor="let property of properties" href="#" class="list-group-item">
+              {{ property.name }} - {{property.key }} - {{property.scope}}
+            </a>
+            <p><strong>Total: {{ properties.length }}</strong></p>
+          </div>
       </div>
-      <p><strong>Total: {{ properties.length }}</strong></p>
-      <p><a (click)="sync()" class="btn btn-primary">Syncronize</a></p>
+      <p *ngIf="properties.length > 0"><a (click)="sync()" class="btn btn-primary">Syncronize</a></p>
+      <p *ngIf="properties.length == 0"><a (click)="sync()" class="btn btn-primary">Create New domain {{domain}} property</a></p>
     </div>
   </div>
 </div>

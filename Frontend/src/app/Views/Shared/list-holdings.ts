@@ -25,7 +25,8 @@ export class ListHoldingsComponent implements OnInit {
     return this.portfolioId;
   }
   sync() {
-    ExcelUtils.EntitiesToGrid<Holding>(this.holdings, 'Holdings', true);
+    
+    ExcelUtils.SyncTable<Holding>(this.holdings, 'holdings', 'holdings', true);
   }
 
   constructor(private apiService: ApiService) { }

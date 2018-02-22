@@ -21,11 +21,13 @@ export class ListTradesComponent implements OnInit {
   portfolioName: string;
   trades: Trade[] = [];
   message: string;
+  tableName: string = 'Trades';
+  sheetname: string;
 
   
 
   sync() {
-    ExcelUtils.SyncTable<Trade>(this.trades, 'Trades',this.portfolioName+'Trades', false).then((values) => {
+    ExcelUtils.SyncTable<Trade>(this.trades, this.tableName, this.sheetname, false).then((values) => {
       var syncResults = <TableChange<Trade>[]>values;
       if (syncResults && syncResults.length) {
         syncResults.forEach(tableChange => {
@@ -41,6 +43,16 @@ export class ListTradesComponent implements OnInit {
 
       }
     });
+
+    // Lets register for changes on the table.
+    Excel.run(context => {
+      var sheet = context.workbook.worksheets.getItem(this.sheetname);
+      var table = sheet.tables.getItemOrNullObject(this.tableName);
+      return context.sync().then((ok) => {
+        
+      }, (fail) => {});
+    }).catch((handle) => {});
+
   }
 
   readyTradeForUpsert(thinTrade: Trade | any) {
@@ -72,6 +84,7 @@ export class ListTradesComponent implements OnInit {
       .subscribe((result: GetPortfolioTradesResponse) => {
          this.portfolioName = result.root.name;
          this.trades = result.items;
+         this.sheetname = this.portfolioName + this.tableName;
       }, error => { });
     });
   }

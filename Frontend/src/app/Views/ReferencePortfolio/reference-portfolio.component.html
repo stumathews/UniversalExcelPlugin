@@ -1,14 +1,13 @@
 <div class="container-fluid">
   <div class="row">
     <div class="col-xs-12">
+      <p class="text-center"><a (click)="sync()">Sync</a></p>
+      <p><strong>Total: {{ ReferencePortfolios.length }}</strong></p>
       <div class="list-group">
-        yo
         <a *ngFor="let portfolio of ReferencePortfolios" href="#" class="list-group-item">
           {{ portfolio.referencePortfolio.name }} - {{portfolio.referencePortfolio.id }} - {{portfolio.referencePortfolio.created}} - {{portfolio.referencePortfolio.referencePortfolioId}} - {{portfolio.referencePortfolio.referenceScope}}
         </a>
       </div>
-      <p><strong>Total: {{ ReferencePortfolios.length }}</strong></p>
-      <p><a (click)="sync()" class="btn btn-primary">Syncronize</a></p>
     </div>
   </div>
 </div>

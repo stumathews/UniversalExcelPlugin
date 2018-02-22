@@ -36,6 +36,7 @@ export class ExcelUtils {
         expensesTable.rows.add(null /*add at the end*/, rows);
         expensesTable.getRange().format.autofitColumns();
         expensesTable.getRange().format.autofitRows();
+        
         return context.sync();
       })
       .catch(error => {

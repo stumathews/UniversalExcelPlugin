@@ -1,10 +1,17 @@
 <body >
   <div class="container-fluid">
-      <div class="row">
-        <div class="col-xs-12 col-md-8">
-          <img src="{{fullImagePath}}" class="img-responsive img-rounded" style="height: 100px;" alt="Responsive image">
+    <div class="row">
+      <div class="col-xs-12 col-md-8">
+        <img src="{{fullImagePath}}" class="img-responsive img-rounded" style="height: 100px;" alt="Responsive image">
+      </div>
+    </div>
+    <div class="row">
+      <div class="col-xs-12 col-md-8">
+        <div *ngIf="!LoggedIn">
+          <h4>Hello, please log in to access the usid API.</h4>
         </div>
       </div>
+    </div>
       <div class="row">
         <div class="col-xs-12 col-md-8">
           <div *ngIf="!LoggedIn">
@@ -46,9 +53,8 @@
       <div class="row">
         <div class="col-xs-12 col-md-8">
           <div *ngIf="LoggedIn">
-            <div class="list-group">
-              <a *ngFor="let route of navRoutes" [routerLink]="[route.path]"><button type="button" class="list-group-item">{{route.title}}</button></a>
-            </div>
+            <h4>Hello, you're logged in and are ready to go!</h4>
+            <p>Click on a link in the menu to feetch some lusid data</p>
           </div>
           </div>
         </div>

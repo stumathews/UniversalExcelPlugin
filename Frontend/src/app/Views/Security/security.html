@@ -1,13 +1,13 @@
 <div class="container-fluid">
   <div class="row">
     <div class="col-xs-12">
+      <p class="text-center"><a (click)="sync()">Sync</a></p>
+      <p><strong>Total: {{ Securities.length }}</strong></p>
       <div class="list-group">
         <a *ngFor="let security of Securities" href="#" class="list-group-item">
           {{security}}
         </a>
       </div>
-      <p><strong>Total: {{ Securities.length }}</strong></p>
-      <p><a (click)="sync()" class="btn btn-primary">Syncronize</a></p>
     </div>
   </div>
 </div>
