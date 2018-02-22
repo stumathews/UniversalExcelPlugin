@@ -7,9 +7,7 @@ export class SharedStateService {
 
   public navRoutes: Object[] = [
     { path: '/home', title: 'Home' },
-    { path: '/portfolios', title: 'Portfolios' },
-    { path: '/layout', title: 'Layout' },
-    { path: '/selection-tests', title: 'Tests' },
+    { path: '/Portfolio', title: 'Portfolios' },
     { path: 'PropertyTypes', title: 'PropertyTypes' },
     { path: 'Security', title: 'Securities' },
     { path: 'PortfolioGroup', title: 'Portfolio Groups' },
