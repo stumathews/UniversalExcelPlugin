@@ -1,5 +1,4 @@
 import {ReflectionUtils} from './reflection-utils';
-import {GetPortfolioRootResponse} from '@finbourne/lusidtypes/index';
 import { StringUtils as StringUtils1 } from './string-utils';
 
 

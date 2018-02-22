@@ -3,16 +3,14 @@
 
 import { Injectable } from '@angular/core';
 import { Router } from '@angular/router';
-import { Http, Response, RequestOptions, URLSearchParams, Headers } from '@angular/http';
+import { Response, } from '@angular/http';
 import { Observable } from 'rxjs/Observable';
-import { LusidEntityTypes } from './Models/EntityTypes';
-import { LoginData } from './Models/LoginData';
 
 import 'rxjs/add/operator/map'
 import 'rxjs/add/operator/do'
 import 'rxjs/add/operator/catch';
 
-import { HttpClient, HttpErrorResponse } from '@angular/common/http';
+import { HttpClient } from '@angular/common/http';
 import {
   ListPortfolioRootsResponse,
   IErrorResponse, GetPropertyKeysResponse, GetPortfolioDetailsResponse,
@@ -273,132 +271,9 @@ export class ApiService {
     return this.Http.post(this.CreateReferencePortfolio.replace('{scope}', scope), portfolio)
       .catch(this.handleError);
   }
-
-  /*
-    // POST
-    GetInvestmentGraphData(type: EntityTypes, investmentID: number): Observable<any> {
-
-        let url;
-
-        if (type === EntityTypes) {
-            url = this.anysGraphUrl;
-        } else if (type === EntityTypes.any) {
-            url = this.InvestmentFactorsGraphUrl;
-        } else if (type === EntityTypes.any) {
-            url = this.anysGraphUrl;
-        } else if (type === EntityTypes.Region) {
-            url = this.InvestmentRegionsGraphUrl;
-        }
-
-        url = url.replace('{id}', investmentID);
-        console.log('Getting data for...' + EntityTypes[type]);
-        return this.http.post(url, {})
-            .map((response: Response) => <any[] > response.json())
-            .do((data => console.log('All: ' + JSON.stringify(data))))
-            .catch(this.handleError);
-    }
-    
-    // GET many
-    GetlatestExcelAddminVersionqqq(): Observable<any[]> {
-        console.log('Getting latest excel admin version...');
-        return this.http.get(this.ExcelLatestVersionUrl)
-            .map((response: Response) => <any[]> response.json())
-            .do((data => console.log('All: ' + JSON.stringify(data))))
-            .catch(this.handleError);
-    }
-    */
-    
-    /*
-    // POST with URL paramters
-    AssociateEntityWithInvestment(entityType: EntityTypes, entityIDs: number[], investmentId: number): Observable<any> {
-                                                    console.log('Entity=' + EntityTypes[entityType] +
-                                                        ' AssociateEntityWithInvestment ids=' + entityIDs.join(',') +
-                                                        ' investmentID=' + investmentId);
-                                                    let url;
-        if (entityType === EntityTypes.any) {
-                                                        url = this.AssociateFactorWithInvestmentUrl;
-                                                    } else if (entityType === EntityTypes.any) {
-                                                        url = this.AssociateRiskWithInvestmentUrl;
-                                                    } else if (entityType === EntityTypes.any) {
-                                                        url = this.AssociateGroupWithInvestmentUrl;
-                                                    } else if (entityType === EntityTypes.Region) {
-                                                        url = this.AssociateRegionWithInvestmentUrl;
-                                                    }
-
-        console.log('url is ' + url);
-        url = url.replace('{investmentID}', '' + investmentId);
-        return this.http.post(url, entityIDs)
-        .map((response: Response) => <any|null>response.json())
-        .do((data => console.log('AssociateEntityFromInvestment: ' + JSON.stringify(data))))
-        .catch(this.handleError);
-    }
-
-    // DELETE
-
-    DeleteEntity(entityType: EntityTypes, id: number): Observable<any>  {
-                                                                                                    let mapFunction;
-        let url;
-
-        if (entityType === EntityTypes.Investment) {
-            url = this.InvestmentByIdUrlEndpoint.replace('{id}', '' + id);
-            mapFunction = (response: Response) => <any>response.json();
-        } else if (entityType === EntityTypes.any) {
-            url = this.FactorByIdUrlEndpoint.replace('{id}', '' + id);
-            mapFunction = (response: Response) => <any>response.json();
-        } else if (entityType === EntityTypes.any) {
-            url = this.RiskByIdUrlEndpoint.replace('{id}', '' + id);
-            mapFunction = (response: Response) => <any>response.json();
-        } else if (entityType === EntityTypes.any) {
-            url = this.GroupByIdUrlEndpoint.replace('{id}', '' + id);
-            mapFunction = (response: Response) => <any>response.json();
-        } else if (entityType === EntityTypes.Region) {
-            url = this.RegionByIdUrlEndpoint.replace('{id}', '' + id);
-            mapFunction = (response: Response) => <Region>response.json();
-        }
-
-        console.log('Delete entity via url:' + url);
-        return this.http.delete(url).map(mapFunction)
-        .do((data => console.log('do DeleteEntity: ' + JSON.stringify(data))))
-        .catch(this.handleError);
-    }
-
-    // PATCH
-    UpdateEntity(entityType: EntityTypes, id: number, property: string, value: any): Observable<number> {
-        const patchObj = [{
-                                                                                                                                'value': value,
-            'path': '/' + property,
-            'op': 'replace'
-        }];
-        let url;
-
-        console.log('Patch for Entity' + EntityTypes[entityType] + ' patch is : ' + JSON.stringify(patchObj));
-
-        const headers = new Headers({'Content-Type': 'application/json' });
-        const options = new RequestOptions({headers: headers }); // Create a request option
-
-        if (entityType === EntityTypes.Investment) {
-                url = this.InvestmentByIdUrlEndpoint.replace('{id}', '' + id);
-            } else if (entityType === EntityTypes.any) {
-                url = this.FactorByIdUrlEndpoint.replace('{id}', '' + id);
-            } else if (entityType === EntityTypes.any) {
-                url = this.RiskByIdUrlEndpoint.replace('{id}', '' + id);
-            } else if (entityType === EntityTypes.any) {
-                url = this.GroupByIdUrlEndpoint.replace('{id}', '' + id);
-            } else if (entityType === EntityTypes.Region) {
-                url = this.RegionByIdUrlEndpoint.replace('{id}', '' + id);
-            }
-
-        return this.http.patch(url, patchObj, options)
-        .map((response: Response) => <number>response.json(), (error: any) => {})
-        .do((data => console.log('do patch risk: ' + JSON.stringify(data))))
-        .catch(this.handleError);
-    }
-    */
-
+  
   private handleError(error: Response) {
     console.error(error);
     return Observable.throw(error.json().error || 'server error');
   }
-  
-    
 }

@@ -1,6 +1,4 @@
 import { Component, OnInit, Input } from '@angular/core';
-import { InvestmentRisk } from '../../Models/InvestmentRisk';
-import { EntityTypes  } from '../../Utilities';
 import { ActivatedRoute , Router} from '@angular/router';
 import { ApiService } from '../../apiService';
 import { GroupDefinitionResponse, PortfolioGroupState, GetPortfolioGroupResponse, ScopedIdentifier } from 'lusid-client/models';

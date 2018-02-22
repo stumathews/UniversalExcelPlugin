@@ -1,7 +1,7 @@
 import { Component, OnInit, Input } from '@angular/core';
 import { ListPortfolioRootsResponse, GetPortfolioRootResponse, IErrorResponse } from 'lusid-client/models';
 import { ApiService } from '../../apiService';
-import { InvestmentUtilities } from '../../Utilities';
+
 import { StringUtils } from '../../shared/string-utils';
 import {ReflectionUtils} from '../../shared/reflection-utils';
 import { ExcelUtils } from '../../shared/excel-utils';
@@ -17,13 +17,13 @@ export function getProgressbarConfig(): ProgressbarConfig {
   templateUrl: './portfolio.html',
   providers: [{ provide: ProgressbarConfig, useFactory: getProgressbarConfig }]
 })
-export class PortfolioComponent extends InvestmentUtilities implements OnInit {
+export class PortfolioComponent  implements OnInit {
   listPortfolioResponse: ListPortfolioRootsResponse;
   errorMessage: string;
   isPageComplete: boolean = false;
 
   constructor(protected apiService: ApiService) {
-    super(apiService);
+    
   }
 
   /**

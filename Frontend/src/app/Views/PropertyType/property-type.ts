@@ -1,5 +1,4 @@
 import { Component, OnInit, Input } from '@angular/core';
-import { Region } from '../../Models/Region';
 import {  ErrorMessage } from 'lusid-client/models';
 import {ApiService} from '../../apiService';
 
