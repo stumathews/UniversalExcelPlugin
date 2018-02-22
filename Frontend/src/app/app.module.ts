@@ -63,7 +63,7 @@ import { ProgressbarModule } from 'ngx-bootstrap';
 import { SecurityComponent } from './Views/Security/security'
 import {PropertyComponent} from './Views/Property/property.component';
 import { ReferencePortfolioComponent } from './Views/ReferencePortfolio/reference-portfolio.component';
-
+import {SharedStateService} from './shared/shared-state.service';
 
 
 const appRoutes: Routes = [
@@ -139,7 +139,7 @@ const appRoutes: Routes = [
     AlertModule.forRoot(), ModalModule.forRoot(), InlineEditorModule, Angular2FontawesomeModule, ProgressbarModule.forRoot()
   ],
   providers: [{ provide: ErrorHandler,  useClass: CustomErrorHandler }
-, ApiService, InvestmentService, AuthGuard, { provide: HTTP_INTERCEPTORS, useClass: MyFirstInterceptor, multi: true }],
+, SharedStateService, ApiService, InvestmentService, AuthGuard, { provide: HTTP_INTERCEPTORS, useClass: MyFirstInterceptor, multi: true }],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

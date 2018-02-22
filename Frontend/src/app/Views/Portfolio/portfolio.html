@@ -2,16 +2,16 @@
   <div class="row">
     <div class="col-xs-12">
       <progressbar class="progress-striped active" *ngIf="!isPageComplete" [value]="100"><i>Loading...</i></progressbar>
+      <p class="text-center"><a (click)="sync()">Sync</a></p>
       <!-- List of portfolios -->
       <div class="panel-body" *ngIf="isPageComplete">
-          <div class="list-group">
-            <a *ngFor="let portfolio of listPortfolioResponse?.items" class="list-group-item" [routerLink]="['PortfolioDetails', portfolio.id]">
-              <h4 class="list-group-item-heading">{{ portfolio.name }}</h4>
-              <p class="list-group-item-text">{{ portfolio.created }} / {{portfolio.id}}</p>
-            </a>
-          </div>
-        <p><a (click)="sync()" class="btn btn-primary">Syncronize</a></p>
+        <div class="list-group">
+          <a *ngFor="let portfolio of listPortfolioResponse?.items" class="list-group-item" [routerLink]="['PortfolioDetails', portfolio.id]">
+            <h4 class="list-group-item-heading">{{ portfolio.name }}</h4>
+            <p class="list-group-item-text">{{ portfolio.created }} / {{portfolio.id}}</p>
+          </a>
         </div>
+      </div>
     </div>
   </div>
 </div>

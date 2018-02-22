@@ -1,6 +1,7 @@
 import { Component, OnInit, ViewEncapsulation } from '@angular/core';
 import { OAuthService, JwksValidationHandler } from 'angular-oauth2-oidc';
 import { Router } from '@angular/router';
+import {SharedStateService} from './shared/shared-state.service';
 
 /**
  * AppComponent will attempt to automatically authenticate when the application is
@@ -13,22 +14,13 @@ import { Router } from '@angular/router';
   styleUrls: ['./app.component.css'],
 })
 export class AppComponent implements OnInit {
+  isCollapsed = true;
 
-  navRoutes: Object[] = [
-    { path: '/home', title: 'Home' },
-    { path: '/portfolios', title: 'Portfolios' },
-    { path: '/layout', title: 'Layout' },
-    { path: '/selection-tests', title: 'Tests' },
-    { path: 'PropertyTypes', title: 'PropertyTypes' },
-    { path: 'Security', title: 'Securities' },
-    { path: 'PortfolioGroup', title: 'Portfolio Groups' },
-    { path: 'ReferencePortfolio', title: 'Reference Portfolio' }
-
-  ];
+  navRoutes: Object[] = [];
 
   ngOnInit(): void { }
  
-  constructor(private readonly oauthService: OAuthService, private router: Router) {
+  constructor(private readonly oauthService: OAuthService, private router: Router, sharedState: SharedStateService) {
     this.oauthService.redirectUri = window.location.origin;
     this.oauthService.clientId = '0oa5ao43cLgHp80RG2p6';
     this.oauthService.issuer = 'https://lusid.okta.com/oauth2/aus5al5yopbHW2wJn2p6';
@@ -43,6 +35,8 @@ export class AppComponent implements OnInit {
          this.router.navigate(['/']);
       });
     }).catch(reason => console.log(`Problem authenticating ${reason}`));
+
+    this.navRoutes = sharedState.navRoutes;
   }
 
   isLoggedIn() {

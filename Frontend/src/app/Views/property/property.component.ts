@@ -41,7 +41,7 @@ export class PropertyComponent implements OnInit {
       "dataFormatScope": "string",
       "sort": "string"
     };
-    ExcelUtils.SyncTable([dummy], "properties",'properties', true).then((changes: TableChange<PropertyDefinition>[]) => {
+    ExcelUtils.SyncTable([dummy], this.domain+"properties",this.domain+'properties', true).then((changes: TableChange<PropertyDefinition>[]) => {
       // Create a new property for this domain
       changes.forEach((each: TableChange<PropertyDefinition>) => {
         //asume added for now

@@ -5,6 +5,7 @@ import { FormGroup, FormControl, Validators } from '@angular/forms';
 import { LoginData } from '../Models/LoginData';
 import { JwksValidationHandler } from 'angular-oauth2-oidc';
 import { Router } from '@angular/router';
+import {SharedStateService} from '../shared/shared-state.service';
 
 @Component({
   selector: 'app-home',
@@ -20,7 +21,11 @@ export class HomeComponent implements OnInit
   bsValue: Date = new Date();
   bsRangeValue: any = [new Date(2017, 7, 4), new Date(2017, 7, 20)];
 
-  constructor(private readonly oauthService: OAuthService, private router: Router) { }
+  navRoutes: Object[] = [];
+
+  constructor(private readonly oauthService: OAuthService, private router: Router, sharedState: SharedStateService) {
+    this.navRoutes = sharedState.navRoutes;
+  }
 
   onSubmit(form: LoginData ) {
     this.explicitLogin(form.username, form.password);
@@ -101,23 +106,4 @@ export class HomeComponent implements OnInit
   {
     return this.oauthService.hasValidIdToken();
   }
-
-  goto(where: string) {
-    switch (where) {
-    case 'portfolios':
-        this.router.navigate(['/portfolios']);
-        break;
-    case 'portfolio-groups':
-      this.router.navigate(['PortfolioGroup']);
-      break;
-    case 'property-types':
-      this.router.navigate(['PropertyType']);
-      break;
-    case 'securities':
-      this.router.navigate(['Security']);
-      break;
-    }
-  }
-
-  
 }

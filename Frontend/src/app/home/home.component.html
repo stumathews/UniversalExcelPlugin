@@ -47,12 +47,7 @@
         <div class="col-xs-12 col-md-8">
           <div *ngIf="LoggedIn">
             <div class="list-group">
-              <button type="button" (click)="goto('portfolios')" class="list-group-item">View Portfolios</button>
-              <button type="button" (click)="goto('portfolio-groups')" class="list-group-item">View Portfolio Groups</button>
-              <button type="button" (click)="goto('property-types')" class="list-group-item">View Properties</button>
-              <button type="button" (click)="goto('reference-portfolios')" class="list-group-item">View Reference Portfolios</button>
-              <button type="button" (click)="goto('securities')" class="list-group-item">View Securities</button>
-              <button type="button" (click)="goto('analytics')" class="list-group-item">View Analytics</button>
+              <a *ngFor="let route of navRoutes" [routerLink]="[route.path]"><button type="button" class="list-group-item">{{route.title}}</button></a>
             </div>
           </div>
           </div>

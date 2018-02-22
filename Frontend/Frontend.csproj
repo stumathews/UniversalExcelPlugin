@@ -190,6 +190,7 @@
     <TypeScriptCompile Include="src\app\shared\okta.service.ts" />
     <TypeScriptCompile Include="src\app\shared\excel-utils.ts" />
     <TypeScriptCompile Include="src\app\shared\date-utils.ts" />
+    <TypeScriptCompile Include="src\app\shared\shared-state.service.ts" />
     <TypeScriptCompile Include="src\app\shared\string-utils.ts" />
     <TypeScriptCompile Include="src\app\shared\reflection-utils.ts" />
     <TypeScriptCompile Include="src\app\UrlInterceptor.ts" />
