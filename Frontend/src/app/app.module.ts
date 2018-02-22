@@ -26,7 +26,6 @@ import { ListHoldingsComponent as ListGroupsComponent} from './Views/Shared/list
 import { TabsModule } from 'ngx-bootstrap/tabs';
 import { InlineEditorModule } from '@qontu/ngx-inline-editor';
 import { Angular2FontawesomeModule } from 'angular2-fontawesome/angular2-fontawesome';
-import { BreadcrumbsComponent } from './BreadCrumbs'
 import { ProgressbarModule } from 'ngx-bootstrap';
 import { SecurityComponent } from './Views/Security/security'
 import { PropertyComponent} from './Views/Property/property.component';
@@ -54,7 +53,7 @@ const appRoutes: Routes = [
     AppComponent, HomeComponent,
     PortfolioComponent, TradeComponent, HoldingComponent, PortfolioGroupComponent, PropertyTypeComponent,
     PortfolioDetailComponent, ListTradesComponent,
-    ListGroupsComponent, BreadcrumbsComponent, PropertyComponent,
+    ListGroupsComponent, PropertyComponent,
     SecurityComponent, ReferencePortfolioComponent
   ],
   imports: [

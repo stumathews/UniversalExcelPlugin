@@ -124,7 +124,6 @@
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
-    <TypeScriptCompile Include="src\app\BreadCrumbs.ts" />
     <TypeScriptCompile Include="src\app\ErrorCatcher.ts" />
     <TypeScriptCompile Include="src\app\shared\auth.guard.service.ts" />
     <TypeScriptCompile Include="src\app\shared\index.ts" />
