@@ -72,10 +72,6 @@
     <Content Include=".angular-cli.json" />
     <Content Include="ExcelReadMe.txt" />
     <Content Include="package.json" />
-    <Content Include="src\app\layout\layout.component.css" />
-    <Content Include="src\app\layout\layout.component.html" />
-    <Content Include="src\app\selection-test\selection-test.component.css" />
-    <Content Include="src\app\selection-test\selection-test.component.html" />
     <Content Include="src\app\Views\Property\property.component.css" />
     <Content Include="src\app\Views\Property\property.component.html" />
     <Content Include="src\app\Views\ReferencePortfolio\reference-portfolio.component.css" />
@@ -97,8 +93,6 @@
     <Content Include="src\app\Models\LoginData.js" />
     <Content Include="src\app\home\home.component.css" />
     <Content Include="src\app\home\home.component.html" />
-    <Content Include="src\app\portfolios\portfolios.component.css" />
-    <Content Include="src\app\portfolios\portfolios.component.html" />
     <Content Include="src\assets\.gitkeep" />
     <Content Include="src\tsconfig.app.json" />
     <Content Include="src\tsconfig.spec.json" />
@@ -132,10 +126,6 @@
   <ItemGroup>
     <TypeScriptCompile Include="src\app\BreadCrumbs.ts" />
     <TypeScriptCompile Include="src\app\ErrorCatcher.ts" />
-    <TypeScriptCompile Include="src\app\layout\layout.component.spec.ts" />
-    <TypeScriptCompile Include="src\app\layout\layout.component.ts" />
-    <TypeScriptCompile Include="src\app\selection-test\selection-test.component.spec.ts" />
-    <TypeScriptCompile Include="src\app\selection-test\selection-test.component.ts" />
     <TypeScriptCompile Include="src\app\shared\auth.guard.service.ts" />
     <TypeScriptCompile Include="src\app\shared\index.ts" />
     <TypeScriptCompile Include="src\app\apiService.ts" />
@@ -146,8 +136,6 @@
     <TypeScriptCompile Include="src\app\Models\LoginData.ts" />
     <TypeScriptCompile Include="src\app\home\home.component.spec.ts" />
     <TypeScriptCompile Include="src\app\home\home.component.ts" />
-    <TypeScriptCompile Include="src\app\portfolios\portfolios.component.spec.ts" />
-    <TypeScriptCompile Include="src\app\portfolios\portfolios.component.ts" />
     <TypeScriptCompile Include="src\app\shared\okta.service.ts" />
     <TypeScriptCompile Include="src\app\shared\excel-utils.ts" />
     <TypeScriptCompile Include="src\app\shared\date-utils.ts" />
