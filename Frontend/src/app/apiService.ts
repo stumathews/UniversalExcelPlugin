@@ -21,6 +21,8 @@ import {
   PortfolioGroupState, GetPortfolioGroupResponse, Portfolio,
   ReferencePortfolioResponse
 } from 'lusid-client/models';
+
+import { PortfolioDto, TradeDto, PortfolioDetailsDto, HoldingDto, PropertyDefinitionDto, CreateClientSecurityRequest, GroupDto, ResourceListPropertyKey, ResourceListGroupDto, ResourceListPortfolioDto } from '@finbourne/lusid/models'; 
 import {DateUtils} from './shared/date-utils';
 
 @Injectable()
@@ -188,7 +190,7 @@ export class ApiService {
       return this.Http.get(this.GetLatestExcelVersion);
     }
     
-    GetAllPortfolios(scope: string): Observable<ListPortfolioRootsResponse | IErrorResponse> {
+    GetAllPortfolios(scope: string): Observable<ResourceListPortfolioDto> {
         
         console.log('Entry: GetAllPortfolios...');
             return this.Http.get(this.GetPortfolios.replace('{scope}', scope))
