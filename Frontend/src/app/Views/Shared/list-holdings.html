@@ -2,14 +2,19 @@
 <div class="row">
   <div class="col-xs-12">
     <p class="text-center"><a (click)="sync()">Sync</a></p>
-    <p><strong>Total: {{ holdings.length }}</strong></p>
-    <p class="text-center"> <a [routerLink]="['/PortfolioDetails', portfolioId]">back to portfolio</a></p>
-      <div class="list-group">
-        <a *ngFor="let holding of holdings" href="#" class="list-group-item">
-          {{holding.units}} units @ {{holding.cost}} against securityUid: {{holding.securityUid}}
-
-        </a>
+    <div class="panel panel-default">
+      <div class="panel-heading">
+        <h3 class="panel-title"><a [routerLink]="['/PortfolioDetails', portfolioId]">Parent portfolio</a></h3>
       </div>
-</div>
+      <div class="panel-body">
+        <div class="list-group">
+          <a *ngFor="let holding of holdings" href="#" class="list-group-item">
+            {{holding.units}} units @ {{holding.cost}} against securityUid: {{holding.securityUid}}
+          </a>
+        </div>
+      </div>
+    </div>
+    <p><strong>Total: {{ holdings.length }}</strong></p>
+  </div>
 </div>
 </div>

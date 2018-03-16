@@ -15,7 +15,7 @@ export class ListHoldingsComponent implements OnInit {
 
   @Input() set PortfolioId(portfolioId: string | null) {
     this.portfolioId = portfolioId;
-    this.apiService.doGetPortfolioHoldings(this.portfolioId).subscribe(
+    this.apiService.GetPortfolioHoldings(this.portfolioId).subscribe(
       (result: GetPortfolioHoldingsResponse) => {
         this.holdings = result.items;
       },

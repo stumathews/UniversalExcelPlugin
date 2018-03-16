@@ -7,11 +7,14 @@ import {TableChange} from '../../shared/excel-utils';
 import {DateUtils} from '../../shared/date-utils';
 import {ReflectionUtils} from '../../shared/reflection-utils';
 import {PropertyDefinition} from 'lusid-client/models/index';
+import { TradeDto} from '@finbourne/lusid/models'; 
 
 @Component({
   selector: 'app-list-trades',
   templateUrl: './list-trades.html'
 })
+
+
 
 export class ListTradesComponent implements OnInit {
  
@@ -19,7 +22,7 @@ export class ListTradesComponent implements OnInit {
   errorMessage: string;
   @Input() PortfolioId: string;
   portfolioName: string;
-  trades: Trade[] = [];
+  trades: TradeDto[] = [];
   message: string;
   tableName: string = 'Trades';
   sheetname: string;
@@ -27,13 +30,13 @@ export class ListTradesComponent implements OnInit {
   
 
   sync() {
-    ExcelUtils.SyncTable<Trade>(this.trades, this.tableName, this.sheetname, false).then((values) => {
-      var syncResults = <TableChange<Trade>[]>values;
+    ExcelUtils.SyncTable<TradeDto>(this.trades, this.tableName, this.sheetname, false).then((values) => {
+      var syncResults = <TableChange<TradeDto>[]>values;
       if (syncResults && syncResults.length) {
         syncResults.forEach(tableChange => {
-          var newTrade = <Trade>{};
+          var newTrade = <TradeDto>{};
           var thinTradeRow = tableChange.value;
-          ReflectionUtils.FillInProperties<Trade>(newTrade, thinTradeRow);
+          ReflectionUtils.FillInProperties<TradeDto>(newTrade, thinTradeRow);
           this.zone.run(() => {
             this.readyTradeForUpsert(newTrade);
           });
@@ -55,7 +58,7 @@ export class ListTradesComponent implements OnInit {
 
   }
 
-  readyTradeForUpsert(thinTrade: Trade | any) {
+  readyTradeForUpsert(thinTrade: TradeDto | any) {
     const upsertTrade = thinTrade;
     // remove all fake properties and convert them into real ones.
 
@@ -80,10 +83,10 @@ export class ListTradesComponent implements OnInit {
   ngOnInit(): void {
     this.zone.run(() => {
     this.apiService
-      .doGetPortfolioTrades(this.PortfolioId)
-      .subscribe((result: GetPortfolioTradesResponse) => {
-         this.portfolioName = result.root.name;
-         this.trades = result.items;
+      .GetPortfolioTrades(this.PortfolioId, 'finbourne')
+      .subscribe((result: TradeDto[]) => {
+         this.portfolioName = this.PortfolioId;
+         this.trades = result;
          this.sheetname = this.portfolioName + this.tableName;
       }, error => { });
     });

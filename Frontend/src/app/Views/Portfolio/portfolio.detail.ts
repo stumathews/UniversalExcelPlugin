@@ -7,6 +7,7 @@ import { BsModalRef } from 'ngx-bootstrap/modal/bs-modal-ref.service';
 import {ApiService} from '../../apiService';
 import { GetPortfolioDetailsResponse, IErrorResponse} from 'lusid-client/models';
 
+import { PortfolioDto, TradeDto, PortfolioDetailsDto, ResourceListPortfolioDto } from '@finbourne/lusid/models'; 
 
 @Component({
   selector: 'app-portfolio-detail',
@@ -14,12 +15,11 @@ import { GetPortfolioDetailsResponse, IErrorResponse} from 'lusid-client/models'
   })
 
 export class PortfolioDetailComponent implements OnInit {
-
-  Entity: GetPortfolioDetailsResponse | IErrorResponse;
-  
+  portfolioDetail: PortfolioDetailsDto;
   errorMessage: string;
   modalRef: BsModalRef;
   internalId: string;
+
   @ViewChild('childModal') childModal: ModalDirective;
   constructor(protected apiService: ApiService,
     private route: ActivatedRoute,
@@ -32,9 +32,9 @@ export class PortfolioDetailComponent implements OnInit {
         this.internalId = this.route.snapshot.paramMap.get('id');
         console.log(`portfolio is is ${this.internalId}`);
     
-    this.apiService.GetPortfolioDetails(this.internalId)
+    this.apiService.GetPortfolioDetails(this.internalId, 'finbourne')
       .subscribe(response => {
-        this.Entity = response;
+        this.portfolioDetail = response;
         console.log(response);
       }, error => this.errorMessage = <any>error);
   }

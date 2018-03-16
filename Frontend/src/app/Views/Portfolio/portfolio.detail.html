@@ -1,34 +1,38 @@
 <div class="container-fluid">
   <div class="row">
     <div class="col-xs-12">
-      <div *ngIf="Entity">
+      <div *ngIf="portfolioDetail">
         <div class="panel panel-default">
         <div class="panel-heading">
-          <h3 class="panel-title">Name: {{Entity.root.name}}</h3>
+          <h3 class="panel-title">Details</h3>
         </div>
         <div class="panel-body">
-      
+          <!--
+          href?: string;
+          originPortfolioId?: ResourceId;
+          version?: VersionDto;
+          baseCurrency?: string;
+          _links?: Link[];
+          -->
           <ul class="list-group">
             <li class="list-group-item">
-              Portfolio Id: {{Entity.root.id}}
+              Portfolio detail href: <a href="{{portfolioDetail.href}}">Url</a>
             </li>
             <li class="list-group-item">
-              Created Date: {{Entity.root.created}}
+              Origin portfolio If: {{portfolioDetail.originPortfolioId.code}}
             </li>
             <li class="list-group-item">
-              Base Currency: {{Entity.baseCurrency}}
+              Base Currency: {{portfolioDetail.baseCurrency}}
             </li>
             <li class="list-group-item">
-              Source Portfolio Id: {{Entity.sourcePortfolioId}}
+              Version: [ExistsFrom]: {{portfolioDetail.version.effectiveFrom}} [StoredAt]: {{portfolioDetail.version.asAtDate}}
+            </li>
+            
+            <li class="list-group-item">
+              <a [routerLink]="['/Trades', portfolioDetail.originPortfolioId.code]">View Portfolio Trades</a>
             </li>
             <li class="list-group-item">
-              Source Portfolio Scope: {{Entity.sourceScope}}
-            </li>
-            <li class="list-group-item">
-              <a [routerLink]="['/Trades', Entity.root.id]">View Portfolio Trades</a>
-            </li>
-            <li class="list-group-item">
-              <a [routerLink]="['/Holdings', Entity.root.id]">View Portfolio Holdings</a>
+              <a [routerLink]="['/Holdings', portfolioDetail.originPortfolioId.code]">View Portfolio Holdings</a>
             </li>
           </ul>
         </div>
@@ -38,4 +42,4 @@
   </div>
 </div>
 
-<!--<pre>{{ Entity | json }}</pre>--> 
+<pre>{{ errorMessage | json }} </pre>

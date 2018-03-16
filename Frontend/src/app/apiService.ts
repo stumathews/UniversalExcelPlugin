@@ -196,11 +196,11 @@ export class ApiService {
                 .catch(this.handleError);
     }
 
-    doGetPortfolioTrades(id: string): Observable<GetPortfolioTradesResponse | IErrorResponse> {
+    GetPortfolioTrades(id: string, scope: string = 'finbourne'): Observable<TradeDto[]> {
       
       console.log(`Entry: doGetPortfolioTrades() for id ${id}`);
       const url = this.GetPortfolioTradesUrl.replace('{portfolioId}', `${id}`)
-        .replace('{scope}', 'finbourne');
+        .replace('{scope}', scope);
 
       console.log('url is ' + url);
       return this.Http.get(url).catch(this.handleError);
@@ -216,10 +216,10 @@ export class ApiService {
         .catch(this.handleError);
     }
 
-    GetPortfolioDetails(id: string): Observable<GetPortfolioDetailsResponse | IErrorResponse> {
+    GetPortfolioDetails(id: string, scope = 'finbourne'): Observable<PortfolioDetailsDto> {
       console.log(`Entry: Get Portfolio details for id ${id}`);
       const url = this.GetProtfolioDetailsUrl.replace('{portfolioId}', `${id}`)
-        .replace('{scope}', 'finbourne') +
+        .replace('{scope}', scope) +
         '?effectiveDate=2018-01-01';
 
       console.log('url is ' + url);
@@ -227,7 +227,7 @@ export class ApiService {
         .catch(this.handleError);
     }
 
-  doGetPortfolioHoldings(portfolioId: string, scope: string = 'finbourne', effectiveAt:string = DateUtils.GetTodaysDate()): Observable<GetPortfolioHoldingsResponse> {
+  GetPortfolioHoldings(portfolioId: string, scope: string = 'finbourne', effectiveAt:string = DateUtils.GetTodaysDate()): Observable<GetPortfolioHoldingsResponse> {
     const url = this.GetPortfolioAggregateHoldingsUrl.replace('{portfolioId}', `${portfolioId}`)
       .replace('{scope}', scope) +
       '?effectiveDate='+ effectiveAt;

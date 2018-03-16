@@ -2,13 +2,20 @@
 <div class="row">
   <div class="col-xs-12">
     <p class="text-center"><a (click)="sync()">Sync</a></p>
-    <div class="list-group">
-      <a *ngFor="let trade of trades" class="list-group-item">
-        {{trade.units}} units @ {{trade.currency}} {{trade.price}} traded on {{trade.tradeDate}} ({{trade.type}})
-      </a>
-    </div>
-    <p><strong>Total: {{ trades.length }}</strong></p>
-    <p class="bg-primary">{{message}}</p>
+    <div class="panel panel-default">
+        <div class="panel-heading">
+          <h3 class="panel-title"><a [routerLink]="['/PortfolioDetails', PortfolioId]">Parent portfolio</a></h3>
+        </div>
+        <div class="panel-body">
+          <div class="list-group">
+            <a *ngFor="let trade of trades" class="list-group-item">
+              {{trade.units}} units @ {{trade.currency}} {{trade.price}} traded on {{trade.tradeDate}} ({{trade.type}})
+            </a>
+          </div>
+        </div>
+      </div>
+  <p><strong>Total: {{ trades.length }}</strong></p>
+  <p class="bg-primary">{{message}}</p>
   </div>
 </div>
 </div>
