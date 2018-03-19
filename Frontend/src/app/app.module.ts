@@ -40,7 +40,7 @@ const appRoutes: Routes = [
   { path: 'Property/:domain', component: PropertyComponent, canActivate: [AuthGuard] },
   { path: 'home', component: HomeComponent},
   { path: 'Portfolio', component: PortfolioComponent, canActivate: [AuthGuard] },
-  { path: 'PortfolioDetails/:id', component: PortfolioDetailComponent , canActivate: [AuthGuard]},
+  { path: 'PortfolioDetails/:id/:name', component: PortfolioDetailComponent , canActivate: [AuthGuard]},
   { path: 'Trades/:id', component: TradeComponent, canActivate: [AuthGuard] },
   { path: 'Holdings/:id', component: HoldingComponent, canActivate: [AuthGuard] },
   { path: '', redirectTo: '/home', pathMatch: 'full' },

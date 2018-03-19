@@ -1,20 +1,21 @@
 <div class="container-fluid">
-<div class="row">
-  <div class="col-xs-12">
-    <p class="text-center"><a (click)="sync()">Sync</a></p>
-    <div class="panel panel-default">
-      <div class="panel-heading">
-        <h3 class="panel-title"><a [routerLink]="['/PortfolioDetails', portfolioId]">Parent portfolio</a></h3>
-      </div>
-      <div class="panel-body">
-        <div class="list-group">
-          <a *ngFor="let holding of holdings" href="#" class="list-group-item">
-            {{holding.units}} units @ {{holding.cost}} against securityUid: {{holding.securityUid}}
-          </a>
+  <div class="row"> <button type="button" [routerLink]="['/PortfolioDetails', portfolioId]" class="btn btn-default"><span class="glyphicon glyphicon-arrow-left" aria-hidden="true"></span>Back to portfolio details</button> </div>
+  <div class="row">
+    <div class="col-xs-12">
+      <p class="text-center"><a (click)="sync()">Sync</a></p>
+      <div class="panel panel-default">
+        <div class="panel-heading">
+          <h3 class="panel-title">Portfolio holdings</h3>
+        </div>
+        <div class="panel-body">
+          <div class="list-group">
+            <a *ngFor="let holding of holdings" href="#" class="list-group-item">
+              {{holding.units}} units @ {{holding.cost}} against securityUid: {{holding.securityUid}}
+            </a>
+          </div>
         </div>
       </div>
+      <p><strong>Total: {{ holdings.length }}</strong></p>
     </div>
-    <p><strong>Total: {{ holdings.length }}</strong></p>
   </div>
-</div>
 </div>

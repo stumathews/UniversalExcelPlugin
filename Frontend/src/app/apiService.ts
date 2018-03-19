@@ -11,20 +11,10 @@ import 'rxjs/add/operator/do'
 import 'rxjs/add/operator/catch';
 
 import { HttpClient } from '@angular/common/http';
-import {
-  ListPortfolioRootsResponse,
-  IErrorResponse, GetPropertyKeysResponse, GetPortfolioDetailsResponse,
-  GetPortfolioTradesResponse, GetPortfolioHoldingsResponse,
-  Trade, UpsertPortfolioTradesResponse, ErrorMessage,
-  PropertyDefinition, GetPropertyDefinitionResponse, TryAddClientSecuritiesResponse,
-  ClientSecurityDefinitionData, ListPortfolioGroupResponse,
-  PortfolioGroupState, GetPortfolioGroupResponse, Portfolio,
-  ReferencePortfolioResponse
-} from 'lusid-client/models';
 
 import { PortfolioDto, TradeDto, PortfolioDetailsDto, HoldingDto, PropertyDefinitionDto, CreateClientSecurityRequest, GroupDto, ResourceListPropertyKey, ResourceListGroupDto, ResourceListPortfolioDto, VersionedResourceListHoldingDto } from '@finbourne/lusid/models'; 
 import {DateUtils} from './shared/date-utils';
-import {TryAddClientSecuritiesDto, SecurityDto} from '@finbourne/lusid/models/index';
+import {TryAddClientSecuritiesDto, SecurityDto, UpsertPortfolioTradesDto} from '@finbourne/lusid/models/index';
 
 @Injectable()
 export class ApiService {
@@ -207,8 +197,8 @@ export class ApiService {
       return this.Http.get(url).catch(this.handleError);
     }
 
-    AddTradeToPortfolio(id: string, trades: Trade[], scope: string = 'finbourne', effectiveAt: string = DateUtils.GetTodaysDate())
-      : Observable<AddTrade> {
+    AddTradeToPortfolio(id: string, trades: UpsertPortfolioTradesDto[], scope: string = 'finbourne', effectiveAt: string = DateUtils.GetTodaysDate())
+      : Observable<PortfolioDto> {
 
       console.log(`Entry: AddTradeToPortfolio for id ${id}`);
       const url = this.AddPortfolioTradesUrl.replace('{portfolioId}', `${id}`)
@@ -246,7 +236,7 @@ export class ApiService {
     return this.Http.get(this.GetPropertyDefinitionsByDomainUrl.replace('{domain}', domain));
   }
 
-  CreateNewProperty(property: PropertyDefinition, scope: string = 'finbourne'): Observable<GetPropertyDefinitionResponse> {
+  CreateNewProperty(property: PropertyDefinitionDto, scope: string = 'finbourne'): Observable<PropertyDefinitionDto> {
     return this.Http.post(this.CreatePropertyDefinitionUrl, property)
       .catch(this.handleError);
   }

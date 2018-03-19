@@ -22,6 +22,7 @@ export class PortfolioDetailComponent implements OnInit {
   errorMessage: string;
   modalRef: BsModalRef;
   internalId: string;
+  name: string;
 
   @ViewChild('childModal')
   childModal: ModalDirective;
@@ -30,7 +31,9 @@ export class PortfolioDetailComponent implements OnInit {
   ngOnInit(): void
   {
     this.internalId = this.route.snapshot.paramMap.get('id');
+    this.name = this.route.snapshot.paramMap.get('name');
     console.log(`portfolio is is ${this.internalId}`);
+    console.log(`portfolio name is is ${this.name}`);
     
     this.apiService
       .GetPortfolioDetails(this.internalId, 'finbourne')

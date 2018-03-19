@@ -12,9 +12,9 @@ export class HoldingComponent implements OnInit {
               private readonly router: Router,
               private readonly route: ActivatedRoute) { }
 
-  portfolioId: string;
+  PortfolioId: string;
 
   ngOnInit(): void {
-    this.portfolioId = this.route.snapshot.paramMap.get('id');
+    this.PortfolioId = this.route.snapshot.paramMap.get('id');
   }
 }

@@ -4,7 +4,7 @@ import {ExcelUtils} from '../../shared/excel-utils';
 import {TableChange} from '../../shared/excel-utils';
 import {DateUtils} from '../../shared/date-utils';
 import {ReflectionUtils} from '../../shared/reflection-utils';
-import { TradeDto} from '@finbourne/lusid/models'; 
+import { TradeDto, PortfolioDto} from '@finbourne/lusid/models'; 
 
 @Component({
   selector: 'app-list-trades',
@@ -59,7 +59,7 @@ export class ListTradesComponent implements OnInit {
     upsertTrade.settlementDate = new Date(upsertTrade.settlementDate);
 
     this.apiService.AddTradeToPortfolio(this.portfolioId, [upsertTrade])
-      .subscribe((response: TradeDto) => {
+      .subscribe((response: PortfolioDto) => {
         this.message = 'Successfully inserted trade';
         this.trades.push(upsertTrade);
       }, error => {
