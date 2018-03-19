@@ -22,8 +22,9 @@ import {
   ReferencePortfolioResponse
 } from 'lusid-client/models';
 
-import { PortfolioDto, TradeDto, PortfolioDetailsDto, HoldingDto, PropertyDefinitionDto, CreateClientSecurityRequest, GroupDto, ResourceListPropertyKey, ResourceListGroupDto, ResourceListPortfolioDto } from '@finbourne/lusid/models'; 
+import { PortfolioDto, TradeDto, PortfolioDetailsDto, HoldingDto, PropertyDefinitionDto, CreateClientSecurityRequest, GroupDto, ResourceListPropertyKey, ResourceListGroupDto, ResourceListPortfolioDto, VersionedResourceListHoldingDto } from '@finbourne/lusid/models'; 
 import {DateUtils} from './shared/date-utils';
+import {TryAddClientSecuritiesDto, SecurityDto} from '@finbourne/lusid/models/index';
 
 @Injectable()
 export class ApiService {
@@ -206,7 +207,8 @@ export class ApiService {
       return this.Http.get(url).catch(this.handleError);
     }
 
-    AddTradeToPortfolio(id: string, trades: Trade[], scope: string = 'finbourne', effectiveAt: string = DateUtils.GetTodaysDate()): Observable<UpsertPortfolioTradesResponse> {
+    AddTradeToPortfolio(id: string, trades: Trade[], scope: string = 'finbourne', effectiveAt: string = DateUtils.GetTodaysDate())
+      : Observable<AddTrade> {
 
       console.log(`Entry: AddTradeToPortfolio for id ${id}`);
       const url = this.AddPortfolioTradesUrl.replace('{portfolioId}', `${id}`)
@@ -227,7 +229,7 @@ export class ApiService {
         .catch(this.handleError);
     }
 
-  GetPortfolioHoldings(portfolioId: string, scope: string = 'finbourne', effectiveAt:string = DateUtils.GetTodaysDate()): Observable<GetPortfolioHoldingsResponse> {
+    GetPortfolioHoldings(portfolioId: string, scope: string = 'finbourne', effectiveAt: string = DateUtils.GetTodaysDate()): Observable<VersionedResourceListHoldingDto> {
     const url = this.GetPortfolioAggregateHoldingsUrl.replace('{portfolioId}', `${portfolioId}`)
       .replace('{scope}', scope) +
       '?effectiveDate='+ effectiveAt;
@@ -236,11 +238,11 @@ export class ApiService {
     return this.Http.get(url).catch(this.handleError);
     }
 
-  GetPropertyTypes(scope: string = 'finbourne'): Observable<any | ErrorMessage> {
+  GetPropertyTypes(scope: string = 'finbourne'): Observable<any> {
     return this.Http.get(this.GetPropertyDefinitionsUrl).catch(this.handleError);
   }
 
-  GetProperties(domain: string, scope: string = 'finbourne'): Observable<GetPropertyKeysResponse> {
+  GetProperties(domain: string, scope: string = 'finbourne'): Observable<ResourceListPropertyKey> {
     return this.Http.get(this.GetPropertyDefinitionsByDomainUrl.replace('{domain}', domain));
   }
 
@@ -249,26 +251,27 @@ export class ApiService {
       .catch(this.handleError);
   }
 
-  CreateNewSecurity(securities: ClientSecurityDefinitionData[], scope: string = 'finbourne'): Observable<TryAddClientSecuritiesResponse > {
+  CreateNewSecurity(securities: TryAddClientSecuritiesDto[], scope: string = 'finbourne'):
+    Observable<SecurityDto > {
     return this.Http.post(this.CreateSecuritiesurl, securities)
       .catch(this.handleError);
   }
 
-  GetPortfolioGroups(scope: string = 'finbourne'): Observable<ListPortfolioGroupResponse > {
+  GetPortfolioGroups(scope: string = 'finbourne'): Observable<ResourceListGroupDto > {
     return this.Http.get(this.ListGroupsUrl.replace('{scope}', scope));
   }
 
-  CreateNewPortfolioGroup(portfolioGroupState: PortfolioGroupState, scope: string = 'finbourne'):
-    Observable<GetPortfolioGroupResponse> {
-    return this.Http.post(this.CreateGroupUrl.replace('{scope}', scope), portfolioGroupState)
+  CreateNewPortfolioGroup(group: GroupDto, scope: string = 'finbourne'):
+    Observable<GroupDto> {
+    return this.Http.post(this.CreateGroupUrl.replace('{scope}', scope), group)
       .catch(this.handleError);
   }
 
-  GetReferencePortfolios(scope: string = 'finbourne'): Observable<ListPortfolioRootsResponse> {
+  GetReferencePortfolios(scope: string = 'finbourne'): Observable<ResourceListPortfolioDto> {
     return this.Http.get(this.GetReferencePortfoliosByScopeUrl.replace('{scope}', scope));
   }
 
-  CreateNewReferencePortfolio(portfolio: Portfolio, scope: string = 'finbourne'): Observable<ReferencePortfolioResponse> {
+  CreateNewReferencePortfolio(portfolio: PortfolioDto, scope: string = 'finbourne'): Observable<PortfolioDto> {
     return this.Http.post(this.CreateReferencePortfolioUrl.replace('{scope}', scope), portfolio)
       .catch(this.handleError);
   }

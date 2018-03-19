@@ -3,10 +3,7 @@ import { ActivatedRoute, Router } from '@angular/router';
 import { Location } from '@angular/common';
 import { BsModalService, ModalDirective  } from 'ngx-bootstrap/modal';
 import { BsModalRef } from 'ngx-bootstrap/modal/bs-modal-ref.service';
-
 import {ApiService} from '../../apiService';
-import { GetPortfolioDetailsResponse, IErrorResponse} from 'lusid-client/models';
-
 import { PortfolioDto, TradeDto, PortfolioDetailsDto, ResourceListPortfolioDto } from '@finbourne/lusid/models'; 
 
 @Component({
@@ -15,27 +12,31 @@ import { PortfolioDto, TradeDto, PortfolioDetailsDto, ResourceListPortfolioDto }
   })
 
 export class PortfolioDetailComponent implements OnInit {
+  constructor(protected apiService: ApiService,
+    private readonly  route: ActivatedRoute,
+    private readonly location: Location,
+    private readonly modalService: BsModalService,
+    private readonly router: Router) { }
+
   portfolioDetail: PortfolioDetailsDto;
   errorMessage: string;
   modalRef: BsModalRef;
   internalId: string;
 
-  @ViewChild('childModal') childModal: ModalDirective;
-  constructor(protected apiService: ApiService,
-    private route: ActivatedRoute,
-    private location: Location,
-    private modalService: BsModalService,
-    private router: Router) {}
+  @ViewChild('childModal')
+  childModal: ModalDirective;
+  
 
-  ngOnInit(): void {
+  ngOnInit(): void
+  {
+    this.internalId = this.route.snapshot.paramMap.get('id');
+    console.log(`portfolio is is ${this.internalId}`);
     
-        this.internalId = this.route.snapshot.paramMap.get('id');
-        console.log(`portfolio is is ${this.internalId}`);
-    
-    this.apiService.GetPortfolioDetails(this.internalId, 'finbourne')
+    this.apiService
+      .GetPortfolioDetails(this.internalId, 'finbourne')
       .subscribe(response => {
         this.portfolioDetail = response;
-        console.log(response);
-      }, error => this.errorMessage = <any>error);
+        console.log(response); 
+      }, error => this.errorMessage = error);
   }
 }

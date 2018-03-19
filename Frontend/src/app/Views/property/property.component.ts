@@ -2,11 +2,12 @@ import { Component, OnInit } from '@angular/core';
 import {ApiService} from '../../apiService';
 import {Router} from '@angular/router';
 import { ActivatedRoute } from '@angular/router';
-import { GetPropertyKeysResponse, PropertyDefinition, PropertyDefinitionKeyResponse, ErrorMessage } from 'lusid-client/models';
+import { GroupDto } from '@finbourne/lusid/models';
 import {ExcelUtils} from '../../shared/excel-utils';
 import {TableChange} from '../../shared/excel-utils';
 import {ReflectionUtils} from '../../shared/reflection-utils';
 import {GetPropertyDefinitionResponse} from 'lusid-client/models/index';
+import {ResourceListPropertyKey, PropertyDefinitionDto} from '@finbourne/lusid/models/index';
 
 @Component({
   selector: 'app-property',
@@ -15,38 +16,26 @@ import {GetPropertyDefinitionResponse} from 'lusid-client/models/index';
 })
 export class PropertyComponent implements OnInit {
   domain: string;
-  properties: PropertyDefinitionKeyResponse[] = [];
+  properties: string[] = [];
   constructor(private readonly apiService: ApiService,
     private readonly router: Router,
     private readonly route: ActivatedRoute) { }
 
   ngOnInit(): void {
     this.domain = this.route.snapshot.paramMap.get('domain');
-    this.apiService.GetProperties(this.domain).subscribe((result: GetPropertyKeysResponse) => {
-      this.properties = result.items;
+    this.apiService.GetProperties(this.domain).subscribe((result: ResourceListPropertyKey) => {
+      this.properties = result.values;
     }, error => {
       console.log(error);
     });
   }
 
   sync() {
-    const dummy: PropertyDefinition = {
-      "domain": this.domain,
-      "lifeTime": "Perpetual",
-      "key": this.domain+"/{your-scope}/{your-property-name}",
-      "valueType": "String",
-      "valueRequired": true,
-      "displayName": "NameToDisplay",
-      "dataFormatName": "string",
-      "dataFormatScope": "string",
-      "sort": "string"
-    };
-    ExcelUtils.SyncTable([dummy], this.domain+"properties",this.domain+'properties', true).then((changes: TableChange<PropertyDefinition>[]) => {
-      // Create a new property for this domain
-      changes.forEach((each: TableChange<PropertyDefinition>) => {
-        //asume added for now
-        let entity: PropertyDefinition = {};
-        ReflectionUtils.FillInProperties<PropertyDefinition>(entity, each.value);
+    const dummy: PropertyDefinitionDto = {};
+    ExcelUtils.SyncTable([dummy], this.domain + "properties", this.domain + 'properties', true).then((changes: TableChange<PropertyDefinitionDto>[]) => {
+      changes.forEach((each: TableChange<PropertyDefinitionDto>) => {
+        let entity: PropertyDefinitionDto = {};
+        ReflectionUtils.FillInProperties<PropertyDefinitionDto>(entity, each.value);
         this.apiService.CreateNewProperty(entity).subscribe((result: GetPropertyDefinitionResponse) => {
           console.log('successfully created new property!!');
         }, error => {

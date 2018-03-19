@@ -8,10 +8,11 @@ import {ApiService} from '../../apiService';
   templateUrl: './holding.html'
 })
 export class HoldingComponent implements OnInit {
-  portfolioId: string;
   constructor(private readonly apiService: ApiService,
-    private readonly router: Router,
-    private readonly route: ActivatedRoute) { }
+              private readonly router: Router,
+              private readonly route: ActivatedRoute) { }
+
+  portfolioId: string;
 
   ngOnInit(): void {
     this.portfolioId = this.route.snapshot.paramMap.get('id');

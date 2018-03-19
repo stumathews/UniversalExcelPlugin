@@ -7,19 +7,12 @@
           <h3 class="panel-title">Details</h3>
         </div>
         <div class="panel-body">
-          <!--
-          href?: string;
-          originPortfolioId?: ResourceId;
-          version?: VersionDto;
-          baseCurrency?: string;
-          _links?: Link[];
-          -->
           <ul class="list-group">
             <li class="list-group-item">
               Portfolio detail href: <a href="{{portfolioDetail.href}}">Url</a>
             </li>
             <li class="list-group-item">
-              Origin portfolio If: {{portfolioDetail.originPortfolioId.code}}
+              Origin portfolio Id: {{portfolioDetail.originPortfolioId.code}}
             </li>
             <li class="list-group-item">
               Base Currency: {{portfolioDetail.baseCurrency}}
@@ -27,7 +20,6 @@
             <li class="list-group-item">
               Version: [ExistsFrom]: {{portfolioDetail.version.effectiveFrom}} [StoredAt]: {{portfolioDetail.version.asAtDate}}
             </li>
-            
             <li class="list-group-item">
               <a [routerLink]="['/Trades', portfolioDetail.originPortfolioId.code]">View Portfolio Trades</a>
             </li>

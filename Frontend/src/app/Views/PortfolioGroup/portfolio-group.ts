@@ -1,10 +1,10 @@
-import { Component, OnInit, Input } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute , Router} from '@angular/router';
 import { ApiService } from '../../apiService';
-import { GroupDefinitionResponse, PortfolioGroupState, GetPortfolioGroupResponse, ScopedIdentifier } from 'lusid-client/models';
-import {ExcelUtils} from '../../shared/excel-utils';
-import {TableChange} from '../../shared/excel-utils';
-import {ReflectionUtils} from '../../shared/reflection-utils';
+import { ExcelUtils} from '../../shared/excel-utils';
+import { TableChange} from '../../shared/excel-utils';
+import { ReflectionUtils} from '../../shared/reflection-utils';
+import { GroupDto } from '@finbourne/lusid/models';
 
 
 @Component({
@@ -12,39 +12,37 @@ import {ReflectionUtils} from '../../shared/reflection-utils';
   templateUrl: './portfolio-group.html'
 })
 export class PortfolioGroupComponent implements OnInit {
-  Groups: GroupDefinitionResponse[] = [];
-  constructor(private apiService: ApiService,
-    private route: ActivatedRoute,
-    private router: Router) { }
+  constructor(private readonly apiService: ApiService,
+              private readonly route: ActivatedRoute,
+              private readonly router: Router) { }
 
+  groups: GroupDto[] = [];
   errorMessage: string;
-  ngOnInit(): void {
-    this.apiService.GetPortfolioGroups()
-        .subscribe(groups => this.Groups = groups.items,
-                   error => this.errorMessage = <any>error);
+
+  ngOnInit(): void
+  {
+    this.apiService
+      .GetPortfolioGroups()
+      .subscribe(groups => this.groups = groups.values, error => this.errorMessage = <any>error);
   }
 
   sync() {
-    const dummy: PortfolioGroupState = {
+    const dummy: GroupDto = {
       "name": "string",
       "description": "string",
-      "values": <ScopedIdentifier[]>[ { "scope": "string", "name": "string" } ],
-      "subGroups": <ScopedIdentifier[]>[ { "scope": "string", "name": "string" } ]
     };
-    ExcelUtils.SyncTable(this.Groups.length > 0 ? this.Groups : [dummy], "portfoliogroups", 'portfoliogroups', false).then((changes: TableChange<PortfolioGroupState>[]) => {
-      // Create a new property for this domain
-      changes.forEach((each: TableChange<PortfolioGroupState>) => {
-        //asume added for now
-        let entity: PortfolioGroupState = {};
-        ReflectionUtils.FillInProperties<PortfolioGroupState>(entity, each.value);
+    ExcelUtils.SyncTable(this.groups.length > 0 ? this.groups : [dummy], "portfoliogroups", 'portfoliogroups', false)
+      .then((changes: TableChange<GroupDto>[]) => {
+        changes.forEach((each: TableChange<GroupDto>) => {
+        const entity: GroupDto = {};
+        ReflectionUtils.FillInProperties<GroupDto>(entity, each.value);
         entity.values = [];
         entity.subGroups = [];
-        this.apiService.CreateNewPortfolioGroup(entity).subscribe((result: GetPortfolioGroupResponse ) => {
-          console.log('successfully created new group!!');
-          this.Groups.push(entity);
-        }, error => {
-          console.log('Error! ' + error);
-        });
+        this.apiService.CreateNewPortfolioGroup(entity)
+          .subscribe((result: GroupDto) => {
+            console.log('successfully created new group!!');
+            this.groups.push(entity);
+          }, error => { console.log('Error! ' + error); });
       });
     });
   }

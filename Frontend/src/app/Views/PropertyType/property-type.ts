@@ -12,12 +12,12 @@ export class PropertyTypeComponent  implements OnInit {
   constructor(private apiService: ApiService) { }
 
   errorMessage: string;
-  ngOnInit(): void {
+  ngOnInit(): void
+  {
     this.apiService.GetPropertyTypes()
       .subscribe((response: any | ErrorMessage) => {
            this.Properties = response.items;
-        },
-                   error => this.errorMessage = <any>error);
+        }, error => this.errorMessage = <any>error);
   }
 
   

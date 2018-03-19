@@ -6,9 +6,10 @@
       <!-- List of portfolios -->
       <div class="panel-body" *ngIf="isPageComplete">
         <div class="list-group">
+          <!-- On click navigate to portfolio details -->
           <a *ngFor="let portfolio of portfolios" class="list-group-item" [routerLink]="['/PortfolioDetails', portfolio.id.code]">
-            <h4 class="list-group-item-heading">{{ portfolio.name }}</h4>
-            <p class="list-group-item-text">{{ portfolio.created }} / {{portfolio.id.code}}</p>
+            <h4 class="list-group-item-heading">{{portfolio.name}}</h4>
+            <p class="list-group-item-text">{{portfolio.created}} / {{portfolio.id.code}}</p>
           </a>
         </div>
       </div>

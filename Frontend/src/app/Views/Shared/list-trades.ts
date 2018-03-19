@@ -1,12 +1,9 @@
-import { Component, Input, OnInit, KeyValueDiffers, NgZone } from '@angular/core';
-import { DoCheck } from '@angular/core/src/metadata/lifecycle_hooks';
+import { Component, Input, OnInit, NgZone } from '@angular/core';
 import {ApiService} from '../../apiService';
-import { Trade, SecurityUid, GetPortfolioTradesResponse, UpsertPortfolioTradesResponse, ErrorMessage} from 'lusid-client/models';
 import {ExcelUtils} from '../../shared/excel-utils';
 import {TableChange} from '../../shared/excel-utils';
 import {DateUtils} from '../../shared/date-utils';
 import {ReflectionUtils} from '../../shared/reflection-utils';
-import {PropertyDefinition} from 'lusid-client/models/index';
 import { TradeDto} from '@finbourne/lusid/models'; 
 
 @Component({
@@ -14,22 +11,20 @@ import { TradeDto} from '@finbourne/lusid/models';
   templateUrl: './list-trades.html'
 })
 
-
-
 export class ListTradesComponent implements OnInit {
- 
-  constructor(private apiService: ApiService, private zone: NgZone) { }
+  constructor(private readonly apiService: ApiService,
+              private readonly zone: NgZone) { }
+  @Input()
+  portfolioId: string;
   errorMessage: string;
-  @Input() PortfolioId: string;
   portfolioName: string;
   trades: TradeDto[] = [];
   message: string;
   tableName: string = 'Trades';
   sheetname: string;
 
-  
-
-  sync() {
+  sync()
+  {
     ExcelUtils.SyncTable<TradeDto>(this.trades, this.tableName, this.sheetname, false).then((values) => {
       var syncResults = <TableChange<TradeDto>[]>values;
       if (syncResults && syncResults.length) {
@@ -41,10 +36,7 @@ export class ListTradesComponent implements OnInit {
             this.readyTradeForUpsert(newTrade);
           });
         });
-      } else {
-        this.message = 'No changes detected';
-
-      }
+      } else { this.message = 'No changes detected'; }
     });
 
     // Lets register for changes on the table.
@@ -58,34 +50,32 @@ export class ListTradesComponent implements OnInit {
 
   }
 
-  readyTradeForUpsert(thinTrade: TradeDto | any) {
+  readyTradeForUpsert(thinTrade: TradeDto | any)
+  {
     const upsertTrade = thinTrade;
-    // remove all fake properties and convert them into real ones.
-
-
-    // Mandatory values that need to be setto something...
     upsertTrade.tradeId = upsertTrade.tradeId.length === 0 ? DateUtils.GetTodaysDate() + upsertTrade.nettingSet : upsertTrade.tradeId; // must have one else breaks server 
     upsertTrade.securityUid = JSON.parse(upsertTrade.securityUid);
     upsertTrade.tradeDate = new Date(upsertTrade.tradeDate);
     upsertTrade.settlementDate = new Date(upsertTrade.settlementDate);
 
-    this.apiService.AddTradeToPortfolio(this.PortfolioId, [upsertTrade])
-      .subscribe((response: UpsertPortfolioTradesResponse) => {
+    this.apiService.AddTradeToPortfolio(this.portfolioId, [upsertTrade])
+      .subscribe((response: TradeDto) => {
         this.message = 'Successfully inserted trade';
-        this.trades.push(upsertTrade); // artificially 'create'(forcefully) a Trade type
+        this.trades.push(upsertTrade);
       }, error => {
-        this.errorMessage = <any>error;
+        this.errorMessage = error;
         console.log('could not create trade :' + this.errorMessage);
         this.message = 'could not create trade';
       });
   }
 
-  ngOnInit(): void {
+  ngOnInit(): void
+  {
     this.zone.run(() => {
     this.apiService
-      .GetPortfolioTrades(this.PortfolioId, 'finbourne')
+      .GetPortfolioTrades(this.portfolioId, 'finbourne')
       .subscribe((result: TradeDto[]) => {
-         this.portfolioName = this.PortfolioId;
+         this.portfolioName = this.portfolioId;
          this.trades = result;
          this.sheetname = this.portfolioName + this.tableName;
       }, error => { });
